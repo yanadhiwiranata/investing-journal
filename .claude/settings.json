@@ -1,3 +1,16 @@
 {
-  "hooks": {}
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.user_input // .prompt // \"\"' | grep -qiE '^full[[:space:]]+[A-Z]{1,5}$' && echo '{\"systemMessage\":\"FULL WORKFLOW COMMAND DETECTED: Treat this as a request to complete the entire research workflow for the ticker. Read WORKFLOW-CHECKLIST.md, AGENT.md, and CLAUDE.md. Use the correct sector templates and checklists. Do not skip any required step, comparison note, company note update, or watchlist update.\"}' || true",
+            "statusMessage": "Checking for full workflow command..."
+          }
+        ]
+      }
+    ]
+  }
 }

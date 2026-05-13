@@ -35,6 +35,16 @@ That means this repo should help me:
 
 Together, these files act as the operating system for my daily fundamental work.
 
+## Prompt Reminder
+
+When I want the agent to follow the full process without skipping steps, use this exact prompt:
+
+`full CDE`
+
+Meaning:
+
+`Analyze CDE using the correct templates and complete the full checklist and workflow without skipping any steps.`
+
 ## Working Principle
 
 Everyday use should make the process:

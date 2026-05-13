@@ -92,6 +92,9 @@ The repository uses a disciplined folder structure to organize research by theme
 
 When a user provides a **ticker symbol** in Claude chat:
 
+- If the user says `full TICKER`, treat it as a command to run the complete workflow with all templates, checklists, comparison-note steps, and watchlist updates without skipping any required step
+- If the user says `analyze TICKER`, default to the same full workflow unless they explicitly ask for a lighter pass
+
 1. **Find the company file**: Look for `03_sectors/[sector]/companies/TICKER-*.md`
    - Example: `03_sectors/oil_energy/companies/MTDR-matador-resources.md`
    - Use `find` or `grep` to locate a ticker across the repository
@@ -414,6 +417,12 @@ When Claude Code or agents receive a ticker symbol:
 - Cross-reference sector trends from the appropriate sector folder
 - Link related analysis (macro, commodity prices, sector dynamics)
 - Set clear next review dates to maintain a disciplined research cycle
+
+When Claude Code or agents receive `full TICKER`:
+- follow the complete checklist in `WORKFLOW-CHECKLIST.md`
+- read the sector template and research checklist before writing
+- create or update both the comparison note and company note
+- do not skip any mandatory workflow step
 
 When Claude Code or agents receive a pasted TradingView macro screenshot:
 - Extract the visible event and market data

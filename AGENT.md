@@ -73,11 +73,20 @@ Secondary summaries can help with context, but not as the final authority when a
 
 When the user provides only a ticker and a verb such as `analyze`, `review`, or `update`, interpret it as a full research workflow unless the user says otherwise.
 
+When the user says `full TICKER`, interpret it as the strictest version of the full workflow:
+
+- complete every required step in `WORKFLOW-CHECKLIST.md`
+- read the matching templates and checklists before analysis
+- create or update both the earnings comparison note and company note
+- update watchlist fields when appropriate
+- do not skip any required checklist or workflow step
+
 Example:
 
 - `analyze EXK`
 - `update MTDR`
 - `review HL`
+- `full CDE`
 
 For these requests, assume the user wants the most recent financially relevant information, not just an update to old notes. Refresh the facts first.
 
@@ -738,7 +747,7 @@ For fast-moving financial facts, stale notes inside the repository are also seco
 
 - `03_sectors/[sector]/earnings/[TICKER]/[YYYY-QN]-comparison.md`
 
-## If the user says only "analyze TICKER"
+## If the user says only "analyze TICKER" or "full TICKER"
 
 Do all of the following by default, **IN THIS EXACT SEQUENCE:**
 
@@ -792,3 +801,11 @@ If the user says `analyze EXK`, the agent should:
 6. Update the EXK company memo using the gold and silver miners template (Snapshot, Current Context, Thesis, Why This Could Work, Key Risks, Operating Quality, Financial Quality, Valuation, What To Monitor, Decision, Related Documents)
 7. Update watchlist status, analyst consensus, conviction, and next review date if needed
 8. Ensure all prices tagged with `price_as_of: YYYY-MM-DD` and use exact dates throughout
+
+If the user says `full EXK`, the agent should follow the same sequence, but with stricter completion requirements:
+
+- do not stop after a quick summary
+- do not skip the sector checklist
+- do not skip the earnings comparison note
+- do not skip the company note refresh
+- do not skip watchlist updates when relevant
