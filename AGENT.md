@@ -185,6 +185,73 @@ When working from a pasted macro screenshot, the markdown note should include th
 
 ## Primary Workflow: Analyze a Ticker
 
+### ⚠️ STEP 0: DATA FRESHNESS VERIFICATION (MANDATORY — DO THIS FIRST)
+
+**This step is non-negotiable. Do not skip or defer.** Financial analysis with stale data produces incorrect conclusions and poor recommendations.
+
+**Current date context:** Today is 2026-05-14. All analysis must reference this date explicitly.
+
+**Freshness checklist — VERIFY ALL BEFORE PROCEEDING:**
+
+1. **Current Stock Price**
+   - Search for ticker's current price with exact date and time
+   - Record `price_as_of: YYYY-MM-DD HH:MM` (not just date)
+   - Example: "MTDR stock price $57.31 as of May 13, 2026 close" → `price_as_of: 2026-05-13`
+
+2. **Latest Reported Quarter & Report Date**
+   - Verify which quarter was most recently reported (Q1 2026? Q4 2025?)
+   - Confirm the exact filing/earnings date from SEC or company IR
+   - Example: MTDR Q1 2026 reported 2026-05-06
+
+3. **Latest Analyst Ratings & Price Targets**
+   - Search for 5 most recent analyst ratings (upgrade/downgrade in last 7 days?)
+   - Fetch consensus price target and compare to current price
+   - Example: "Truist upgraded MTDR to Buy on May 12 with $67 PT"
+
+4. **Current Commodity Prices (if applicable)**
+   - **Oil/Energy names:** WTI crude, natural gas, Waha basis
+   - **Gold/Silver miners:** Spot gold, spot silver, USD strength
+   - **Solar:** Polysilicon prices, equipment costs if relevant
+   - Record current prices with exact date
+   - Example: "WTI crude oil $102.21/Bbl (May 13, 2026)" ≠ "oil is around $73"
+
+5. **Post-Earnings Events**
+   - Any news, guidance changes, M&A, or material announcements since last quarter?
+   - Any analyst conferences, investor days, or management changes?
+   - Example: "Q1 2026 earnings released May 6; Truist upgraded May 12"
+
+6. **Macro Indicators (if relevant to thesis)**
+   - US 10Y Treasury yield
+   - US Manufacturing PMI
+   - DXY (US dollar strength)
+   - Recession signals (employment, GDP growth expectations)
+   - Record with date
+   - Example: "US 10Y yield 4.4%+ as of May 12-14, 2026"
+
+7. **Post-Analysis Update Pattern**
+   - After gathering fresh data, check if conclusions in old files are now stale
+   - If commodity prices have changed 10%+, thesis assumptions may be broken
+   - If analyst consensus moved 5%+ in either direction, re-evaluate conviction
+   - If recession signals emerge, update downside scenarios immediately
+
+**How to verify:**
+- **Stock price:** WebSearch for "TICKER stock price May 2026" + check Yahoo Finance or TradingView
+- **Earnings date:** Search for "TICKER Q1 2026 earnings date" or visit company IR site
+- **Analyst ratings:** WebSearch "TICKER analyst ratings May 2026" + check TipRanks
+- **Commodities:** WebSearch for "WTI crude oil price May 14 2026" or visit oilprice.com / NYMEX / spot gold sites
+- **Macro:** WebSearch for "US 10Y yield May 2026" + "US PMI May 2026"
+- **News:** Check company press releases, 8-K filings, and financial news for last 30 days
+
+**Example of what freshness failure looks like:**
+❌ WRONG: "Oil is around $73/Bbl (from Q1 2026 analysis)" → Later discover WTI at $102 (40% difference!)
+❌ WRONG: "Latest quarter Q1 2026" → Don't verify if Q2 was already reported
+❌ WRONG: "Analyst consensus $61" → Miss that Truist just upgraded to $67 yesterday
+✅ RIGHT: "Current price $57.31 (May 13, 2026 close), WTI $102.21 (May 13), analyst consensus ~$63-67 post-Truist upgrade (May 12), latest quarter Q1 2026 (reported May 6)"
+
+**If you skip this step:** You will present outdated financial conclusions, miss material catalysts, and the analysis will be stale within days. The MTDR case study showed oil at $73 was 40% wrong vs. current $102.
+
+---
+
 ### 1. Identify the company and sector
 
 Search for an existing company note:
@@ -230,21 +297,53 @@ If the watchlist has no entry yet:
 - create one by the end of the analysis
 - populate `exchange`, `reference_price`, and `price_as_of`
 
-### 2. Refresh the live timeline before quarter work
+### 2. Identify the company and sector (if not already done in Step 1)
 
-Before building the quarter set, verify:
+This is now Step 2 (was Step 1 before freshness integration).
 
-- current date
-- latest reported quarter
-- next scheduled earnings date if available
-- check TradingView `Documents` first for the latest earnings release, presentation, and filing links before searching other sources
-- whether a newer 8-K, press release, operations update, or presentation exists
-- whether there is a material post-earnings event affecting the thesis
-- current share price and exact `price_as_of`
+Search for an existing company note:
 
-Capture the event timeline with explicit dates so the note reflects the current situation rather than only the last archive state.
+- `03_sectors/[sector]/companies/TICKER-*.md`
+- `04_portfolio/watchlist/watchlist.csv`
 
-### 3. Determine the reporting quarter set
+Current sector folders in use:
+
+- `03_sectors/gold_silver_miners/`
+- `03_sectors/oil_energy/`
+- `03_sectors/technology/`
+- `03_sectors/automotive/`
+- `03_sectors/solar_energy/`
+
+If the company does not exist yet:
+
+- infer the most likely sector
+- create the company note in the matching `companies/` folder
+- use the correct sector template from `05_templates/`
+
+Before starting the analysis, check whether the ticker already exists in the watchlist.
+
+If it exists, use these watchlist fields as the default market reference (from Step 0 freshness work):
+
+- `exchange`
+- `reference_price` (from Step 0 — this should now be refreshed)
+- `price_as_of` (from Step 0 — update to today's date)
+
+---
+
+### 3. Use Step 0 freshness data to determine the reporting quarter set
+
+**You have already verified the latest quarter in Step 0.** Now use that information to build the quarter set.
+
+For earnings-driven analysis, always gather these three periods:
+
+- Latest reported quarter (verified in Step 0)
+- Immediately previous quarter
+- Same quarter one year earlier
+
+Examples:
+
+- If latest is `Q1 2026` (verified in Step 0), gather `Q1 2026`, `Q4 2025`, and `Q1 2025`
+- If latest is `Q3 2026`, gather `Q3 2026`, `Q2 2026`, and `Q3 2025`
 
 For earnings-driven analysis, always gather these three periods:
 
@@ -257,7 +356,7 @@ Examples:
 - If latest is `Q1 2026`, gather `Q1 2026`, `Q4 2025`, and `Q1 2025`
 - If latest is `Q3 2026`, gather `Q3 2026`, `Q2 2026`, and `Q3 2025`
 
-### 4. Download and save earnings materials
+### 4. Download and save earnings materials (was Step 4)
 
 Save source materials under:
 
@@ -283,7 +382,7 @@ For each quarter folder, include a `README.md` with:
 - Original source URLs
 - Notes on missing documents
 
-### 5. Build the multi-quarter comparison note
+### 5. Build the multi-quarter comparison note (was Step 5)
 
 Create or update:
 
@@ -337,7 +436,7 @@ If the next earnings report has not been released yet, add a pre-earnings predic
 - the reason for that price view, tied to valuation, positioning, delivery trend, and product-cycle evidence
 - what result would invalidate the prediction
 
-### 6. Capture latest guidance explicitly
+### 6. Capture latest guidance explicitly (was Step 6)
 
 The latest earnings report must have a dedicated guidance section in the comparison note.
 
@@ -361,7 +460,7 @@ Also state whether guidance was:
 - Newly introduced
 - Not provided
 
-### 7. Create or update the company note
+### 7. Create or update the company note (was Step 7)
 
 Create or update:
 
@@ -403,7 +502,7 @@ The top section of the company note should also include a brief `Current Context
 - key post-earnings development since the latest quarter
 - whether the thesis is improving, stable, or deteriorating right now
 
-### 8. Update watchlist if appropriate
+### 8. Update watchlist if appropriate (was Step 8)
 
 If the company is actively being monitored or the user asked for a fresh analysis, update:
 
@@ -434,7 +533,7 @@ Watchlist schema:
 - `thesis_summary`
 - `next_review`
 
-### 9. Set next review timing
+### 9. Set next review timing (was Step 9)
 
 Default next review date:
 
@@ -634,14 +733,19 @@ For fast-moving financial facts, stale notes inside the repository are also seco
 
 Do all of the following by default:
 
+**0. STEP 0: DATA FRESHNESS VERIFICATION (MANDATORY FIRST)**
+   - Verify current date, latest reported quarter, current stock price, commodity prices, analyst ratings, post-earnings events, macro indicators
+   - Search for fresh data; do NOT rely on cached model knowledge
+   - Record all prices/dates with exact timestamps
+
 1. Find the sector and existing company file
-2. Refresh the live timeline and current price
-3. Identify the latest reported quarter
+2. Identify the company and sector (pull watchlist data)
+3. Determine the reporting quarter set using freshness data from Step 0
 4. Download the latest quarter, previous quarter, and same quarter last year materials
 5. Save files under the correct earnings folder
 6. Create or update the multi-quarter comparison note
 7. Create or update the company analysis note using the sector-specific template
-8. Update the watchlist entry if appropriate
+8. Update the watchlist entry if appropriate (use Step 0 current price and dates)
 9. Set the next review date
 
 ## Templates to Use
