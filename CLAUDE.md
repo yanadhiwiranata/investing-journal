@@ -2,6 +2,17 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## ⚠️ QUICK START: Workflow for Ticker Analysis
+
+**For any `analyze TICKER` request:**
+1. **Read WORKFLOW-CHECKLIST.md first** ← Use as your execution checklist
+2. **Then read AGENT.md** ← Detailed steps and freshness rules
+3. **Use this file (CLAUDE.md)** ← Repository structure and naming conventions
+
+**All three files are required.** Missing any step results in incomplete analysis.
+
+---
+
 ## Instruction Priority
 
 For ticker-analysis and company research tasks, treat `AGENT.md` as the primary workflow specification in this repository.

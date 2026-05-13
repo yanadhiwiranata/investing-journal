@@ -13,6 +13,24 @@ The repository is an investing research workspace organized around sectors, comp
 - Agent updates or creates the company analysis in the correct sector folder
 - Agent uses the sector-specific template instead of forcing all companies into one generic framework
 
+## ⚠️ MANDATORY: Read Before Every Analysis
+
+**Before starting any ticker analysis, consult:**
+1. **WORKFLOW-CHECKLIST.md** — step-by-step checklist with template references (PRIMARY REFERENCE)
+2. **CLAUDE.md** — repository structure, naming conventions, currency rules
+3. **This file (AGENT.md)** — detailed workflow steps, freshness rules, output standards
+
+**Non-negotiable rules:**
+- ✅ Read this file (AGENT.md) first for any `analyze TICKER` request
+- ✅ Use WORKFLOW-CHECKLIST.md as your execution checklist
+- ✅ Use sector-specific template from `05_templates/` (never generic template if sector template exists)
+- ✅ Create/update earnings comparison file with analyst consensus (Step 1.5 below is MANDATORY)
+- ✅ Use exact dates (`2026-05-14`, not "last week") in all outputs
+- ✅ Tag all prices with `price_as_of: YYYY-MM-DD` date
+- ✅ Update watchlist CSV after analysis
+
+**If any of these are skipped, the analysis is incomplete.**
+
 ## Freshness Protocol For Financial Work
 
 Model knowledge may be stale for financial markets. For any request involving current conditions, the agent must refresh the facts before answering.
