@@ -270,7 +270,29 @@ When working from a pasted macro screenshot, the markdown note should include th
 
 ---
 
-### 1. Identify the company and sector
+### 1.5. Read Sector-Specific Template and Checklist (MANDATORY)
+
+**Before any analysis work, you MUST read the sector template and checklist.** These define what sections, metrics, and depth of analysis are required for that sector.
+
+**Workflow:**
+1. Identify the company's sector (gold/silver miners, oil/energy, technology, automotive, solar)
+2. Read the matching template from `05_templates/[SECTOR]_company_template.md`
+3. Read the matching checklist from `05_templates/[SECTOR]_research_checklist.md`
+4. Read the matching earnings comparison template from `05_templates/earnings_comparison_template.md`
+
+**Templates available:**
+- `05_templates/gold_silver_miners_company_template.md` + `gold_silver_miners_research_checklist.md`
+- `05_templates/oil_energy_upstream_ep_company_template.md` + `oil_energy_upstream_ep_research_checklist.md`
+- `05_templates/technology_company_template.md` + `technology_research_checklist.md`
+- `05_templates/automotive_company_template.md` + `automotive_research_checklist.md`
+- `05_templates/solar_energy_company_template.md` + `solar_energy_research_checklist.md`
+- Generic fallback: `05_templates/company_analysis_template.md` + `05_templates/earnings_comparison_template.md`
+
+**Why:** The template defines the required structure (sections, key metrics, depth) for a complete analysis in that sector. Skipping this step results in incomplete or inconsistently structured notes.
+
+---
+
+### 2. Identify the company and sector
 
 Search for an existing company note:
 
@@ -289,7 +311,7 @@ If the company does not exist yet:
 
 - infer the most likely sector
 - create the company note in the matching `companies/` folder
-- use the correct sector template from `05_templates/`
+- use the correct sector template from `05_templates/` (which you've already read in Step 1.5)
 
 Before starting the analysis, check whether the ticker already exists in the watchlist.
 
@@ -314,37 +336,6 @@ If the watchlist has no entry yet:
 
 - create one by the end of the analysis
 - populate `exchange`, `reference_price`, and `price_as_of`
-
-### 2. Identify the company and sector (if not already done in Step 1)
-
-This is now Step 2 (was Step 1 before freshness integration).
-
-Search for an existing company note:
-
-- `03_sectors/[sector]/companies/TICKER-*.md`
-- `04_portfolio/watchlist/watchlist.csv`
-
-Current sector folders in use:
-
-- `03_sectors/gold_silver_miners/`
-- `03_sectors/oil_energy/`
-- `03_sectors/technology/`
-- `03_sectors/automotive/`
-- `03_sectors/solar_energy/`
-
-If the company does not exist yet:
-
-- infer the most likely sector
-- create the company note in the matching `companies/` folder
-- use the correct sector template from `05_templates/`
-
-Before starting the analysis, check whether the ticker already exists in the watchlist.
-
-If it exists, use these watchlist fields as the default market reference (from Step 0 freshness work):
-
-- `exchange`
-- `reference_price` (from Step 0 — this should now be refreshed)
-- `price_as_of` (from Step 0 — update to today's date)
 
 ---
 
@@ -749,22 +740,28 @@ For fast-moving financial facts, stale notes inside the repository are also seco
 
 ## If the user says only "analyze TICKER"
 
-Do all of the following by default:
+Do all of the following by default, **IN THIS EXACT SEQUENCE:**
 
 **0. STEP 0: DATA FRESHNESS VERIFICATION (MANDATORY FIRST)**
    - Verify current date, latest reported quarter, current stock price, commodity prices, analyst ratings, post-earnings events, macro indicators
    - Search for fresh data; do NOT rely on cached model knowledge
    - Record all prices/dates with exact timestamps
 
-1. Find the sector and existing company file
-2. Identify the company and sector (pull watchlist data)
-3. Determine the reporting quarter set using freshness data from Step 0
-4. Download the latest quarter, previous quarter, and same quarter last year materials
-5. Save files under the correct earnings folder
-6. Create or update the multi-quarter comparison note
-7. Create or update the company analysis note using the sector-specific template
-8. Update the watchlist entry if appropriate (use Step 0 current price and dates)
-9. Set the next review date
+**1.5. STEP 1.5: READ SECTOR TEMPLATE & CHECKLIST (MANDATORY BEFORE ANALYSIS)**
+   - Identify the sector (gold/silver miners, oil/energy, technology, automotive, solar)
+   - Read the sector-specific company template from `05_templates/`
+   - Read the sector-specific research checklist from `05_templates/`
+   - Read the earnings comparison template from `05_templates/`
+   - **This step ensures you understand what a complete analysis looks like for that sector**
+
+1. Identify the company and sector (find existing company file and watchlist data)
+2. Determine the reporting quarter set using freshness data from Step 0
+3. Download the latest quarter, previous quarter, and same quarter last year materials
+4. Save files under the correct earnings folder
+5. Create or update the multi-quarter comparison note using sector template structure
+6. Create or update the company analysis note using sector-specific template
+7. Update the watchlist entry if appropriate (use Step 0 current price and dates)
+8. Set the next review date
 
 ## Templates to Use
 
@@ -785,10 +782,13 @@ Do all of the following by default:
 
 If the user says `analyze EXK`, the agent should:
 
-1. Locate `03_sectors/gold_silver_miners/companies/EXK-endeavour-silver.md`
-2. Confirm the latest reported quarter
-3. Save the latest report, prior quarter report, and same quarter prior year report under `03_sectors/gold_silver_miners/earnings/EXK/[quarter]/`
-4. Create or refresh `03_sectors/gold_silver_miners/earnings/EXK/[YYYY-QN]-comparison.md`
-5. Extract the latest guidance and compare it with prior commentary
-6. Update the EXK company memo using the gold and silver miners template
-7. Update watchlist status and next review date if needed
+**0. STEP 0:** Verify current date, EXK stock price, Q1 2026 latest quarter, analyst ratings, silver/gold prices
+**1.5. STEP 1.5:** Read `gold_silver_miners_company_template.md`, `gold_silver_miners_research_checklist.md`, and `earnings_comparison_template.md` to understand required sections and metrics
+1. Locate `03_sectors/gold_silver_miners/companies/EXK-endeavour-silver.md` and watchlist entry
+2. Confirm the latest reported quarter is Q1 2026 (reported May 6-7, 2026)
+3. Save the latest report, prior quarter report, and same quarter prior year report under `03_sectors/gold_silver_miners/earnings/EXK/`
+4. Create or refresh `03_sectors/gold_silver_miners/earnings/EXK/2026-Q1-comparison.md` using the earnings template
+5. Extract the latest guidance (production, AISC, capex) and compare across three quarters
+6. Update the EXK company memo using the gold and silver miners template (Snapshot, Current Context, Thesis, Why This Could Work, Key Risks, Operating Quality, Financial Quality, Valuation, What To Monitor, Decision, Related Documents)
+7. Update watchlist status, analyst consensus, conviction, and next review date if needed
+8. Ensure all prices tagged with `price_as_of: YYYY-MM-DD` and use exact dates throughout

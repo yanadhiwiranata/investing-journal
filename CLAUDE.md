@@ -4,12 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## ⚠️ QUICK START: Workflow for Ticker Analysis
 
-**For any `analyze TICKER` request:**
-1. **Read WORKFLOW-CHECKLIST.md first** ← Use as your execution checklist
-2. **Then read AGENT.md** ← Detailed steps and freshness rules
-3. **Use this file (CLAUDE.md)** ← Repository structure and naming conventions
+**For any `analyze TICKER` request (MANDATORY SEQUENCE):**
+1. **Read WORKFLOW-CHECKLIST.md first** ← Primary execution checklist with template references
+2. **Read AGENT.md** ← Detailed workflow steps and freshness rules
+3. **Identify the sector** ← Determine which sector the ticker belongs to
+4. **Read the sector-specific TEMPLATE and CHECKLIST** ← This defines what metrics, sections, and analysis depth matter
+   - Example: For gold/silver miners, read `05_templates/gold_silver_miners_company_template.md` and `05_templates/gold_silver_miners_research_checklist.md`
+5. **Use this file (CLAUDE.md)** ← Repository structure, naming conventions, and currency rules
 
-**All three files are required.** Missing any step results in incomplete analysis.
+**All five steps are required BEFORE any analysis or file updates.** Missing the sector template/checklist (step 4) results in incomplete or incorrectly structured analysis. The template defines what a complete analysis looks like for that sector.
 
 ---
 

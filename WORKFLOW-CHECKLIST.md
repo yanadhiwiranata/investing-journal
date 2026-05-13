@@ -13,6 +13,13 @@
   - [ ] Check for post-earnings events (guidance changes, M&A, etc.)
   - [ ] Check for macro shifts relevant to thesis
 
+- [ ] **Step 1.5: Read Sector Template & Checklist** (See AGENT.md Step 1.5 — MANDATORY)
+  - [ ] Identify the sector (gold/silver miners, oil/energy, technology, automotive, solar)
+  - [ ] Read `05_templates/[SECTOR]_company_template.md` to understand required sections
+  - [ ] Read `05_templates/[SECTOR]_research_checklist.md` to understand key metrics
+  - [ ] Read `05_templates/earnings_comparison_template.md` for earnings structure
+  - [ ] **Critical:** This defines what a COMPLETE analysis looks like for this sector
+
 - [ ] **Step 1: Identify Company & Sector** (See CLAUDE.md "Working with Tickers")
   - [ ] Find company file: `03_sectors/[sector]/companies/TICKER-*.md`
   - [ ] Check watchlist row: `04_portfolio/watchlist/watchlist.csv`
@@ -79,13 +86,22 @@ If no sector template exists: `company_analysis_template.md`
 
 ## Key Rules
 
-1. **Always read AGENT.md first** for ticker-analysis requests (see CLAUDE.md line 11)
-2. **Use the earnings comparison template** as the single source of truth for multi-quarter analysis
-3. **Use sector-specific company template** — never use generic template if sector template exists
-4. **Include analyst consensus** in every earnings comparison file (Step 1.5, AGENT.md)
-5. **Use exact dates** in all notes (e.g., `2026-05-14`, not "last week")
-6. **Tag current price with `price_as_of`** date in every file
-7. **Update watchlist after analysis** to reflect thesis and next review date
+1. **MANDATORY SEQUENCE:** Read WORKFLOW-CHECKLIST → AGENT.md → IDENTIFY SECTOR → READ SECTOR TEMPLATE/CHECKLIST → ANALYZE
+   - Skipping the sector template reading (Step 1.5) results in incomplete analysis
+   - The template defines what sections and metrics are required for that sector
+2. **Always read AGENT.md first** for ticker-analysis requests (see CLAUDE.md Quick Start)
+3. **Read the sector template AND checklist BEFORE analyzing** (Step 1.5)
+   - Gold/silver miners: `gold_silver_miners_company_template.md` + `gold_silver_miners_research_checklist.md`
+   - Oil/energy: `oil_energy_upstream_ep_company_template.md` + checklist
+   - Technology: `technology_company_template.md` + checklist
+   - Automotive: `automotive_company_template.md` + checklist
+   - Solar: `solar_energy_company_template.md` + checklist
+4. **Use the earnings comparison template** as the single source of truth for multi-quarter analysis
+5. **Use sector-specific company template** — never use generic template if sector template exists
+6. **Include analyst consensus** in every earnings comparison file (TipRanks, 5 most recent ratings)
+7. **Use exact dates** in all notes (e.g., `2026-05-14`, not "last week")
+8. **Tag current price with `price_as_of`** date in every file
+9. **Update watchlist after analysis** to reflect thesis, conviction, and next review date
 
 ## Quick Reference: File Locations
 
@@ -110,6 +126,14 @@ If no sector template exists: `company_analysis_template.md`
    - Use template sections (Snapshot, Current Context, Thesis, Valuation, Decision, etc.)
 6. ✅ Refresh: `04_portfolio/watchlist/watchlist.csv`
    - Update price, conviction, thesis summary, next review date
+
+---
+
+## ⚠️ CRITICAL REMINDERS
+
+- **READ THE SECTOR TEMPLATE FIRST (Step 1.5).** This is not optional. The template defines the required structure and metrics for that sector.
+- **If you skip the template reading, your analysis will be incomplete.** You may miss required sections (e.g., Operating Quality, Guidance, Analyst Consensus).
+- **The template is the specification.** If the template requires 10 sections and the company file has 8, your update is incomplete.
 
 ---
 
