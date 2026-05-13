@@ -5,3 +5,5 @@
 !CLAUDE.md
 !05_templates/
 !05_templates/**
+!.claude/
+!.claude/settings.json
