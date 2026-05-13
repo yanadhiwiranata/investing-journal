@@ -26,6 +26,7 @@
   - Current price verified from:
   - Latest filing / earnings source verified from:
   - Deliveries / tariff / demand backdrop checked:
+  - China EV product-cycle check from CarNewsChina completed:
 
 ## Business Summary
 
@@ -39,12 +40,14 @@
 - Bull case:
 - Base case:
 - Bear case:
+- Pre-earnings view if relevant:
 
 ## Why This Could Work
 
 - Volume recovery or market share gain:
 - Margin improvement:
 - New model or product catalyst:
+- China EV launch / facelift / pricing catalyst if relevant:
 - Balance sheet or capital return support:
 
 ## Key Risks
@@ -57,6 +60,8 @@
 ## Operating Quality
 
 - Unit sales / deliveries:
+- Monthly delivery trend for China EV names:
+- Model-level sales breakdown for China EV names:
 - ASP trend:
 - Gross margin:
 - Inventory and dealer health:
@@ -75,11 +80,14 @@
 - Comparable companies:
 - Key assumptions:
 - Price target range:
+- Short-term post-earnings price view if relevant:
 
 ## What To Monitor
 
 - Next earnings date:
 - Deliveries and production cadence:
+- CnEVPost monthly delivery trend and model mix for China EV names:
+- CarNewsChina product launch / refresh / pricing updates for China EV names:
 - Incentive intensity:
 - Inventory levels:
 - Tariffs, input costs, and supply chain:
@@ -89,6 +97,7 @@
 - Watch / Buy / Hold / Sell:
 - Conviction level:
 - Entry framework:
+- Near-term price expectation around earnings if relevant:
 - Invalidation signs:
 - Next review date:
 
@@ -106,3 +115,5 @@
 | Latest quarter / report date | | | | |
 | Next earnings date | | | | |
 | Delivery / tariff / supply-chain update | | | | |
+| Monthly delivery / model breakdown for China EV names | | | | |
+| Product launch / refresh / pricing update for China EV names | | | | |

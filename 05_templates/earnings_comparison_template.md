@@ -85,6 +85,33 @@
 - What management expects next quarter / next half:
 - Major project or product milestones:
 
+## Pre-Earnings Prediction
+
+Use this section when the next earnings report has not been released yet.
+
+- Prediction status: Active / Not Needed
+- Expected result: Beat / In Line / Miss
+- Expected revenue direction:
+- Expected margin direction:
+- Expected volume / production / delivery direction:
+- Expected guidance direction:
+- What the market may be missing:
+- Key supporting evidence:
+- What would prove the prediction wrong:
+
+## Short-Term Price Scenario
+
+Use this section when making a pre-earnings call.
+
+- Current setup:
+- Bull reaction scenario:
+- Base reaction scenario:
+- Bear reaction scenario:
+- Short-term price range that fits the prediction:
+- Why that price range is reasonable:
+- Time horizon: Next session / 3 to 5 trading days / 1 to 2 weeks
+- Risk to the price call:
+
 ## Trend Verdict
 
 - Multi-quarter momentum:

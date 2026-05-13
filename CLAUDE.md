@@ -51,11 +51,12 @@ When a prompt asks for a "latest" or "current" view, the agent should assume sta
 
 ## Repository Overview
 
-This is an **investing journal** for tracking research and decisions on U.S. stocks. It's a markdown-based knowledge management system focused on four sectors:
+This is an **investing journal** for tracking research and decisions on U.S. stocks. It's a markdown-based knowledge management system focused on five sectors:
 - Gold and silver miners
 - Oil and energy companies
 - Technology companies
 - Automotive companies
+- Solar energy companies
 
 The repository uses a disciplined folder structure to organize research by theme, sector, and company ticker.
 
@@ -94,6 +95,7 @@ When a user provides a **ticker symbol** in Claude chat:
    - `04_portfolio/transactions/transactions.csv` — log buy/sell transactions
 
 5. **Refresh current facts before analysis**:
+   - Check TradingView `Documents` first for the latest earnings release, presentation, and filing links before searching other sources
    - Confirm the latest reported quarter from current filings or the IR site
    - Confirm whether a newer earnings release, presentation, or 8-K exists
    - Confirm current price and the date/time attached to that price
@@ -105,6 +107,7 @@ When a user provides a **ticker symbol** in Claude chat:
    - `oil_energy`
    - `technology`
    - `automotive`
+   - `solar_energy`
 
 ## Working with Pasted Macro Screenshots
 
@@ -164,6 +167,7 @@ Primary sector templates:
 - `05_templates/oil_energy_upstream_ep_company_template.md`
 - `05_templates/technology_company_template.md`
 - `05_templates/automotive_company_template.md`
+- `05_templates/solar_energy_company_template.md`
 
 Generic company structure:
 
@@ -181,6 +185,9 @@ Also use:
 
 - `05_templates/earnings_comparison_template.md` for three-quarter comparison notes
 - the matching sector research checklist in `05_templates/` to decide what metrics matter most
+- for China EV automotive names, check `https://cnevpost.com/` for monthly delivery data and model-level sales breakdown to build a trend comparison alongside earnings
+- for China EV automotive names, check `https://carnewschina.com/` for new model launches, facelifts, pricing changes, and product-spec updates that may explain delivery trends
+- for pre-earnings work, include a short prediction for the coming report and a short-term price scenario with reasons, especially for China EV names where monthly deliveries and product-cycle news can change expectations before the print
 
 ## CSV Data Structure
 

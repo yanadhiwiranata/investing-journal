@@ -198,6 +198,7 @@ Current sector folders in use:
 - `03_sectors/oil_energy/`
 - `03_sectors/technology/`
 - `03_sectors/automotive/`
+- `03_sectors/solar_energy/`
 
 If the company does not exist yet:
 
@@ -231,6 +232,7 @@ Before building the quarter set, verify:
 - current date
 - latest reported quarter
 - next scheduled earnings date if available
+- check TradingView `Documents` first for the latest earnings release, presentation, and filing links before searching other sources
 - whether a newer 8-K, press release, operations update, or presentation exists
 - whether there is a material post-earnings event affecting the thesis
 - current share price and exact `price_as_of`
@@ -256,13 +258,16 @@ Save source materials under:
 
 - `03_sectors/[sector]/earnings/[TICKER]/[YYYY-QN]/`
 
+Check TradingView `Documents` first.
+
 Prefer official company sources in this order:
 
-1. Earnings release
-2. Earnings presentation
-3. Shareholder letter
-4. 10-Q / 10-K / 6-K if useful
-5. Earnings call transcript or conference call page
+1. TradingView `Documents` page for the quarter's earnings release, presentation, and filing links
+2. Official earnings release
+3. Earnings presentation
+4. Shareholder letter
+5. 10-Q / 10-K / 6-K if useful
+6. Earnings call transcript or conference call page
 
 For each quarter folder, include a `README.md` with:
 
@@ -293,6 +298,7 @@ This file should compare all three quarters side-by-side and must include:
 - Latest management guidance
 - Changes versus prior guidance when available
 - Investment implications
+- Pre-earnings prediction when results have not been reported yet
 - Source log
 - Current timeline header with:
   - `analysis_date`
@@ -301,6 +307,30 @@ This file should compare all three quarters side-by-side and must include:
   - `current_price`
   - `price_as_of`
   - `post_earnings_events`
+
+For China EV automotive names, also add a monthly delivery trend section using `https://cnevpost.com/` when available. Include:
+
+- last 3 to 12 months of delivery data depending on availability
+- model-level sales breakdown when available
+- YoY and MoM trend interpretation
+- whether volume growth is broad-based or concentrated in one model
+
+For China EV automotive names, also check `https://carnewschina.com/` for:
+
+- new model launches
+- facelifts and refresh cycles
+- price cuts or pricing changes
+- trim, battery, range, or spec updates
+- launch timing that may explain monthly delivery inflections
+
+If the next earnings report has not been released yet, add a pre-earnings prediction section to the comparison note. Include:
+
+- expected beat / inline / miss view
+- expected revenue, margin, delivery, and guidance direction
+- short-term post-earnings price scenario
+- the price range that fits the prediction over the next few days to two weeks
+- the reason for that price view, tied to valuation, positioning, delivery trend, and product-cycle evidence
+- what result would invalidate the prediction
 
 ### 6. Capture latest guidance explicitly
 
@@ -338,6 +368,7 @@ Use the sector-specific company template when available:
 - `05_templates/oil_energy_upstream_ep_company_template.md`
 - `05_templates/technology_company_template.md`
 - `05_templates/automotive_company_template.md`
+- `05_templates/solar_energy_company_template.md`
 
 Fallback:
 
@@ -479,6 +510,27 @@ Focus on:
 - incentive intensity
 - supply chain and tariff exposure
 
+For China EV names, also check `https://cnevpost.com/` for monthly delivery releases and model-level sales breakdowns to compare trend direction versus the quarterly earnings story.
+Also check `https://carnewschina.com/` for new model release cadence and product updates that may explain changes in deliveries, mix, and demand.
+If earnings are upcoming, form a pre-earnings view and a short-term price reaction scenario based on monthly sales momentum, model mix, and launch cadence rather than waiting for the report.
+
+### Solar Energy
+
+Use:
+
+- `05_templates/solar_energy_company_template.md`
+- `05_templates/solar_energy_research_checklist.md`
+
+Focus on:
+
+- shipments / MW deployed or sold
+- ASP and mix
+- gross margin and manufacturing yield
+- capacity, utilization, and ramp execution
+- backlog / project pipeline / bookings
+- IRA, domestic content, and tariff exposure
+- liquidity and funding needs
+
 ## Output Standards
 
 ### Earnings comparison file
@@ -593,6 +645,8 @@ Do all of the following by default:
 - `05_templates/technology_research_checklist.md`
 - `05_templates/automotive_company_template.md`
 - `05_templates/automotive_research_checklist.md`
+- `05_templates/solar_energy_company_template.md`
+- `05_templates/solar_energy_research_checklist.md`
 
 ## Practical Example
 
