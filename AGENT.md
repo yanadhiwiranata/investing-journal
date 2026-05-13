@@ -220,6 +220,11 @@ Use them to:
 - anchor the starting price context in the company note and earnings comparison
 - compare current research conclusions against the last tracked watchlist price
 
+Use the primary listed exchange to keep currency formatting consistent:
+
+- `NYSE` / `NASDAQ` names: use `USD ($)` for current price, entry zones, price targets, and short-term price scenarios
+- If the company reports earnings in another currency, keep reported financials and guidance in that local currency, but add `USD` alongside when useful for readability and consistency
+
 If the watchlist has no entry yet:
 
 - create one by the end of the analysis
@@ -383,6 +388,12 @@ The company note should synthesize, not just restate, the earnings comparison:
 - valuation framing
 - what to monitor
 - decision and next review date
+
+Currency formatting rule for company notes:
+
+- Stock-price references should follow the primary listing currency
+- For U.S.-listed names, stock-price language should stay in `USD ($)`
+- Reported financials, guidance, and balance-sheet figures may remain in the company's reporting currency, with `USD` shown alongside when helpful
 
 The top section of the company note should also include a brief `Current Context` block covering:
 

@@ -85,6 +85,9 @@ When a user provides a **ticker symbol** in Claude chat:
 2. **Check the watchlist row first**: Look in `04_portfolio/watchlist/watchlist.csv`
    - Use `exchange`, `reference_price`, and `price_as_of` as the starting market reference
    - If the ticker is already tracked, use that exchange and price context in the analysis
+   - Use the primary listed exchange to set stock-price currency consistency:
+     - U.S.-listed names on `NYSE` / `NASDAQ` should use `USD ($)` for stock price, entry zone, price targets, and short-term trading ranges
+     - Company-reported financials and guidance may remain in local reporting currency, but include `USD` alongside when useful for consistency in U.S.-listed names
 
 3. **Find earnings files**: Look in `03_sectors/[sector]/earnings/` for `YYYY-QN-TICKER.md`
    - Example: `03_sectors/gold_silver_miners/earnings/2026-Q1-CDE.md`
@@ -180,6 +183,12 @@ Generic company structure:
 - **Valuation** — methods, comparables, price targets
 - **What To Monitor** — earnings dates, macro factors, red flags
 - **Decision** — conviction level and next review date
+
+Currency consistency:
+
+- Use the stock's primary listing currency for stock-price discussion
+- For `NYSE` / `NASDAQ` names, keep stock-price references in `USD ($)`
+- For non-U.S. reporting companies that file results in another currency, keep reported financials in local currency and add `USD` alongside when helpful
 
 Also use:
 
