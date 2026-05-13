@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.user_input // .prompt // \"\"' | grep -qiE '(analyze|ticker|price|earnings|guidance|macro|calendar|current|latest|today|WTI|oil|gold|silver|[A-Z]{1,5})' && echo '{\"systemMessage\":\"FINANCIAL FRESHNESS CHECK: Before analyzing any ticker or presenting financial data (prices, earnings, macro indicators), verify current market data. Do not rely on model memory or cached files from previous days. Check TradingView, company IR sites, or market data for today\\'s prices and events.\"}' || true",
+            "statusMessage": "Checking for financial analysis..."
+          }
+        ]
+      }
+    ]
+  }
+}
