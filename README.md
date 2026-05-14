@@ -53,6 +53,22 @@ Meaning:
 
 `Refresh current prices in watchlist.csv, update current_price and current_price_timestamp, compare them with target buy zones, and tell me which names are close enough to entry or need re-analysis first.`
 
+Another useful market workflow:
+
+`update macro`
+
+Meaning:
+
+`Review geopolitics, DXY, U.S. bond yields, and commodity trends, save a macro note, and set the next review date based on the upcoming U.S. economic calendar.`
+
+Command index:
+
+- `COMMANDS.md`
+
+Dedicated macro command file:
+
+- `02_market/macroeconomy/update-macro-command.md`
+
 ## Working Principle
 
 Everyday use should make the process:

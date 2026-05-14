@@ -140,6 +140,33 @@ Use this when the user says `update watchlist`.
 - [ ] Update `next_review_scheduled_at` if catalyst timing changed
 - [ ] Return a concise summary of which names are actionable now versus which need deeper work first
 
+## Additional Command: Update Macro
+
+Use this when the user says `update macro`, asks for a top-down market refresh, or wants a review of geopolitics, DXY, yields, and commodities.
+
+- [ ] Review geopolitics that could affect inflation, growth, energy, shipping, sanctions, or supply chains
+- [ ] Refresh: DXY, U.S. 2Y yield, U.S. 10Y yield, and real yields if relevant
+- [ ] Refresh key commodities relevant to the portfolio:
+  - [ ] Gold
+  - [ ] Silver
+  - [ ] WTI / Brent
+  - [ ] Other focus commodities if relevant
+- [ ] Identify whether the setup is:
+  - [ ] Dollar bullish / neutral / bearish
+  - [ ] Yield bullish / neutral / bearish
+  - [ ] Commodity supportive / neutral / hostile
+- [ ] Review the next important U.S. economic releases:
+  - [ ] CPI
+  - [ ] PPI
+  - [ ] NFP / unemployment
+  - [ ] Retail sales
+  - [ ] ISM PMI
+  - [ ] FOMC / Fed speakers if material
+  - [ ] Treasury auctions if yields are the main driver
+- [ ] Save a structured note in `02_market/macroeconomy/`
+- [ ] Set the next review date based on the nearest meaningful catalyst, not just a fixed cadence
+- [ ] Bring the next review forward immediately if there is a geopolitical escalation or a large move in DXY, yields, gold, silver, or oil
+
 ---
 
 ## ⚠️ CRITICAL REMINDERS

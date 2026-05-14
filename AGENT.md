@@ -19,9 +19,18 @@ The repository is an investing research workspace organized around sectors, comp
 1. **WORKFLOW-CHECKLIST.md** — step-by-step checklist with template references (PRIMARY REFERENCE)
 2. **CLAUDE.md** — repository structure, naming conventions, currency rules
 3. **This file (AGENT.md)** — detailed workflow steps, freshness rules, output standards
+4. **COMMANDS.md** — central index of reusable repo commands
+
+**Before handling a command-style prompt, check `COMMANDS.md` first.**
+Examples:
+
+- `full TICKER`
+- `update watchlist`
+- `update macro`
 
 **Non-negotiable rules:**
 - ✅ Read this file (AGENT.md) first for any `analyze TICKER` request
+- ✅ Read `COMMANDS.md` first for any command-style prompt
 - ✅ Use WORKFLOW-CHECKLIST.md as your execution checklist
 - ✅ Use sector-specific template from `05_templates/` (never generic template if sector template exists)
 - ✅ Create/update earnings comparison file with analyst consensus (Step 1.5 below is MANDATORY)
@@ -71,6 +80,8 @@ Secondary summaries can help with context, but not as the final authority when a
 
 ## Default Command Behavior
 
+If the prompt matches a repo command, resolve it against `COMMANDS.md` first and then follow the linked detailed workflow.
+
 When the user provides only a ticker and a verb such as `analyze`, `review`, or `update`, interpret it as a full research workflow unless the user says otherwise.
 
 When the user says `full TICKER`, interpret it as the strictest version of the full workflow:
@@ -88,6 +99,7 @@ Example:
 - `review HL`
 - `full CDE`
 - `update watchlist`
+- `update macro`
 
 For these requests, assume the user wants the most recent financially relevant information, not just an update to old notes. Refresh the facts first.
 
@@ -121,6 +133,8 @@ Examples:
 - pasted TradingView U.S. economic calendar screenshot
 - pasted screenshot of yields, DXY, gold, and silver
 - `analyze this calendar`
+
+When the user asks to `update macro`, interpret it as a structured top-down review workflow covering geopolitics, DXY, U.S. bond yields, commodity trends, and the next important U.S. calendar catalysts.
 
 ## Macro Screenshot Workflow
 
@@ -230,6 +244,125 @@ When working from a pasted macro screenshot, the markdown note should include th
 5. Gold Impact
 6. Silver Impact
 7. DXY and Yield Impact
+
+## Macro Top-Down Review Workflow
+
+Use this workflow when the user asks for:
+
+- `update macro`
+- a geopolitics, DXY, yields, and commodities refresh
+- a top-down market review
+- help deciding when the next macro review should happen
+
+### 1. Refresh the current macro snapshot
+
+Verify and record:
+
+- DXY
+- U.S. 2Y Treasury yield
+- U.S. 10Y Treasury yield
+- real yields if relevant
+- gold
+- silver
+- WTI
+- Brent
+- natural gas if relevant
+- VIX if relevant
+
+Use exact timestamps when possible.
+
+### 2. Review geopolitics as a market driver
+
+Focus on developments that can materially change:
+
+- inflation expectations
+- energy supply or shipping flows
+- sanctions or export restrictions
+- industrial commodity availability
+- recession or risk-off probabilities
+
+Do not just list headlines. State whether the development is:
+
+- short-lived noise
+- a medium-term macro driver
+- a structural regime change
+
+### 3. Build the cross-asset interpretation
+
+Translate the setup into a practical read for:
+
+- DXY
+- front-end yields
+- long-end yields
+- real yields
+- gold
+- silver
+- oil
+- broad risk sentiment
+
+Always separate:
+
+- what is happening now
+- what would confirm the trend
+- what would invalidate the trend
+
+### 4. Review the U.S. economic calendar
+
+Identify the next releases most likely to change the view. Prioritize:
+
+- CPI
+- PPI
+- NFP and unemployment
+- retail sales
+- ISM Manufacturing / Services PMI
+- FOMC decisions and material Fed speeches
+- Treasury auctions if yield pressure is the main issue
+
+For each event, note:
+
+- exact date
+- exact time
+- why it matters
+- which assets are most exposed
+
+### 5. Save a structured markdown note
+
+Save under:
+
+- `02_market/macroeconomy/`
+
+Recommended filename:
+
+- `YYYY-MM-DD-macro-top-down-review.md`
+
+Use:
+
+- `05_templates/macro_top_down_review_template.md`
+- `02_market/macroeconomy/update-macro-command.md`
+
+### 6. Set the next review schedule
+
+Default next-review logic:
+
+- if the next major U.S. release is within 1 to 3 trading days, set the review for the day before or the morning of the release
+- if markets are calm and no major release is close, set a weekly macro review
+- if yields, DXY, gold, silver, or oil move sharply, bring the review forward immediately
+- if geopolitics escalates materially, do not wait for the scheduled review date
+
+Suggested review cadence:
+
+- weekly baseline macro review
+- event-driven review before CPI, NFP, FOMC, or another major release
+- same-day review after a major surprise or geopolitical shock
+
+### 7. End with decision-useful output
+
+The final note should clearly state:
+
+- macro trend verdict
+- most important upcoming date
+- what would change the view
+- which sectors or watchlist names are most exposed
 8. Cross-Asset Trend Read
 9. What To Watch Next
 10. Bottom Line

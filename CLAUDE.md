@@ -14,6 +14,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **All five steps are required BEFORE any analysis or file updates.** Missing the sector template/checklist (step 4) results in incomplete or incorrectly structured analysis. The template defines what a complete analysis looks like for that sector.
 
+**For any command-style prompt, check `COMMANDS.md` first.**
+Examples:
+
+- `full TICKER`
+- `update watchlist`
+- `update macro`
+
 ---
 
 ## Instruction Priority
@@ -25,6 +32,8 @@ Default behavior:
 - Read `AGENT.md` first for any request like `analyze EXK`, `update MTDR`, or `review HL`
 - Read `AGENT.md` first for pasted macro screenshots or TradingView calendar images
 - Use `CLAUDE.md` as the companion file for repository structure, naming conventions, and supporting workflow details
+- Use `COMMANDS.md` as the central index for reusable repo commands
+- If the prompt looks like a named repo command, resolve it through `COMMANDS.md` first
 - If `CLAUDE.md` and `AGENT.md` overlap, prefer the more specific workflow in `AGENT.md`
 
 ## Financial Freshness Rule
@@ -385,6 +394,42 @@ When asked to `update watchlist`:
 5. Flag any ticker that should be re-analyzed because the thesis may be stale after earnings, guidance, financing, or macro changes
 6. Update `next_review_scheduled_at` if the catalyst calendar has changed
 7. Return a short decision-oriented summary so the user can see which names are closest to entry
+
+### Update Macro
+
+When asked to `update macro`, treat it as a top-down market workflow rather than a company workflow.
+
+1. Review current geopolitical developments that could affect inflation, growth, energy, sanctions, trade flows, or supply chains
+2. Refresh the current levels and recent trend for:
+   - DXY
+   - U.S. 2Y yield
+   - U.S. 10Y yield
+   - real yields if relevant
+   - gold
+   - silver
+   - WTI and Brent
+   - other portfolio-relevant commodities if needed
+3. Determine whether the current setup is supportive, neutral, or hostile for:
+   - the U.S. dollar
+   - bond yields
+   - precious metals
+   - oil and cyclical risk appetite
+4. Review the next important U.S. economic releases and policy events:
+   - CPI
+   - PPI
+   - NFP / unemployment
+   - retail sales
+   - ISM PMI
+   - FOMC / Fed speakers
+   - Treasury auctions when yields are the main market driver
+5. Save a structured note under `02_market/macroeconomy/`
+   - Prefer filenames like `YYYY-MM-DD-macro-top-down-review.md`
+   - Use `05_templates/macro_top_down_review_template.md`
+   - Command reference: `02_market/macroeconomy/update-macro-command.md`
+6. Set the next review date based on the nearest catalyst that could realistically change the view
+   - default to the next major U.S. release if it is within a few trading days
+   - bring the review forward immediately for major geopolitical escalation or a sharp move in DXY, yields, gold, silver, or oil
+7. End with a practical verdict and identify which tracked sectors or watchlist names are most exposed
 
 ### Analyze a Pasted U.S. Calendar Screenshot
 
