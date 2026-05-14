@@ -7,3 +7,6 @@
 !05_templates/**
 !.claude/
 !.claude/settings.json
+
+# Keep the live watchlist local-only even if it was force-added before.
+04_portfolio/watchlist/watchlist.csv
