@@ -49,7 +49,7 @@ Minimum behavior:
 - Check the current date first and use explicit dates in the write-up
 - Verify the latest reported quarter before referencing financial results
 - Verify whether a newer filing, press release, or earnings deck exists
-- Verify current price data and label it with `price_as_of`
+- Verify current price data and label it with `current_price_timestamp`
 - Verify whether a cited macro event has already occurred, is upcoming, or has been revised
 - If fresh data cannot be verified, say so clearly and avoid presenting stale information as current
 
@@ -94,13 +94,14 @@ When a user provides a **ticker symbol** in Claude chat:
 
 - If the user says `full TICKER`, treat it as a command to run the complete workflow with all templates, checklists, comparison-note steps, and watchlist updates without skipping any required step
 - If the user says `analyze TICKER`, default to the same full workflow unless they explicitly ask for a lighter pass
+- If the user says `update watchlist`, treat it as a command to refresh current prices in `04_portfolio/watchlist/watchlist.csv`, compare them against `target_buy_zone`, and identify which names are close enough to entry or need re-analysis first
 
 1. **Find the company file**: Look for `03_sectors/[sector]/companies/TICKER-*.md`
    - Example: `03_sectors/oil_energy/companies/MTDR-matador-resources.md`
    - Use `find` or `grep` to locate a ticker across the repository
 
 2. **Check the watchlist row first**: Look in `04_portfolio/watchlist/watchlist.csv`
-   - Use `exchange`, `reference_price`, and `price_as_of` as the starting market reference
+   - Use `exchange`, `reference_price`, and `last_analyzed_at` as the starting market reference
    - If the ticker is already tracked, use that exchange and price context in the analysis
    - Use the primary listed exchange to set stock-price currency consistency:
      - U.S.-listed names on `NYSE` / `NASDAQ` should use `USD ($)` for stock price, entry zone, price targets, and short-term trading ranges
@@ -171,7 +172,7 @@ When a user pastes a screenshot from TradingView or a similar platform, especial
 - **Earnings reviews**: `YYYY-QN-TICKER.md` where QN is Q1–Q4
   - Example: `2026-Q1-MTDR.md`
 - **Reviews**: `YYYY-MM-DD.md` (weekly) or `YYYY-MM.md` (monthly)
-- **CSV files**: Column headers are lowercase with underscores (e.g., `date_added`, `ticker`, `status`, `next_review`)
+- **CSV files**: Column headers are lowercase with underscores (e.g., `ticker`, `status`, `current_price_timestamp`, `next_review_scheduled_at`)
 
 ## Company Analysis Template
 
@@ -218,11 +219,24 @@ Also use:
 ## CSV Data Structure
 
 ### Watchlist (`04_portfolio/watchlist/watchlist.csv`)
-Columns: `date_added`, `ticker`, `company`, `exchange`, `reference_price`, `price_as_of`, `sector`, `theme`, `status`, `entry_idea`, `target_buy_zone`, `thesis_summary`, `next_review`
+Columns: `ticker`, `company`, `status`, `current_price`, `current_price_timestamp`, `target_buy_zone`, `entry_idea`, `theme`, `thesis_summary`, `reference_price`, `last_analyzed_at`, `next_review_scheduled_at`, `exchange`, `sector`
 - Use `status` values: `Watching`, `Buy`, `Hold`, `Sell`, `Archive`
 - Use `exchange` as the primary listing reference for future analysis
-- Use `reference_price` and `price_as_of` as the default tracked price context before pulling fresh data
-- Update `next_review` dates regularly
+- Use `current_price` for the latest refreshed market price snapshot
+- Use `current_price_timestamp` to record when the latest watchlist price refresh was captured
+- Use `reference_price` as the anchored price from the most recent full analysis
+- Update `last_analyzed_at` when a `full TICKER` workflow or equivalent full analysis is completed
+- Do not overwrite `reference_price` during a routine `update watchlist` refresh unless a fresh full analysis is also being completed
+- Update `next_review_scheduled_at` dates regularly
+
+When running `update watchlist`:
+
+- refresh `current_price` and `current_price_timestamp` for active watchlist rows
+- compare the updated price against `target_buy_zone`
+- summarize which names are:
+  - in entry range now
+  - near entry range and worth reviewing soon
+  - stale and should be re-analyzed before any entry decision
 
 ### Holdings (`04_portfolio/holdings/holdings_snapshot.csv`)
 Tracks current positions and entry prices.
@@ -290,7 +304,7 @@ Create a **ticker-specific earnings folder** to organize all quarterly reports:
 
 **Step 3: Find or Create Company File**
 - Locate `03_sectors/[sector]/companies/TICKER-name.md`
-- Read the watchlist row first and carry forward the tracked `exchange`, `reference_price`, and `price_as_of`
+- Read the watchlist row first and carry forward the tracked `exchange`, `reference_price`, and `last_analyzed_at`
 
 **Step 4: Update with Current Data & Trends**
 - Populate Snapshot, Financial Quality, What To Monitor, and Decision sections with:
@@ -351,11 +365,26 @@ Include all of the following, using `05_templates/earnings_comparison_template.m
 **Step 7: Add to Watchlist CSV**
 - Include ticker with updated thesis summary that reflects **trend direction**
   - Example: "Strong QoQ momentum; costs declining YoY; production guidance raised"
-- Always populate or refresh `exchange`, `reference_price`, and `price_as_of`
+- Always populate or refresh `current_price`, `current_price_timestamp`, `reference_price`, and `last_analyzed_at`
 
 **Step 8: Set Next Review Date**
 - Typically 5-10 business days before next earnings
 - For cyclical stocks: Schedule review before seasonal inflection points if applicable
+
+### Update Watchlist Prices
+
+When asked to `update watchlist`:
+
+1. Open `04_portfolio/watchlist/watchlist.csv`
+2. Refresh current prices for active names and update `current_price` and `current_price_timestamp`
+3. Compare each current price with `target_buy_zone` and `entry_idea`
+4. Group names into:
+   - in target zone now
+   - near target zone
+   - not actionable yet
+5. Flag any ticker that should be re-analyzed because the thesis may be stale after earnings, guidance, financing, or macro changes
+6. Update `next_review_scheduled_at` if the catalyst calendar has changed
+7. Return a short decision-oriented summary so the user can see which names are closest to entry
 
 ### Analyze a Pasted U.S. Calendar Screenshot
 
@@ -390,7 +419,7 @@ When the user pastes a calendar screenshot, treat it as a request to convert eve
 ### Log a Watchlist Update
 1. Open `04_portfolio/watchlist/watchlist.csv`
 2. Add a row or update the existing row for the ticker
-3. Update `exchange`, `reference_price`, `price_as_of`, `status`, `thesis_summary`, and `next_review` columns
+3. Update `current_price`, `current_price_timestamp`, `reference_price`, `last_analyzed_at`, `status`, `thesis_summary`, and `next_review_scheduled_at` columns
 
 ### Archive an Earnings Report
 1. Save earnings transcript/presentation to `03_sectors/[sector]/earnings/`

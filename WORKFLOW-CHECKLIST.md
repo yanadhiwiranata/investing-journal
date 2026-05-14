@@ -37,7 +37,7 @@
   - [ ] File location: `03_sectors/[sector]/earnings/[TICKER]/[YYYY-QN]-comparison.md`
   - [ ] **REQUIRED SECTIONS:**
     - Executive Summary
-    - Current Timeline (with analysis_date, latest_reported_quarter, latest_report_date, current_price, price_as_of)
+    - Current Timeline (with analysis_date, latest_reported_quarter, latest_report_date, current_price, current_price_timestamp)
     - Multi-Quarter Comparison Table (with QoQ and YoY trends)
     - Analyst Ratings & Street Consensus (5 most recent, consensus PT, upside/downside %)
     - Guidance & Management Commentary
@@ -49,7 +49,7 @@
   - [ ] Use sector template: See list below
   - [ ] File location: `03_sectors/[sector]/companies/TICKER-company-name.md`
   - [ ] **REQUIRED SECTIONS:**
-    - Snapshot (with current price, price_as_of date)
+    - Snapshot (with current price, current_price_timestamp)
     - Current Context (timeline, latest quarter, next earnings, post-earnings events)
     - Business Summary
     - Thesis (Bull/Base/Bear cases)
@@ -63,7 +63,7 @@
 
 - [ ] **Step 5: Update Watchlist** (See AGENT.md Step 8)
   - [ ] File: `04_portfolio/watchlist/watchlist.csv`
-  - [ ] Update: `reference_price`, `price_as_of`, `status`, `thesis_summary`, `next_review`
+  - [ ] Update: `current_price`, `current_price_timestamp`, `reference_price`, `last_analyzed_at`, `status`, `thesis_summary`, `next_review_scheduled_at`
   - [ ] Thesis summary should reflect **trend direction** (momentum, guidance, catalyst timing)
 
 - [ ] **Step 6: Set Next Review Date** (See AGENT.md Step 9)
@@ -100,7 +100,7 @@ If no sector template exists: `company_analysis_template.md`
 5. **Use sector-specific company template** — never use generic template if sector template exists
 6. **Include analyst consensus** in every earnings comparison file (TipRanks, 5 most recent ratings)
 7. **Use exact dates** in all notes (e.g., `2026-05-14`, not "last week")
-8. **Tag current price with `price_as_of`** date in every file
+8. **Tag current price with `current_price_timestamp`** in every file
 9. **Update watchlist after analysis** to reflect thesis, conviction, and next review date
 
 ## Quick Reference: File Locations
@@ -126,6 +126,19 @@ If no sector template exists: `company_analysis_template.md`
    - Use template sections (Snapshot, Current Context, Thesis, Valuation, Decision, etc.)
 6. ✅ Refresh: `04_portfolio/watchlist/watchlist.csv`
    - Update price, conviction, thesis summary, next review date
+
+## Additional Command: Update Watchlist
+
+Use this when the user says `update watchlist`.
+
+- [ ] Open `04_portfolio/watchlist/watchlist.csv`
+- [ ] Refresh `current_price` and `current_price_timestamp` for active watchlist rows
+- [ ] Compare each refreshed price against `target_buy_zone`
+- [ ] Flag names already in entry range
+- [ ] Flag names near entry range that may need a re-analysis
+- [ ] Check whether any thesis is stale after fresh earnings, guidance, financing, or macro changes
+- [ ] Update `next_review_scheduled_at` if catalyst timing changed
+- [ ] Return a concise summary of which names are actionable now versus which need deeper work first
 
 ---
 

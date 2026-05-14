@@ -26,7 +26,7 @@ The repository is an investing research workspace organized around sectors, comp
 - ✅ Use sector-specific template from `05_templates/` (never generic template if sector template exists)
 - ✅ Create/update earnings comparison file with analyst consensus (Step 1.5 below is MANDATORY)
 - ✅ Use exact dates (`2026-05-14`, not "last week") in all outputs
-- ✅ Tag all prices with `price_as_of: YYYY-MM-DD` date
+- ✅ Tag refreshed market prices with `current_price_timestamp: YYYY-MM-DD HH:MM` or ISO timestamp
 - ✅ Update watchlist CSV after analysis
 
 **If any of these are skipped, the analysis is incomplete.**
@@ -52,7 +52,7 @@ Required behavior:
 1. Determine the current date before analysis.
 2. Verify the latest quarter and report date from current primary sources.
 3. Verify whether a newer filing, press release, presentation, or 8-K exists.
-4. Verify current price and record the exact `price_as_of` date.
+4. Verify current price and record the exact `current_price_timestamp`.
 5. Verify whether major events happened after the latest quarter.
 6. Use absolute dates in notes, not only relative phrases.
 7. If current data cannot be verified, state that clearly and downgrade confidence.
@@ -87,8 +87,32 @@ Example:
 - `update MTDR`
 - `review HL`
 - `full CDE`
+- `update watchlist`
 
 For these requests, assume the user wants the most recent financially relevant information, not just an update to old notes. Refresh the facts first.
+
+When the user says `update watchlist`, interpret it as a watchlist-maintenance command focused on `04_portfolio/watchlist/watchlist.csv`, not as a single-ticker deep dive.
+
+Required behavior for `update watchlist`:
+
+- refresh the current price for each active watchlist name
+- update `current_price` and `current_price_timestamp` with the latest verified market data
+- compare the refreshed price against `target_buy_zone` and `entry_idea`
+- identify which names are:
+  - already in or near the target buy zone
+  - close enough that they deserve a fresh re-analysis before entry
+  - too extended or too far away to matter right now
+- keep exact dates in the CSV and in the summary
+- if a ticker has had a material earnings, guidance, financing, or macro change since the last note, explicitly flag it for re-analysis instead of using price alone
+
+Expected output for `update watchlist`:
+
+- updated `watchlist.csv`
+- a concise summary of:
+  - names entering target zones
+  - names approaching target zones
+  - names that should be re-analyzed before any entry decision
+  - names with stale thesis or stale `next_review_scheduled_at` timing
 
 When the user pastes a macro or calendar screenshot, interpret it as a macro-impact workflow unless the user says otherwise.
 
@@ -222,8 +246,8 @@ When working from a pasted macro screenshot, the markdown note should include th
 
 1. **Current Stock Price**
    - Search for ticker's current price with exact date and time
-   - Record `price_as_of: YYYY-MM-DD HH:MM` (not just date)
-   - Example: "MTDR stock price $57.31 as of May 13, 2026 close" → `price_as_of: 2026-05-13`
+   - Record `current_price_timestamp: YYYY-MM-DD HH:MM` or ISO 8601 timestamp
+   - Example: "MTDR stock price $57.31 as of 2026-05-13 16:00" → `current_price_timestamp: 2026-05-13 16:00`
 
 2. **Latest Reported Quarter & Report Date**
    - Verify which quarter was most recently reported (Q1 2026? Q4 2025?)
@@ -328,7 +352,7 @@ If it exists, use these watchlist fields as the default market reference:
 
 - `exchange`
 - `reference_price`
-- `price_as_of`
+- `last_analyzed_at`
 
 Use them to:
 
@@ -344,7 +368,7 @@ Use the primary listed exchange to keep currency formatting consistent:
 If the watchlist has no entry yet:
 
 - create one by the end of the analysis
-- populate `exchange`, `reference_price`, and `price_as_of`
+- populate `current_price`, `current_price_timestamp`, `reference_price`, and `last_analyzed_at`
 
 ---
 
@@ -427,7 +451,7 @@ This file should compare all three quarters side-by-side and must include:
   - `latest_reported_quarter`
   - `latest_report_date`
   - `current_price`
-  - `price_as_of`
+  - `current_price_timestamp`
   - `post_earnings_events`
 
 For China EV automotive names, also add a monthly delivery trend section using `https://cnevpost.com/` when available. Include:
@@ -514,7 +538,7 @@ Currency formatting rule for company notes:
 
 The top section of the company note should also include a brief `Current Context` block covering:
 
-- latest verified price and `price_as_of`
+- latest verified price and `current_price_timestamp`
 - latest reported quarter and report date
 - next earnings date if known
 - key post-earnings development since the latest quarter
@@ -528,28 +552,53 @@ If the company is actively being monitored or the user asked for a fresh analysi
 
 Focus on:
 
-- `exchange`
+- `current_price`
+- `current_price_timestamp`
 - `reference_price`
-- `price_as_of`
+- `last_analyzed_at`
 - `status`
 - `thesis_summary`
-- `next_review`
+- `next_review_scheduled_at`
+- `exchange`
 
 Watchlist schema:
 
-- `date_added`
 - `ticker`
 - `company`
-- `exchange`
-- `reference_price`
-- `price_as_of`
-- `sector`
-- `theme`
 - `status`
-- `entry_idea`
+- `current_price`
+- `current_price_timestamp`
 - `target_buy_zone`
+- `entry_idea`
+- `theme`
 - `thesis_summary`
-- `next_review`
+- `reference_price`
+- `last_analyzed_at`
+- `next_review_scheduled_at`
+- `exchange`
+- `sector`
+
+Field intent:
+
+- `current_price` = latest refreshed market price for watchlist maintenance
+- `current_price_timestamp` = exact timestamp for that market-price refresh
+- `reference_price` = anchor price captured during the most recent full analysis
+- `last_analyzed_at` = date the most recent `full TICKER` workflow was completed
+
+If the user explicitly asked to `update watchlist`, do this across the active watchlist, not just for the current ticker.
+
+For the `update watchlist` command:
+
+- refresh `current_price` and `current_price_timestamp` for each active row
+- leave `reference_price` and `last_analyzed_at` unchanged unless a fresh full analysis is also completed
+- keep `exchange` unchanged unless there is a verified listing-context reason to change it
+- compare the refreshed price against `target_buy_zone`
+- flag rows where the current price is:
+  - inside the target buy zone
+  - within roughly 5% to 10% of the target zone and worth re-checking soon
+  - far enough away that no action is needed
+- if a company has a stale thesis because of fresh earnings, guidance, financing, or macro changes, note that it should be re-analyzed before entry even if price is attractive
+- update `next_review_scheduled_at` when the catalyst calendar has clearly changed
 
 ### 9. Set next review timing (was Step 9)
 
@@ -800,7 +849,7 @@ If the user says `analyze EXK`, the agent should:
 5. Extract the latest guidance (production, AISC, capex) and compare across three quarters
 6. Update the EXK company memo using the gold and silver miners template (Snapshot, Current Context, Thesis, Why This Could Work, Key Risks, Operating Quality, Financial Quality, Valuation, What To Monitor, Decision, Related Documents)
 7. Update watchlist status, analyst consensus, conviction, and next review date if needed
-8. Ensure all prices tagged with `price_as_of: YYYY-MM-DD` and use exact dates throughout
+8. Ensure all prices tagged with `current_price_timestamp` and use exact dates throughout
 
 If the user says `full EXK`, the agent should follow the same sequence, but with stricter completion requirements:
 

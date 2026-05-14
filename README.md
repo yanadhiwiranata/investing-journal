@@ -45,6 +45,14 @@ Meaning:
 
 `Analyze CDE using the correct templates and complete the full checklist and workflow without skipping any steps.`
 
+Another useful maintenance command:
+
+`update watchlist`
+
+Meaning:
+
+`Refresh current prices in watchlist.csv, update current_price and current_price_timestamp, compare them with target buy zones, and tell me which names are close enough to entry or need re-analysis first.`
+
 ## Working Principle
 
 Everyday use should make the process:
