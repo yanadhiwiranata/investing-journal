@@ -35,7 +35,7 @@ Examples:
 - ✅ Use sector-specific template from `05_templates/` (never generic template if sector template exists)
 - ✅ Create/update earnings comparison file with analyst consensus (Step 1.5 below is MANDATORY)
 - ✅ Use exact dates (`2026-05-14`, not "last week") in all outputs
-- ✅ Tag refreshed market prices with `current_price_timestamp: YYYY-MM-DD HH:MM` or ISO timestamp
+- ✅ Tag refreshed market prices with `current_price_timestamp: YYYY-MM-DD HH:MM:SS` in Jakarta local time
 - ✅ Update watchlist CSV after analysis
 
 **If any of these are skipped, the analysis is incomplete.**
@@ -61,7 +61,7 @@ Required behavior:
 1. Determine the current date before analysis.
 2. Verify the latest quarter and report date from current primary sources.
 3. Verify whether a newer filing, press release, presentation, or 8-K exists.
-4. Verify current price and record the exact `current_price_timestamp`.
+4. Verify current price and record the exact `current_price_timestamp` in Jakarta local time.
 5. Verify whether major events happened after the latest quarter.
 6. Use absolute dates in notes, not only relative phrases.
 7. If current data cannot be verified, state that clearly and downgrade confidence.
@@ -379,8 +379,9 @@ The final note should clearly state:
 
 1. **Current Stock Price**
    - Search for ticker's current price with exact date and time
-   - Record `current_price_timestamp: YYYY-MM-DD HH:MM` or ISO 8601 timestamp
-   - Example: "MTDR stock price $57.31 as of 2026-05-13 16:00" → `current_price_timestamp: 2026-05-13 16:00`
+   - Record `current_price_timestamp: YYYY-MM-DD HH:MM:SS`
+   - Use Jakarta local time in the watchlist, without writing the timezone suffix
+   - Example: "MTDR stock price $57.31 as of 2026-05-13 23:00:00 Jakarta time" → `current_price_timestamp: 2026-05-13 23:00:00`
 
 2. **Latest Reported Quarter & Report Date**
    - Verify which quarter was most recently reported (Q1 2026? Q4 2025?)
@@ -714,7 +715,7 @@ Watchlist schema:
 Field intent:
 
 - `current_price` = latest refreshed market price for watchlist maintenance
-- `current_price_timestamp` = exact timestamp for that market-price refresh
+- `current_price_timestamp` = exact timestamp for that market-price refresh, using Jakarta local time with hour, minute, and second
 - `reference_price` = anchor price captured during the most recent full analysis
 - `last_analyzed_at` = date the most recent `full TICKER` workflow was completed
 
@@ -723,6 +724,8 @@ If the user explicitly asked to `update watchlist`, do this across the active wa
 For the `update watchlist` command:
 
 - refresh `current_price` and `current_price_timestamp` for each active row
+- record `current_price_timestamp` with full time precision, not just date
+- store it in Jakarta local time without a timezone suffix
 - leave `reference_price` and `last_analyzed_at` unchanged unless a fresh full analysis is also completed
 - keep `exchange` unchanged unless there is a verified listing-context reason to change it
 - compare the refreshed price against `target_buy_zone`

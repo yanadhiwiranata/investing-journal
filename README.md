@@ -51,7 +51,7 @@ Another useful maintenance command:
 
 Meaning:
 
-`Refresh current prices in watchlist.csv, update current_price and current_price_timestamp, compare them with target buy zones, and tell me which names are close enough to entry or need re-analysis first.`
+`Refresh current prices in watchlist.csv, update current_price and current_price_timestamp with full Jakarta-time precision, compare them with target buy zones, and tell me which names are close enough to entry or need re-analysis first.`
 
 Another useful market workflow:
 

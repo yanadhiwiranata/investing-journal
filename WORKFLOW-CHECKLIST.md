@@ -100,7 +100,7 @@ If no sector template exists: `company_analysis_template.md`
 5. **Use sector-specific company template** — never use generic template if sector template exists
 6. **Include analyst consensus** in every earnings comparison file (TipRanks, 5 most recent ratings)
 7. **Use exact dates** in all notes (e.g., `2026-05-14`, not "last week")
-8. **Tag current price with `current_price_timestamp`** in every file
+8. **Tag current price with `current_price_timestamp`** in every file using full time precision (`YYYY-MM-DD HH:MM:SS`)
 9. **Update watchlist after analysis** to reflect thesis, conviction, and next review date
 
 ## Quick Reference: File Locations
@@ -133,6 +133,8 @@ Use this when the user says `update watchlist`.
 
 - [ ] Open `04_portfolio/watchlist/watchlist.csv`
 - [ ] Refresh `current_price` and `current_price_timestamp` for active watchlist rows
+- [ ] Record `current_price_timestamp` with hour, minute, and second
+- [ ] Use Jakarta local time in the watchlist and do not append the timezone suffix
 - [ ] Compare each refreshed price against `target_buy_zone`
 - [ ] Flag names already in entry range
 - [ ] Flag names near entry range that may need a re-analysis

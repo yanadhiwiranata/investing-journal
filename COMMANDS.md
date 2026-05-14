@@ -49,7 +49,7 @@ Purpose:
 What it should do:
 
 - update `current_price`
-- update `current_price_timestamp`
+- update `current_price_timestamp` with full Jakarta-time precision
 - compare price vs. `target_buy_zone` and `entry_idea`
 - flag names in range, near range, or stale
 - update `next_review_scheduled_at` if the catalyst calendar changed

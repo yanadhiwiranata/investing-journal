@@ -232,7 +232,7 @@ Columns: `ticker`, `company`, `status`, `current_price`, `current_price_timestam
 - Use `status` values: `Watching`, `Buy`, `Hold`, `Sell`, `Archive`
 - Use `exchange` as the primary listing reference for future analysis
 - Use `current_price` for the latest refreshed market price snapshot
-- Use `current_price_timestamp` to record when the latest watchlist price refresh was captured
+- Use `current_price_timestamp` to record when the latest watchlist price refresh was captured, using Jakarta local time with hour, minute, and second
 - Use `reference_price` as the anchored price from the most recent full analysis
 - Update `last_analyzed_at` when a `full TICKER` workflow or equivalent full analysis is completed
 - Do not overwrite `reference_price` during a routine `update watchlist` refresh unless a fresh full analysis is also being completed
@@ -386,6 +386,8 @@ When asked to `update watchlist`:
 
 1. Open `04_portfolio/watchlist/watchlist.csv`
 2. Refresh current prices for active names and update `current_price` and `current_price_timestamp`
+   - store `current_price_timestamp` as Jakarta local time using `YYYY-MM-DD HH:MM:SS`
+   - do not append the timezone label inside the watchlist CSV
 3. Compare each current price with `target_buy_zone` and `entry_idea`
 4. Group names into:
    - in target zone now

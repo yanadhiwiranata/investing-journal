@@ -116,6 +116,12 @@ For each event, record:
 - why it matters
 - which assets are most exposed
 
+When this workflow leads to a watchlist refresh, use `current_price_timestamp` with full time precision:
+
+- `YYYY-MM-DD HH:MM:SS`
+- use Jakarta local time in the watchlist
+- do not write the timezone suffix inside the CSV
+
 ## Required Final Verdict
 
 End the review with a practical market read:
