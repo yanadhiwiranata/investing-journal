@@ -10,6 +10,7 @@ Use this section for fast copy-paste.
 
 - `full TICKER` — run the full research workflow for a ticker
 - `update watchlist` — refresh watchlist prices and flag actionable names
+- `update porto` — update live positions, open orders, and completed trades
 - `update macro` — review geopolitics, DXY, yields, commodities, and the next key U.S. macro date
 
 ## Command Details
@@ -59,6 +60,28 @@ Primary references:
 - `AGENT.md`
 - `WORKFLOW-CHECKLIST.md`
 - `CLAUDE.md`
+
+## Portfolio Commands
+
+### `update porto`
+
+Purpose:
+
+- Update the portfolio records for current positions, open orders, and completed trades.
+
+What it should do:
+
+- update `04_portfolio/holdings/holdings_snapshot.csv` for live positions
+- refresh current price and unrealized P/L for held positions
+- update `04_portfolio/transactions/open_orders.csv` for pending buy or sell orders
+- update `04_portfolio/transactions/transactions.csv` for filled trades
+- keep portfolio state aligned between current holdings, pending orders, and completed transactions
+
+Primary references:
+
+- `AGENT.md`
+- `CLAUDE.md`
+- `README.md`
 
 ## Macro Commands
 

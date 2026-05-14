@@ -61,6 +61,14 @@ Meaning:
 
 `Review geopolitics, DXY, U.S. bond yields, and commodity trends, save a macro note, and set the next review date based on the upcoming U.S. economic calendar.`
 
+Another useful portfolio workflow:
+
+`update porto`
+
+Meaning:
+
+`Update current holdings, open orders, and completed trades across the portfolio CSV files.`
+
 Command index:
 
 - `COMMANDS.md`

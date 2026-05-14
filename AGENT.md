@@ -26,6 +26,7 @@ Examples:
 
 - `full TICKER`
 - `update watchlist`
+- `update porto`
 - `update macro`
 
 **Non-negotiable rules:**
@@ -99,6 +100,7 @@ Example:
 - `review HL`
 - `full CDE`
 - `update watchlist`
+- `update porto`
 - `update macro`
 
 For these requests, assume the user wants the most recent financially relevant information, not just an update to old notes. Refresh the facts first.
@@ -125,6 +127,29 @@ Expected output for `update watchlist`:
   - names approaching target zones
   - names that should be re-analyzed before any entry decision
   - names with stale thesis or stale `next_review_scheduled_at` timing
+
+When the user says `update porto`, interpret it as a portfolio-maintenance command focused on:
+
+- `04_portfolio/holdings/holdings_snapshot.csv`
+- `04_portfolio/transactions/open_orders.csv`
+- `04_portfolio/transactions/transactions.csv`
+
+Required behavior for `update porto`:
+
+- update current live positions in `holdings_snapshot.csv`
+- refresh position-level metrics in `holdings_snapshot.csv` such as current price, unrealized P/L, and unrealized P/L %
+- update open pending orders in `open_orders.csv`
+- update filled trades in `transactions.csv`
+- keep open orders separate from completed transactions
+- use exact dates in all portfolio files
+
+Expected output for `update porto`:
+
+- updated portfolio CSV files as needed
+- a concise summary of:
+  - current live positions changed
+  - open orders added, edited, or removed
+  - completed transactions logged
 
 When the user pastes a macro or calendar screenshot, interpret it as a macro-impact workflow unless the user says otherwise.
 

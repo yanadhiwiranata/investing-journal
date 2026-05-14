@@ -169,6 +169,17 @@ Use this when the user says `update macro`, asks for a top-down market refresh, 
 - [ ] Set the next review date based on the nearest meaningful catalyst, not just a fixed cadence
 - [ ] Bring the next review forward immediately if there is a geopolitical escalation or a large move in DXY, yields, gold, silver, or oil
 
+## Additional Command: Update Porto
+
+Use this when the user says `update porto` or asks to update portfolio records.
+
+- [ ] Update `04_portfolio/holdings/holdings_snapshot.csv` for live positions
+- [ ] Refresh holdings metrics such as current price and unrealized P/L
+- [ ] Update `04_portfolio/transactions/open_orders.csv` for open pending orders
+- [ ] Update `04_portfolio/transactions/transactions.csv` for completed fills
+- [ ] Keep open orders separate from completed transactions
+- [ ] Use exact dates in all portfolio files
+
 ---
 
 ## ⚠️ CRITICAL REMINDERS

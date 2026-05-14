@@ -19,6 +19,7 @@ Examples:
 
 - `full TICKER`
 - `update watchlist`
+- `update porto`
 - `update macro`
 
 ---
@@ -104,6 +105,7 @@ When a user provides a **ticker symbol** in Claude chat:
 - If the user says `full TICKER`, treat it as a command to run the complete workflow with all templates, checklists, comparison-note steps, and watchlist updates without skipping any required step
 - If the user says `analyze TICKER`, default to the same full workflow unless they explicitly ask for a lighter pass
 - If the user says `update watchlist`, treat it as a command to refresh current prices in `04_portfolio/watchlist/watchlist.csv`, compare them against `target_buy_zone`, and identify which names are close enough to entry or need re-analysis first
+- If the user says `update porto`, treat it as a portfolio-maintenance command focused on `04_portfolio/holdings/holdings_snapshot.csv`, `04_portfolio/transactions/open_orders.csv`, and `04_portfolio/transactions/transactions.csv`
 
 1. **Find the company file**: Look for `03_sectors/[sector]/companies/TICKER-*.md`
    - Example: `03_sectors/oil_energy/companies/MTDR-matador-resources.md`
@@ -248,10 +250,13 @@ When running `update watchlist`:
   - stale and should be re-analyzed before any entry decision
 
 ### Holdings (`04_portfolio/holdings/holdings_snapshot.csv`)
-Tracks current positions and entry prices.
+Tracks current positions, current price, and unrealized P/L.
 
 ### Transactions (`04_portfolio/transactions/transactions.csv`)
 Logs all buy/sell trades with date, ticker, shares, price, and notes.
+
+### Open Orders (`04_portfolio/transactions/open_orders.csv`)
+Tracks pending buy/sell orders that have not filled yet.
 
 ## Common Workflows
 
@@ -431,6 +436,16 @@ When asked to `update macro`, treat it as a top-down market workflow rather than
    - default to the next major U.S. release if it is within a few trading days
    - bring the review forward immediately for major geopolitical escalation or a sharp move in DXY, yields, gold, silver, or oil
 7. End with a practical verdict and identify which tracked sectors or watchlist names are most exposed
+
+### Update Porto
+
+When asked to `update porto`, treat it as a portfolio-record workflow.
+
+1. Update `04_portfolio/holdings/holdings_snapshot.csv` for current live positions
+2. Update `04_portfolio/transactions/open_orders.csv` for pending orders that are still open
+3. Update `04_portfolio/transactions/transactions.csv` for completed fills
+4. Keep positions, open orders, and completed trades separated cleanly
+5. Use exact dates in all portfolio files
 
 ### Analyze a Pasted U.S. Calendar Screenshot
 
