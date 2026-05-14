@@ -65,10 +65,6 @@ Command index:
 
 - `COMMANDS.md`
 
-Dedicated macro command file:
-
-- `02_market/macroeconomy/update-macro-command.md`
-
 ## Working Principle
 
 Everyday use should make the process:

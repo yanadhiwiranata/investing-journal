@@ -427,7 +427,6 @@ When asked to `update macro`, treat it as a top-down market workflow rather than
 5. Save a structured note under `02_market/macroeconomy/`
    - Prefer filenames like `YYYY-MM-DD-macro-top-down-review.md`
    - Use `05_templates/macro_top_down_review_template.md`
-   - Command reference: `02_market/macroeconomy/update-macro-command.md`
 6. Set the next review date based on the nearest catalyst that could realistically change the view
    - default to the next major U.S. release if it is within a few trading days
    - bring the review forward immediately for major geopolitical escalation or a sharp move in DXY, yields, gold, silver, or oil

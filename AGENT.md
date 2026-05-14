@@ -338,7 +338,6 @@ Recommended filename:
 Use:
 
 - `05_templates/macro_top_down_review_template.md`
-- `02_market/macroeconomy/update-macro-command.md`
 
 ### 6. Set the next review schedule
 

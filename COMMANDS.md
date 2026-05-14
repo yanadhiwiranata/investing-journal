@@ -79,7 +79,6 @@ What it should do:
 
 Primary references:
 
-- `02_market/macroeconomy/update-macro-command.md`
 - `05_templates/macro_top_down_review_template.md`
 - `AGENT.md`
 - `CLAUDE.md`
