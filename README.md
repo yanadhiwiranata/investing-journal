@@ -59,7 +59,7 @@ Another useful market workflow:
 
 Meaning:
 
-`Review geopolitics, DXY, U.S. bond yields, and commodity trends, save a macro note, and set the next review date based on the upcoming U.S. economic calendar.`
+`Run an upgraded macro refresh: review geopolitics, DXY, U.S. bond yields, commodity trends, save a macro note, and add hour-level monitoring notes when volatility is high or a key release is close.`
 
 Another useful portfolio workflow:
 
@@ -68,6 +68,14 @@ Another useful portfolio workflow:
 Meaning:
 
 `Update current holdings, open orders, and completed trades across the portfolio CSV files.`
+
+Another useful daily workflow:
+
+`update today`
+
+Meaning:
+
+`Run the daily sequence in order: update macro first, then update watchlist, then update porto.`
 
 Command index:
 

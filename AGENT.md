@@ -25,6 +25,7 @@ The repository is an investing research workspace organized around sectors, comp
 Examples:
 
 - `full TICKER`
+- `update today`
 - `update watchlist`
 - `update porto`
 - `update macro`
@@ -99,11 +100,31 @@ Example:
 - `update MTDR`
 - `review HL`
 - `full CDE`
+- `update today`
 - `update watchlist`
 - `update porto`
 - `update macro`
 
 For these requests, assume the user wants the most recent financially relevant information, not just an update to old notes. Refresh the facts first.
+
+When the user says `update today`, interpret it as a sequential maintenance command with this required order:
+
+1. `update macro` (with **MANDATORY Step 0 data freshness verification**)
+2. `update watchlist`
+3. `update porto`
+
+Required behavior for `update today`:
+
+- ⚠️ **BEFORE starting**, execute Step 0 of the Macro Top-Down Review Workflow: Verify current DXY, yields, gold, silver, WTI, and latest macro data releases with live sources. Do NOT rely on cached prices.
+- complete the three commands in that order unless the user explicitly changes it
+- let the macro read influence the watchlist summary when a thesis may be stale after a market move
+- finish with one concise summary covering macro, watchlist, and portfolio outcomes
+
+Expected output for `update today`:
+
+- macro note updates as needed (with data freshness verification section included)
+- updated watchlist and portfolio files as needed
+- one combined decision-useful summary that links macro context to watchlist actionability
 
 When the user says `update watchlist`, interpret it as a watchlist-maintenance command focused on `04_portfolio/watchlist/watchlist.csv`, not as a single-ticker deep dive.
 
@@ -159,7 +180,7 @@ Examples:
 - pasted screenshot of yields, DXY, gold, and silver
 - `analyze this calendar`
 
-When the user asks to `update macro`, interpret it as a structured top-down review workflow covering geopolitics, DXY, U.S. bond yields, commodity trends, and the next important U.S. calendar catalysts.
+When the user asks to `update macro`, interpret it as an upgraded macro workflow, not a light check-in. It should cover geopolitics, DXY, U.S. bond yields, commodity trends, the next important U.S. calendar catalysts, and higher-frequency monitoring when the market is volatile.
 
 ## Macro Screenshot Workflow
 
@@ -279,22 +300,77 @@ Use this workflow when the user asks for:
 - a top-down market review
 - help deciding when the next macro review should happen
 
+### ⚠️ STEP 0: DATA FRESHNESS VERIFICATION (MANDATORY — DO THIS FIRST)
+
+**This step is non-negotiable for macro updates.** Stale commodity and yield data produces incorrect macro conclusions and invalid sector/portfolio recommendations.
+
+**Freshness checklist — VERIFY ALL BEFORE PROCEEDING:**
+
+1. **DXY (U.S. Dollar Index)**
+   - Search for current price with exact date and time
+   - Record with `current_price_timestamp: YYYY-MM-DD HH:MM:SS`
+   - Example: "DXY 98.87 as of 2026-05-15 06:00:00 UTC (verified)"
+
+2. **U.S. 2Y and 10Y Treasury Yields**
+   - Search for latest intraday levels (not just prior close)
+   - Record both current level and intraday range if trading
+   - Example: "10Y yield 4.49–4.52% intraday on 2026-05-15 (verified)"
+
+3. **Gold Spot Price**
+   - Current spot price with exact timestamp
+   - Example: "Gold $4,617.87/oz as of 2026-05-15 (verified)"
+
+4. **Silver Spot Price**
+   - Current spot price with timestamp
+   - Example: "Silver $84–86/oz range on 2026-05-15 (verified)"
+
+5. **WTI Crude Oil**
+   - Current price with timestamp
+   - Example: "WTI $100.85/bbl as of 2026-05-15 (verified)"
+
+6. **Brent Crude Oil**
+   - Current price if relevant to geopolitical setup
+
+7. **Latest Macro Data Releases**
+   - Has CPI/PPI/NFP/jobless claims/retail sales been released TODAY?
+   - If so, record the ACTUAL print vs. forecast
+   - Example: "NFP May 15: 220K actual vs. 220K consensus (in-line)" or "NFP not yet released, awaiting 08:30 ET print"
+
+8. **Recent Geopolitical News**
+   - Any breaking developments in last 24 hours that affect macro outlook?
+   - Strait of Hormuz status? Fed speaker comments? Treasury auction results?
+
+**Preferred sources for verification:**
+- Federal Reserve FRED database
+- U.S. Treasury.gov (daily yield curve rates)
+- Bureau of Labor Statistics (BLS) for employment data
+- U.S. Energy Information Administration (EIA) for oil prices
+- TradingView, Bloomberg, Investing.com for spot prices
+- Federal Reserve press releases for policy updates
+
+**If fresh data cannot be verified, state clearly:** "Data verification incomplete; last verified price was [X] at [timestamp]; unable to confirm current levels. Review stale."
+
+**Do not present cached or model-memory prices as current data.**
+
+---
+
 ### 1. Refresh the current macro snapshot
 
-Verify and record:
+Using the verified data from Step 0, record and update:
 
-- DXY
-- U.S. 2Y Treasury yield
-- U.S. 10Y Treasury yield
+- DXY (with verification timestamp)
+- U.S. 2Y Treasury yield (with verification timestamp)
+- U.S. 10Y Treasury yield (with verification timestamp)
 - real yields if relevant
-- gold
-- silver
-- WTI
-- Brent
+- gold (with verification timestamp)
+- silver (with verification timestamp)
+- WTI (with verification timestamp)
+- Brent (with verification timestamp)
 - natural gas if relevant
 - VIX if relevant
+- Latest macro data releases that occurred today
 
-Use exact timestamps when possible.
+Use exact timestamps for all prices (part of Step 0 verification).
 
 ### 2. Review geopolitics as a market driver
 
@@ -364,6 +440,14 @@ Use:
 
 - `05_templates/macro_top_down_review_template.md`
 
+If volatility is elevated or a major catalyst is close, also create an hour-level follow-up note:
+
+- `YYYY-MM-DD-HH00-macro-hourly-monitor.md`
+
+Use:
+
+- `05_templates/macro_hourly_monitor_template.md`
+
 ### 6. Set the next review schedule
 
 Default next-review logic:
@@ -372,12 +456,14 @@ Default next-review logic:
 - if markets are calm and no major release is close, set a weekly macro review
 - if yields, DXY, gold, silver, or oil move sharply, bring the review forward immediately
 - if geopolitics escalates materially, do not wait for the scheduled review date
+- if the market is in a volatile intraday regime, set the next review at the next hourly checkpoint until conditions calm down
 
 Suggested review cadence:
 
 - weekly baseline macro review
 - event-driven review before CPI, NFP, FOMC, or another major release
 - same-day review after a major surprise or geopolitical shock
+- hourly follow-up during volatile sessions, especially around CPI, PPI, NFP, FOMC, Treasury auctions, or sharp cross-asset repricing
 
 ### 7. End with decision-useful output
 
@@ -387,6 +473,7 @@ The final note should clearly state:
 - most important upcoming date
 - what would change the view
 - which sectors or watchlist names are most exposed
+- whether hourly monitoring remains necessary and the exact next checkpoint
 8. Cross-Asset Trend Read
 9. What To Watch Next
 10. Bottom Line

@@ -142,10 +142,21 @@ Use this when the user says `update watchlist`.
 - [ ] Update `next_review_scheduled_at` if catalyst timing changed
 - [ ] Return a concise summary of which names are actionable now versus which need deeper work first
 
+## Additional Command: Update Today
+
+Use this when the user says `update today` or asks for the full daily maintenance pass.
+
+- [ ] Run `update macro` first
+- [ ] Run `update watchlist` second
+- [ ] Run `update porto` third
+- [ ] Keep the sequence intact so macro context informs the watchlist and portfolio updates
+- [ ] Return one concise end-of-run summary covering macro changes, watchlist actions, and portfolio record changes
+
 ## Additional Command: Update Macro
 
 Use this when the user says `update macro`, asks for a top-down market refresh, or wants a review of geopolitics, DXY, yields, and commodities.
 
+- [ ] Treat `update macro` as a higher-priority macro refresh, not a light periodic check
 - [ ] Review geopolitics that could affect inflation, growth, energy, shipping, sanctions, or supply chains
 - [ ] Refresh: DXY, U.S. 2Y yield, U.S. 10Y yield, and real yields if relevant
 - [ ] Refresh key commodities relevant to the portfolio:
@@ -165,8 +176,12 @@ Use this when the user says `update macro`, asks for a top-down market refresh, 
   - [ ] ISM PMI
   - [ ] FOMC / Fed speakers if material
   - [ ] Treasury auctions if yields are the main driver
-- [ ] Save a structured note in `02_market/macroeconomy/`
-- [ ] Set the next review date based on the nearest meaningful catalyst, not just a fixed cadence
+- [ ] Save a structured top-down note in `02_market/macroeconomy/`
+- [ ] Decide whether an hourly note is required:
+  - [ ] Use hourly notes if the data is moving quickly, a major release is due within the same session, or DXY/yields/gold/silver/oil are repricing sharply
+  - [ ] Save hourly notes in `02_market/macroeconomy/` using an hour-level filename
+- [ ] Set the next review time based on the nearest meaningful catalyst, not just a fixed cadence
+- [ ] Use hourly follow-up timing during volatile conditions instead of waiting for the next daily or weekly review
 - [ ] Bring the next review forward immediately if there is a geopolitical escalation or a large move in DXY, yields, gold, silver, or oil
 
 ## Additional Command: Update Porto

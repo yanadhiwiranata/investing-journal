@@ -18,6 +18,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Examples:
 
 - `full TICKER`
+- `update today`
 - `update watchlist`
 - `update porto`
 - `update macro`
@@ -106,6 +107,7 @@ When a user provides a **ticker symbol** in Claude chat:
 - If the user says `analyze TICKER`, default to the same full workflow unless they explicitly ask for a lighter pass
 - If the user says `update watchlist`, treat it as a command to refresh current prices in `04_portfolio/watchlist/watchlist.csv`, compare them against `target_buy_zone`, and identify which names are close enough to entry or need re-analysis first
 - If the user says `update porto`, treat it as a portfolio-maintenance command focused on `04_portfolio/holdings/holdings_snapshot.csv`, `04_portfolio/transactions/open_orders.csv`, and `04_portfolio/transactions/transactions.csv`
+- If the user says `update today`, treat it as a daily sequence command: `update macro` first, `update watchlist` second, and `update porto` third
 
 1. **Find the company file**: Look for `03_sectors/[sector]/companies/TICKER-*.md`
    - Example: `03_sectors/oil_energy/companies/MTDR-matador-resources.md`
@@ -402,9 +404,45 @@ When asked to `update watchlist`:
 6. Update `next_review_scheduled_at` if the catalyst calendar has changed
 7. Return a short decision-oriented summary so the user can see which names are closest to entry
 
+### Update Today
+
+When asked to `update today`, run this sequence:
+
+1. `update macro`
+2. `update watchlist`
+3. `update porto`
+
+Keep the order unchanged unless the user explicitly requests a different sequence.
+
+End with one concise summary that combines:
+
+- the macro verdict and next review timing
+- the watchlist names that are actionable or need re-analysis
+- the portfolio files or rows that changed
+
 ### Update Macro
 
 When asked to `update macro`, treat it as a top-down market workflow rather than a company workflow.
+
+**⚠️ MANDATORY DATA FRESHNESS VERIFICATION (STEP 0):**
+
+Before starting the macro review workflow, ALWAYS verify current market data with live sources:
+
+**Required Verification Checklist:**
+1. **DXY (U.S. Dollar Index)** — Search for current price with exact timestamp
+2. **U.S. 2Y and 10Y Treasury yields** — Verify latest intraday levels (not just prior close)
+3. **Gold spot price** — Current price with exact timestamp
+4. **Silver spot price** — Current price with timestamp
+5. **WTI crude oil** — Current price with timestamp
+6. **Brent crude oil** — Current price if relevant to geopolitical setup
+7. **VIX if relevant** — For volatility context
+8. **Latest macro data release** — Has CPI/PPI/NFP/jobless claims been released today? If so, record the actual print
+
+**Record all prices with exact timestamps** (include time and date). If prices cannot be verified, state clearly that data is stale and avoid presenting cached prices as current.
+
+**Preferred sources:** Federal Reserve (FRED), Treasury.gov, BLS, TradingView, Bloomberg terminal, Oilprice.com, Investing.com, Trading Economics
+
+**Then execute the workflow below:**
 
 1. Review current geopolitical developments that could affect inflation, growth, energy, sanctions, trade flows, or supply chains
 2. Refresh the current levels and recent trend for:
@@ -432,10 +470,16 @@ When asked to `update macro`, treat it as a top-down market workflow rather than
 5. Save a structured note under `02_market/macroeconomy/`
    - Prefer filenames like `YYYY-MM-DD-macro-top-down-review.md`
    - Use `05_templates/macro_top_down_review_template.md`
-6. Set the next review date based on the nearest catalyst that could realistically change the view
+   - **Include a "Data Freshness Verification" section at the top documenting all verified prices and timestamps**
+6. If conditions are volatile, also save an hour-level follow-up note
+   - Use filenames like `YYYY-MM-DD-HH00-macro-hourly-monitor.md`
+   - Use `05_templates/macro_hourly_monitor_template.md`
+   - Use this when a major release is near, cross-asset moves are sharp, or the market regime is changing intraday
+7. Set the next review time based on the nearest catalyst that could realistically change the view
    - default to the next major U.S. release if it is within a few trading days
+   - use the next hourly checkpoint instead of a daily or weekly wait when the setup is unusually volatile
    - bring the review forward immediately for major geopolitical escalation or a sharp move in DXY, yields, gold, silver, or oil
-7. End with a practical verdict and identify which tracked sectors or watchlist names are most exposed
+8. End with a practical verdict and identify which tracked sectors or watchlist names are most exposed
 
 ### Update Porto
 

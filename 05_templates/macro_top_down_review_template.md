@@ -1,265 +1,253 @@
 # Macro Top-Down Review
 
-Comprehensive cross-asset macro analysis integrating geopolitics, dollar dynamics, rates, and commodity trends.
+Comprehensive cross-asset analysis: geopolitics, dollar, yields, commodities, and sector exposure. Primary daily or event-driven note. Pair with hourly monitor during volatile sessions.
 
 **Recommended filename:** `02_market/macroeconomy/YYYY-MM-DD-macro-top-down-review.md`
 
 ---
 
-## 1. Review Context & Executive Summary
+## 1. Review Context & Thesis
 
-- **Review Date:** 
-- **Review Time (local):** 
-- **Freshness Status:** (e.g., "live market data as of HH:MM", "based on close", "pre-open")
-- **Review Type:** 
-  - Routine weekly review / Pre-event review / Post-release review / Shock-driven review / Post-FOMC review
+| Field | Value |
+|-------|-------|
+| **Review Date & Time (local)** | YYYY-MM-DD HH:MM |
+| **Freshness** | Live market data / Post-close / Pre-open |
+| **Review Type** | Routine weekly / Pre-event / Post-release / Shock-driven / Post-FOMC |
+| **Confidence Level** | High / Medium / Low |
 
-**One-paragraph macro thesis** (write this last; summarize the current regime and key near-term driver):
+**Macro Thesis** (one paragraph; write last):
+Summarize the current regime, primary driver, and near-term directional view. Example: *"Real yields are rising on sticky inflation and hawkish Fed repricing. DXY is consolidating above key resistance; a break confirms structural dollar strength through quarter-end. Gold faces headwinds from higher real yields, but geopolitical risk keeps safe-haven demand alive. Energy is stable pending global demand cues; oil may consolidate near support if recession fears ease."*
 
 
-## 2. Market Snapshot (Current Levels)
+## 2. Market Snapshot
 
-Capture absolute levels and recent % change to establish the current regime.
+Absolute levels + recent changes to confirm current regime. Focus on momentum (1D, 1W) and distance from extremes (52W range).
 
-| Metric | Level | 1D Chg | 1W Chg | YTD | Range (52W) | Notes |
-|--------|-------|--------|--------|-----|-------------|-------|
-| **DXY** | | | | | | |
-| **U.S. 2Y yield** | | | | | | |
-| **U.S. 10Y yield** | | | | | | |
-| **Real yield (10Y)** | | | | | | |
-| **Gold (spot)** | | | | | | |
-| **Silver (spot)** | | | | | | |
-| **WTI Crude** | | | | | | |
-| **Brent Crude** | | | | | | |
-| **Natural Gas** | | | | | | |
-| **VIX** | | | | | | |
+| Metric | Level | 1D Δ | 1W Δ | YTD | 52W Range | Regime Signal |
+|--------|-------|------|------|-----|-----------|---------------|
+| DXY | | | | | | |
+| U.S. 2Y yield | | | | | | |
+| U.S. 10Y yield | | | | | | |
+| Real yield (10Y) | | | | | | |
+| Gold (spot) | | | | | | |
+| Silver (spot) | | | | | | |
+| WTI Crude | | | | | | |
+| Brent Crude | | | | | | |
+| VIX | | | | | | |
 
-## 3. Geopolitical & Structural Risk Assessment
+## 3. Geopolitical & Risk Assessment
 
-**Current Geopolitical Developments:**
-- Key developments (last 7 days, ordered by market impact):
-- Duration view: short-lived (< 1 month) / medium-term (1–3 months) / structural (> 3 months)
+**Recent Developments (last 7 days, ranked by market impact):**
+1. [Event] — Duration: short-lived / medium-term / structural
+2. [Event] — Duration: short-lived / medium-term / structural
+3. [Event] — Duration: short-lived / medium-term / structural
 
-**Risk Impact Decomposition:**
+**Risk Scorecard:**
 
-| Risk Type | Status | Estimated Impact | Timeline | Most Exposed Assets |
-|-----------|--------|-------------------|----------|---------------------|
-| Inflation/supply disruption | | High/Medium/Low | | |
-| Growth/recession risk | | High/Medium/Low | | |
-| FX/sanctions/capital flows | | High/Medium/Low | | |
-| Energy price risk | | High/Medium/Low | | |
+| Risk Type | Status | Impact | Timeline | Most Exposed Assets |
+|-----------|--------|--------|----------|---------------------|
+| Inflation / Supply shock | Active / Dormant | High / Medium / Low | 1–4 weeks | [names] |
+| Recession / Growth | Active / Dormant | High / Medium / Low | 1–4 weeks | [names] |
+| FX / Capital flows | Active / Dormant | High / Medium / Low | 1–4 weeks | [names] |
+| Energy supply | Active / Dormant | High / Medium / Low | 1–4 weeks | [names] |
 
-**Market Positioning:**
-- Which markets are pricing in the risk (or not)?
-- Is there asymmetric opportunity if risk escalates or de-escalates?
+**Positioning Reality Check:**
+- Which risk is priced vs. neglected?
+- If risk escalates or de-escalates, which assets reprice most?
 
-## 4. Dollar & Rate Dynamics
+## 4. Dollar & Yield Dynamics
 
 ### DXY (U.S. Dollar Index)
 
-- **Current Trend:** (uptrend / downtrend / consolidating; technical level support/resistance)
-- **Primary Drivers:** (ranked by importance)
-  1. 
-  2. 
-  3. 
-- **Invalidation Scenario:** What price level or economic data would reverse this trend?
-- **Timeframe:** Near-term (1–2 weeks) vs. structural (3+ months)
+| Field | Assessment |
+|-------|------------|
+| **Trend** | Uptrend / Downtrend / Consolidating |
+| **Primary drivers (ranked)** | 1. [Driver] 2. [Driver] 3. [Driver] |
+| **Key support / resistance** | Support: [level] \| Resistance: [level] |
+| **Invalidation level** | [Price or data threshold that reverses the trend] |
+| **Timeframe** | Near-term (1–2W) / Structural (3M+) |
 
-### U.S. Bond Yields
+### U.S. Yields (2Y / 10Y)
 
-**2Y Yield:**
-- Trend and key level:
-- Primary driver (Fed expectations, inflation, recession fears):
-- Forward guidance signal:
+| Metric | Trend | Primary Driver | Invalidation Level | Implication |
+|--------|-------|-----------------|-------------------|------------|
+| **2Y yield** | ↑ ↔ ↓ | Fed expectations / Inflation / Recession fears | [level] | |
+| **10Y yield** | ↑ ↔ ↓ | Inflation expectations / Demand / Fed path | [level] | |
+| **2-10 spread** | Steepening / Flat / Inverting | [Why?] | [level] | Growth signal? |
 
-**10Y Yield:**
-- Trend and key level:
-- Primary driver (inflation expectations, structural demand, Fed path):
-- Forward guidance signal:
+**Real Yield Regime:**
+- 10Y real yield level: [current]
+- Direction: Higher (bullish for USD, headwind for gold) / Lower (bearish for USD, support for gold)
+- Sensitivity: [Brief note on what shifts real yields most right now]
 
-**Yield Curve (2-10 spread):**
-- Current slope (inverted / steep / flat):
-- Recession signal / growth signal:
-- Real-yield implications:
-
-**Invalidation Scenarios:**
-- What Fed communication or data print would reverse yields materially?
-- What is the near-term technical resistance / support?
-
-## 5. Commodity Trend Analysis
+## 5. Commodity Trends
 
 ### Gold
 
-- **Trend & Level:** (consolidating / uptrend / downtrend; key support/resistance)
-- **Primary Driver:** Real yields / DXY / risk sentiment / geopolitical safe-haven demand
-- **Sensitivity Analysis:**
-  - Impact of +50bps in real yields: typically -$XX/oz
-  - Impact of +2% DXY rally: typically -$XX/oz
-  - Risk-off sentiment typically: +$XX/oz
-- **Forward View:** What would trigger gold higher/lower in next 1–4 weeks?
+| Field | Assessment |
+|-------|------------|
+| **Trend & level** | Trend: ↑ ↔ ↓ \| Key support: [level] \| Key resistance: [level] |
+| **Primary driver** | Real yields (dominant) / DXY / Risk sentiment / Geopolitical safe-haven |
+| **Sensitivity** | +50bps real yields → -$XX/oz \| +2% DXY → -$XX/oz \| Risk-off → +$XX/oz |
+| **Next catalyst** | [What data or level triggers the next move] |
+| **Invalidation level** | [Price that breaks the current trend] |
 
 ### Silver
 
-- **Trend & Level:** (consolidating / uptrend / downtrend; key support/resistance)
-- **Demand Mix:**
-  - Industrial demand signal (manufactur­ing PMI, solar installations, electronics):
-  - Monetary demand signal (risk appetite, real yields):
-  - Current demand bias (industrial-driven / monetary-driven / balanced):
-- **Gold/Silver Ratio Context:** (mean reversion opportunity?)
-- **Forward View:** What would trigger silver higher/lower in next 1–4 weeks?
+| Field | Assessment |
+|-------|------------|
+| **Trend & level** | Trend: ↑ ↔ ↓ \| Key support: [level] \| Key resistance: [level] |
+| **Demand bias** | Industrial-driven / Monetary-driven / Balanced |
+| **Industrial signal** | Manufacturing PMI / Solar installations / Semiconductor demand |
+| **Gold/Silver ratio** | Current: [ratio] \| Historical mean: [ratio] \| Mean reversion opportunity? |
+| **Next catalyst** | [What data or level triggers the next move] |
 
-### Oil (WTI + Brent Spread)
+### Oil (WTI & Brent)
 
-- **Trend & Level:** WTI (trend, support/resistance) | Brent (trend, support/resistance) | Spread significance
-- **Primary Drivers:** 
-  - Demand (global growth outlook, seasonal drivers):
-  - Supply (OPEC+ cuts, geopolitical disruption risk, inventory trends):
-  - Sentiment (USD strength, risk appetite):
-- **Geopolitical / OPEC Angle:** (e.g., production cuts, sanctions, Strait of Hormuz risk)
-- **Inventory Context:** (weeks of supply; building or drawing?)
-- **Forward View:** What level invalidates the current trend?
+| Aspect | Assessment |
+|--------|------------|
+| **Trend** | WTI: [level, ↑ ↔ ↓] \| Brent: [level, ↑ ↔ ↓] \| Spread: [significance] |
+| **Demand driver** | Global growth outlook / Seasonal demand / Risk appetite |
+| **Supply context** | OPEC+ output / Geopolitical risk / Inventory (building / drawing) |
+| **Invalidation level** | [Price that breaks the current trend] |
 
 ### Other Commodities (if relevant)
+- **Copper:** [Trend + growth signal interpretation]
+- **Uranium:** [Trend + energy transition context]
+- **Natural Gas:** [Trend + seasonal/supply/geopolitical factors]
 
-- **Copper:** (growth signal; trend and invalidation level)
-- **Uranium:** (energy transition, supply/demand balance)
-- **Natural Gas:** (seasonal, supply, geopolitical, LNG export context)
-- **Soft Commodities:** (if macro-relevant)
+## 6. Economic Calendar: Next 2 Weeks
 
-## 6. U.S. Economic Calendar: Next 2 Weeks
+Include only releases with realistic regime-shift potential. Flag high surprise risk vs. consensus.
 
-**Include only releases that could realistically shift the macro regime.** Forecast vs. prior and consensus helps identify surprise risk.
+| Event | Date (ET) | Consensus | Prior | Surprise Risk | Market Impact if Beat | Market Impact if Miss |
+|-------|-----------|-----------|-------|---------------|-----------------------|----------------------|
+| CPI (headline/core) | | | | High / Medium / Low | Yields ↑, DXY ↑, gold ↓ | Yields ↓, DXY ↓, gold ↑ |
+| PPI | | | | High / Medium / Low | Yields ↑, inflation narrative | Yields ↓, disinflation narrative |
+| NFP / Unemployment | | | | High / Medium / Low | Growth confirmation, yields ↑ | Recession fears, yields ↓ |
+| Retail Sales | | | | High / Medium / Low | Consumer strength, growth ↑ | Weakness, growth ↓ |
+| ISM Manufacturing | | | | High / Medium / Low | Inflation signal, yields ↑ | Slowdown signal, yields ↓ |
+| ISM Services | | | | High / Medium / Low | Growth signal, risk-on | Slowdown, risk-off |
+| Fed Speaker | [Date/Time] | [Topic] | — | High / Medium / Low | Hawkish: yields ↑, DXY ↑ | Dovish: yields ↓, DXY ↓ |
+| FOMC / Rate Decision | [Date/Time] | [Expected outcome] | — | High / Medium / Low | Major repricing across all assets |
 
-| Event | Date | Time (ET) | Consensus | Prior | Forecast | Why It Matters | Assets Most Exposed |
-|-------|------|-----------|-----------|-------|----------|---|---|
-| CPI (headline/core YoY) | | | | | | Inflation trajectory; Fed repricing | DXY, 10Y yield, gold, real yields |
-| PPI | | | | | | Pipeline inflation signal | Yields, DXY, metals |
-| NFP / Unemployment | | | | | | Labor market health; growth signal | Yields, DXY, equities, cyclicals |
-| Retail Sales | | | | | | Consumer spending momentum | Yields, growth assets, USD |
-| ISM Services PMI | | | | | | Service sector health; growth signal | Yields, risk appetite |
-| ISM Manufacturing PMI | | | | | | Industrial momentum; inflation signal | DXY, commodities, yields |
-| Initial Jobless Claims | | | | | | Labor market stress detector | Yields, risk sentiment |
-| Fed Speaker / Remarks | | | | N/A | | Rate path clarity; inflation expectations | Yields, DXY, gold |
-| FOMC / Rate Decision | | | | N/A | | Major policy repricing event | All risk assets |
-| Treasury Auction | | | | N/A | | Long-end demand; yield pressure | 10Y, 30Y, DXY |
+**Key Question:** Which single release in the next 2 weeks carries the highest surprise risk? [Answer in 1–2 sentences]
 
-**Analysis Framework:**
-- Which release carries the highest surprise risk given current consensus?
-- If hotter than consensus: Implications for yields, DXY, gold (inflation + rate hike narrative)
-- If cooler than consensus: Implications for yields, risk appetite, real yields (slowdown + cuts narrative)
+## 7. Regime & Correlation Analysis
 
-## 7. Cross-Asset Regime & Correlation Analysis
+**Current Regime:**
+- **Risk Sentiment:** Risk-on / Risk-off / Bifurcated [Which assets are decoupled?]
+- **Real Rate Direction:** Rising / Falling / Stable
+- **Dollar Trend:** Strengthening / Weakening / Range-bound
+- **Inflation Narrative:** Sticky / Easing / Confused
+- **Growth Outlook:** Accelerating / Stalling / Unchanged
 
-**Current Regime Classification:**
-- **Risk Sentiment:** Risk-on / Risk-off / Bifurcated (e.g., equities up, commodities flat)
-- **Real Rate Regime:** Rising / Falling / Stable
-- **Dollar Cycle:** Strengthening / Weakening / Range-bound
-- **Commodity Cycle:** Inflationary / Disinflationary / Transition
+**Directional View (Next 1–4 Weeks):**
 
-**Asset-by-Asset Directional View:**
+| Asset | Direction | Bull Case | Bear Case | Key Level |
+|-------|-----------|-----------|-----------|-----------|
+| DXY | ↑ ↔ ↓ | | | [invalidation] |
+| U.S. 10Y Yield | ↑ ↔ ↓ | | | [invalidation] |
+| Gold | ↑ ↔ ↓ | | | [invalidation] |
+| Silver | ↑ ↔ ↓ | | | [invalidation] |
+| Oil (WTI) | ↑ ↔ ↓ | | | [invalidation] |
+| Equities (growth) | ↑ ↔ ↓ | | | [invalidation] |
 
-| Asset | Outlook (Next 1–4W) | Bull Case | Bear Case | Invalidation Level |
-|-------|-----|----------|-----------|---|
-| **DXY** | ↑ ↔ ↓ | | | |
-| **U.S. 10Y Yield** | ↑ ↔ ↓ | | | |
-| **Gold** | ↑ ↔ ↓ | | | |
-| **Silver** | ↑ ↔ ↓ | | | |
-| **Oil (WTI)** | ↑ ↔ ↓ | | | |
-| **Equities (growth)** | ↑ ↔ ↓ | | | |
+**Key Correlations:**
+- **Gold ↔ Real Yields:** [Positive / Negative / Decoupled] — Why?
+- **DXY ↔ Commodities:** [Inverse / Synchronous / Decoupled] — Why?
+- **Yields ↔ Growth:** [Normal inverse / Broken / Normal] — Why?
+- **Risk Sentiment ↔ Gold:** [Correlated / Decoupled] — Safe-haven demand active?
 
-**Key Correlations to Monitor:**
-- **Gold ↔ Real Yields:** Currently (positive / negative / decoupled)? Why?
-- **DXY ↔ Commodities:** Currently (inverse / synchronous / decoupled)? Why?
-- **Yields ↔ Growth:** Currently (normal inverse / broken)? Why?
-- **Risk Sentiment ↔ Commodity Prices:** Currently (correlated / decoupled)? Why?
+**Consensus & Crowding:**
+- Where is positioning most extreme?
+- Most vulnerable to reversal if macro scenario shifts?
 
-**Consensus Positioning vs. Reality:**
-- Where is sentiment extreme (crowded long/short)?
-- Is that positioning supported by fundamentals or vulnerable to reversal?
+## 8. Sector & Portfolio Impact
 
-## 8. Sector & Portfolio Implications
+**Sector Macro Exposure:**
 
-**Macro-Sensitive Sector Outlook:**
+| Sector | Macro Tailwind / Headwind | Key Sensitivity | Affected Watchlist Names |
+|--------|---------------------------|-----------------|-------------------------|
+| Gold & Silver Miners | Real yields ↓ / Risk-off | Real yields, DXY, sentiment | [TICKERS] |
+| Oil & Energy (E&P) | Growth strength, USD weakness | Global demand, DXY, geopolitics | [TICKERS] |
+| Solar / Renewables | Inflation easing, growth | Real yields, energy prices, grid demand | [TICKERS] |
+| Technology / Semicon | Growth, rates | Tech earnings, cost of capital, AI spend | [TICKERS] |
+| Automotive (EV/ICE) | Growth, rates, commodities (copper, lithium) | Real yields, industrial demand, materials | [TICKERS] |
+| Uranium | Energy transition, geopolitics | Long-term demand, nuclear, LNG export | [TICKERS] |
 
-| Sector / Theme | Current Macro Regime | Tailwind / Headwind | Key Watchlist Names Affected |
-|---|---|---|---|
-| **Gold & Silver Miners** | | | |
-| **Oil & Energy (E&P)** | | | |
-| **Renewable Energy / Solar** | | | |
-| **Technology / Semicon** | | | |
-| **Automotive (ICE + EV)** | | | |
-| **Uranium** | | | |
+**Immediate Watchlist Actions:**
 
-**Specific Watchlist Action Items:**
+1. **Names requiring fresh analysis due to macro shift:**
+   - [TICKER]: [Specific thesis change and why]
+   - [TICKER]: [Specific thesis change and why]
 
-1. **Names to review due to macro shift:**
-   - [TICKER]: [Why this macro setup changes the thesis]
-   - [TICKER]: [Why this macro setup changes the thesis]
+2. **Catalysts affecting holdings over next 1–4 weeks:**
+   - [Release]: Impact on [sector] — Action if beat / Action if miss
+   - [Release]: Impact on [sector] — Action if beat / Action if miss
 
-2. **Macro catalysts in next 1–4 weeks that affect holdings:**
-   - [Specific release or event]: Impact on [sector/names]
-   - [Specific release or event]: Impact on [sector/names]
+3. **Scenario-Based Position Adjustments:**
+   - If [specific macro outcome]: [Action]
+   - If [specific macro outcome]: [Action]
 
-3. **Position adjustments to consider:**
-   - If [scenario A] occurs: [Action]
-   - If [scenario B] occurs: [Action]
-
-## 9. Review Scheduling & Invalidation Triggers
+## 9. Forward Review & Triggers
 
 **Next Scheduled Review:** [YYYY-MM-DD] [HH:MM local time]
-
-**Routine Review Frequency:** Weekly / Bi-weekly / Monthly (default: weekly on Monday before market open)
+- **Frequency:** Daily / Weekly / Bi-weekly (default: weekly Monday AM unless volatility dictates)
+- **Hourly monitoring?** Yes / No → Next checkpoint: [YYYY-MM-DD HH:00]
 
 **Bring Forward Immediately If:**
-- ✓ Geopolitical escalation (sanctions, conflict, trade war announcement)
-- ✓ Surprise macro print (> ±1 std dev from consensus)
-- ✓ Major Fed speaker or policy shift
-- ✓ DXY, yields, gold, or oil move > 2–3% in 1 day
-- ✓ Yield curve inversion/un-inversion
-- ✓ VIX spike > 30
+- Geopolitical escalation (conflict, sanctions, trade war)
+- Surprise macro print (> ±1 std dev from consensus)
+- Major Fed speaker or policy shift
+- DXY, yields, gold, or oil move > 2–3% intraday
+- Yield curve inversion/un-inversion
+- VIX spike > 30
 
-**Key Invalidation Triggers (Would Reverse the Current Thesis):**
-- **For DXY uptrend:** [Specific price level] or [specific data beat/miss]
-- **For yield trend:** [Specific price level] or [specific Fed signal]
-- **For gold trend:** [Specific level] and/or [specific macro event]
-- **For oil trend:** [Specific level] and/or [specific supply/demand shock]
+**Thesis Invalidation Triggers:**
 
-## 10. Executive Summary & Action Items
+| Component | Invalidation Level | Invalidation Event |
+|-----------|-------------------|-------------------|
+| **DXY trend** | [Price level] | [Data miss or Fed pivot] |
+| **Yield trend** | [Price level] | [Rate cut signal or inflation surprise] |
+| **Gold trend** | [Price level] | [Real yield spike or risk-on reversal] |
+| **Oil trend** | [Price level] | [Supply shock or demand collapse] |
+
+## 10. Decision Summary
 
 ### Macro Thesis (One Paragraph)
 
-[Synthesize: current regime + key driver + forward outlook + conviction level]
+Write last. Synthesize: current regime + primary driver + forward direction + conviction.
 
-Example: *"The dollar is consolidating after a 4-week rally driven by sticky inflation and Fed hawkish repricing. Real yields are at 2.5%, supporting continued USD strength, but upcoming NFP and CPI data carry significant surprise risk in both directions. Unless we see a substantial miss in labor data, the dollar bias remains constructive through end of month."*
+Example: *"Real yields are rising on sticky inflation and Fed hawkish tilt. DXY consolidates near key resistance; break above confirms structural strength into quarter-end. Gold faces headwinds from higher real yields but retains safe-haven support if geopolitical risk escalates. Oil stable pending global demand clarity. Precious metals miners under pressure; energy names supported."*
 
-### Decision Hierarchy
+### Action Priority Matrix
 
-| Priority | What Happens | Market Impact | Your Action |
-|----------|--------------|---|---|
-| **Immediate** | | (DXY ↑2%, yields ↑50bps, gold ↓$XX) | |
-| **Important** | | (DXY ↑1%, yields ↑25bps, gold ↓$XX) | |
-| **Monitor** | | (Modest move across most assets) | |
+| Urgency | Scenario | Market Impact | Your Action |
+|---------|----------|---------------|------------|
+| **High** | [Likely scenario] | [Asset moves] | [Position adjustment] |
+| **Medium** | [Important scenario] | [Asset moves] | [Position adjustment] |
+| **Low** | [Monitor scenario] | [Asset moves] | [No action, watch] |
 
-### What Matters Most in Next 1–4 Weeks
+### What Matters Most: Next 1–4 Weeks
 
-1. **[Event/Release]** — [Why it matters and what level/data would shift the view]
-2. **[Event/Release]** — [Why it matters and what level/data would shift the view]
-3. **[Event/Release]** — [Why it matters and what level/data would shift the view]
+**Top 3 catalysts / inflection points (ranked by market impact):**
+1. **[Event/Release]** (date, time) — Why it matters and what outcome shifts the thesis
+2. **[Event/Release]** (date, time) — Why it matters and what outcome shifts the thesis
+3. **[Event/Release]** (date, time) — Why it matters and what outcome shifts the thesis
 
-### Key Levels to Watch
+### Critical Levels to Monitor
 
-**Will CONFIRM the current thesis if broken above/below:**
-- DXY: [level]
-- 10Y yield: [level]
-- Gold: [level]
-- Oil: [level]
-
-**Will INVALIDATE the current thesis if broken:**
-- DXY: [level]
-- 10Y yield: [level]
-- Gold: [level]
-- Oil: [level]
+| Asset | Confirms Thesis | Invalidates Thesis | Current Level |
+|-------|-----------------|-------------------|---------------|
+| **DXY** | [breakout level] | [breakdown level] | |
+| **10Y yield** | [breakout level] | [breakdown level] | |
+| **Gold** | [breakout level] | [breakdown level] | |
+| **Oil (WTI)** | [breakout level] | [breakdown level] | |
 
 ---
 
-**Last updated:** [YYYY-MM-DD HH:MM] | **Next review:** [YYYY-MM-DD HH:MM] | **Confidence level:** High / Medium / Low
+**Review Metadata:**
+- **Last updated:** [YYYY-MM-DD HH:MM]
+- **Next review:** [YYYY-MM-DD HH:MM]
+- **Confidence level:** High / Medium / Low

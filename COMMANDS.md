@@ -9,9 +9,10 @@ When new commands are added, document them here first so they are easy to search
 Use this section for fast copy-paste.
 
 - `full TICKER` — run the full research workflow for a ticker
+- `update today` — run the daily maintenance sequence: macro, watchlist, then portfolio
 - `update watchlist` — refresh watchlist prices and flag actionable names
 - `update porto` — update live positions, open orders, and completed trades
-- `update macro` — review geopolitics, DXY, yields, commodities, and the next key U.S. macro date
+- `update macro` — run an upgraded macro refresh with top-down review, event-risk tracking, and hourly notes when conditions are volatile
 
 ## Command Details
 
@@ -38,6 +39,27 @@ Primary references:
 - `AGENT.md`
 - `WORKFLOW-CHECKLIST.md`
 - `CLAUDE.md`
+
+### `update today`
+
+Purpose:
+
+- Run the standard daily maintenance workflow in the correct order so top-down context is refreshed before watchlist and portfolio maintenance.
+
+What it should do:
+
+- run `update macro` first
+- run `update watchlist` second
+- run `update porto` third
+- preserve the sequence unless the user explicitly asks for a different order
+- return one concise summary covering macro changes, watchlist actions, and portfolio record updates
+
+Primary references:
+
+- `AGENT.md`
+- `WORKFLOW-CHECKLIST.md`
+- `CLAUDE.md`
+- `README.md`
 
 ## Watchlist Commands
 
@@ -89,7 +111,7 @@ Primary references:
 
 Purpose:
 
-- Run a top-down macro review covering geopolitics, DXY, U.S. bond yields, commodities, and the upcoming U.S. economic calendar.
+- Run an upgraded macro workflow covering geopolitics, DXY, U.S. bond yields, commodities, the upcoming U.S. economic calendar, and higher-frequency tracking when markets are volatile.
 
 What it should do:
 
@@ -97,12 +119,14 @@ What it should do:
 - refresh DXY, 2Y, 10Y, and real-yield context
 - refresh gold, silver, oil, and other relevant commodities
 - identify the next important U.S. macro release
-- save a structured macro note
-- set the next review date based on the nearest meaningful catalyst
+- save a structured macro top-down note
+- add an hourly macro monitor note when volatility, event risk, or cross-asset moves are elevated
+- set the next review time based on the nearest meaningful catalyst or the next hourly checkpoint during high-volatility periods
 
 Primary references:
 
 - `05_templates/macro_top_down_review_template.md`
+- `05_templates/macro_hourly_monitor_template.md`
 - `AGENT.md`
 - `CLAUDE.md`
 
