@@ -159,10 +159,14 @@ Required behavior for `update porto`:
 
 - update current live positions in `holdings_snapshot.csv`
 - refresh position-level metrics in `holdings_snapshot.csv` such as current price, unrealized P/L, and unrealized P/L %
+- **do not include tickers with 0 shares in `holdings_snapshot.csv`** — only active positions
 - update open pending orders in `open_orders.csv`
+  - **sort by: sector (asc), ticker (asc), action (asc), limit_price (asc)**
 - update filled trades in `transactions.csv`
+  - **sort by: sector (asc), ticker (asc), action (asc), price (asc)**
 - keep open orders separate from completed transactions
 - use exact dates in all portfolio files
+- include `sector` column in all portfolio CSV files (holdings, open_orders, transactions)
 
 Expected output for `update porto`:
 

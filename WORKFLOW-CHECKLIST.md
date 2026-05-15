@@ -188,10 +188,16 @@ Use this when the user says `update macro`, asks for a top-down market refresh, 
 
 Use this when the user says `update porto` or asks to update portfolio records.
 
-- [ ] Update `04_portfolio/holdings/holdings_snapshot.csv` for live positions
+- [ ] Update `04_portfolio/holdings/holdings_snapshot.csv` for live positions only
+  - [ ] **Do NOT include tickers with 0 shares** — holdings should only list active positions
+  - [ ] Include `sector` column
 - [ ] Refresh holdings metrics such as current price and unrealized P/L
 - [ ] Update `04_portfolio/transactions/open_orders.csv` for open pending orders
+  - [ ] Include `sector` column
+  - [ ] **Sort by: sector (asc), ticker (asc), action (asc), limit_price (asc)**
 - [ ] Update `04_portfolio/transactions/transactions.csv` for completed fills
+  - [ ] Include `sector` column
+  - [ ] **Sort by: sector (asc), ticker (asc), action (asc), price (asc)**
 - [ ] Keep open orders separate from completed transactions
 - [ ] Use exact dates in all portfolio files
 

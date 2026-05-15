@@ -252,13 +252,25 @@ When running `update watchlist`:
   - stale and should be re-analyzed before any entry decision
 
 ### Holdings (`04_portfolio/holdings/holdings_snapshot.csv`)
+Columns: `date`, `ticker`, `shares`, `avg_cost`, `current_price`, `unrealized_pnl`, `unrealized_pnl_pct`, `thesis_status`, `notes`, `sector`
 Tracks current positions, current price, and unrealized P/L.
+- **Only include tickers with active shares** — do not list tickers with 0 shares in this file
+- Pending positions waiting for buy orders to fill should be tracked in `open_orders.csv`, not here
+- **`sector` column (rightmost)** — used for sorting; not displayed in main view
+- **Sort by sector (ascending), then by ticker (ascending)**
 
 ### Transactions (`04_portfolio/transactions/transactions.csv`)
+Columns: `date`, `ticker`, `action`, `shares`, `price`, `fees`, `total_value`, `reason`, `notes`, `sector`
 Logs all buy/sell trades with date, ticker, shares, price, and notes.
+- **`sector` column (rightmost)** — used for sorting; not displayed in main view
+- **Sort by:** `sector` (ascending), `ticker` (ascending), `action` (ascending), `price` (ascending)
 
 ### Open Orders (`04_portfolio/transactions/open_orders.csv`)
+Columns: `date`, `ticker`, `action`, `shares`, `limit_price`, `status`, `reason`, `notes`, `sector`
 Tracks pending buy/sell orders that have not filled yet.
+- **`sector` column (rightmost)** — used for sorting; not displayed in main view
+- **Sort by:** `sector` (ascending), `ticker` (ascending), `action` (ascending), `limit_price` (ascending)
+- Keep entries organized for quick scanning of pending order status by sector and ticker
 
 ## Common Workflows
 
