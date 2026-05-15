@@ -78,11 +78,7 @@ Preferred source order:
 4. Primary macro source: BLS, BEA, Fed, Treasury, EIA, company IR event pages
 5. Reputable market data page for quote checking
 
-**Stock Price Sources by Session:**
-- **RTH, Premarket, Post-Market Prices:** [TradingView.com](https://www.tradingview.com/) (primary source)
-- **After-Hours (OTH) Trading & Sentiment:** [StockTwits.com](https://stocktwits.com/) (primary source)
-
-Secondary summaries can help with context, but not as the final authority when a primary source exists.
+Verify current prices from available sources: SEC filings, earnings releases, company IR pages, and financial data sites. Proceed with analysis using the best available information without blocking on manual data entry.
 
 ## Default Command Behavior
 

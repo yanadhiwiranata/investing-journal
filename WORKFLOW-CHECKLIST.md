@@ -6,10 +6,7 @@
 
 - [ ] **Step 0: Data Freshness** (See AGENT.md Step 0)
   - [ ] Verify current date (today is 2026-05-15)
-  - [ ] **Current stock price (user provides via paste from TradingView or StockTwits):**
-    - [ ] **RTH / Premarket / Post-Market:** Check [TradingView.com](https://www.tradingview.com/) and paste price + timestamp
-      - Example: "MTDR $57.31 on TradingView RTH as of 2026-05-15 14:30:00"
-    - [ ] **After-Hours (OTH) if relevant:** Check [StockTwits.com](https://stocktwits.com/) for sentiment, volume, price if markets closed
+  - [ ] Verify current stock price from latest available sources (SEC filings, IR pages, financial data)
   - [ ] Confirm latest reported quarter from SEC/IR
   - [ ] Search for latest analyst ratings (TipRanks, 5 most recent)
   - [ ] Verify current commodity prices if applicable

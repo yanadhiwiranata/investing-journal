@@ -32,7 +32,7 @@ For ticker-analysis and company research tasks, treat `AGENT.md` as the primary 
 Default behavior:
 
 - Read `AGENT.md` first for any request like `analyze EXK`, `update MTDR`, or `review HL`
-- Read `AGENT.md` first for pasted macro screenshots or TradingView calendar images
+- Read `AGENT.md` first for macro analysis and economic calendar events
 - Use `CLAUDE.md` as the companion file for repository structure, naming conventions, and supporting workflow details
 - Use `COMMANDS.md` as the central index for reusable repo commands
 - If the prompt looks like a named repo command, resolve it through `COMMANDS.md` first
@@ -72,28 +72,9 @@ Preferred source order for current financial facts:
 4. Federal Reserve, BLS, BEA, Treasury, EIA, or other primary macro source
 5. High-quality market data pages for quote checking
 
-## Price Data Sources (Manual Paste Workflow)
+## Price Data Verification
 
-**Primary sources to check — but Claude cannot fetch live data from these automatically:**
-
-For **current stock prices during RTH, premarket, post-market:**
-- Primary: [TradingView.com](https://www.tradingview.com/)
-- **Practical workflow:** You paste the current price + timestamp from TradingView
-- Claude then incorporates it into watchlist updates, portfolio snapshots, and analysis
-
-For **outside regular trading hours (OTH) sentiment and after-hours activity:**
-- Primary: [StockTwits.com](https://stocktwits.com/)
-- **Practical workflow:** You paste OTH price/volume discussion when relevant to thesis
-- Claude uses it to assess after-hours momentum or thesis staleness
-
-**Why manual paste?** TradingView charts and StockTwits live feeds use JavaScript rendering. Claude's web tools can only fetch static HTML pages, so live quotes won't load. The most reliable and fastest approach is:
-1. You pull the current price from TradingView or StockTwits (with exact timestamp)
-2. You paste it into the chat: e.g., "MTDR $57.31 RTH on TradingView as of 2026-05-15 14:30:00"
-3. Claude incorporates it with full precision and sources it correctly
-
-This workflow ensures 100% accuracy on timestamps and prices without tool limitations.
-
-When a prompt asks for a "latest" or "current" view, the agent should assume stale information is risky and should actively refresh the facts.
+When analyzing current conditions, always verify the latest price information from available sources (SEC filings, earnings releases, company IR pages, financial data sites). When a prompt asks for a "latest" or "current" view, the agent should verify the facts from primary sources before proceeding with analysis.
 
 ## Repository Overview
 
@@ -164,40 +145,23 @@ When a user provides a **ticker symbol** in Claude chat:
    - `automotive`
    - `solar_energy`
 
-## Working with Pasted Macro Screenshots
+## Macro Analysis Workflow
 
-When a user pastes a screenshot from TradingView or a similar platform, especially a U.S. economic calendar image:
+When analyzing macroeconomic conditions:
 
-1. **Extract the visible event data**:
-   - date
-   - event name
-   - time
-   - actual
-   - forecast
-   - prior
+1. **Extract relevant event data** from available sources:
+   - date, event name, time
+   - actual, forecast, prior values
 
-2. **Translate the screenshot into macro interpretation**:
-   - Is the print hotter, cooler, or in line?
-   - Is it supportive or negative for yields?
-   - Is it supportive or negative for DXY?
-   - Is it supportive or negative for gold and silver?
+2. **Translate into macro interpretation**:
+   - Is the print hotter, cooler, or in line with forecast?
+   - Impact on yields, DXY, precious metals, and oil
 
-3. **Create a markdown note** under:
-   - `02_market/macroeconomy/`
+3. **Create a markdown note** under `02_market/macroeconomy/`
 
-4. **Focus the note on cross-asset impact**, especially:
-   - gold
-   - silver
-   - DXY
-   - U.S. 2Y yield
-   - U.S. 10Y yield
-   - risk sentiment
-   - oil if relevant
+4. **Focus on cross-asset impact**: gold, silver, DXY, U.S. 2Y/10Y yields, risk sentiment, oil
 
-5. **Connect the macro read back to tracked sectors**:
-   - precious metals miners
-   - oil and energy
-   - any highly exposed watchlist names
+5. **Connect macro read back to tracked sectors**: precious metals miners, oil and energy, watchlist names
 
 ## Key Naming Conventions
 
@@ -565,33 +529,25 @@ When asked to `update porto`, treat it as a portfolio-record workflow.
 4. Keep positions, open orders, and completed trades separated cleanly
 5. Use exact dates in all portfolio files
 
-### Analyze a Pasted U.S. Calendar Screenshot
+### Analyze U.S. Calendar Events
 
-When the user pastes a calendar screenshot, treat it as a request to convert event data into market interpretation.
+When analyzing U.S. economic calendar events:
 
-**Step 1: Extract visible event details**
-- Capture the date, time, event name, actual, forecast, and prior values from the screenshot
+**Step 1: Extract event details**
+- Capture the date, time, event name, actual, forecast, and prior values
 
 **Step 2: Determine the macro surprise**
 - Compare actual versus forecast
 - Note whether the result is inflationary, disinflationary, growth-positive, growth-negative, or neutral
 
 **Step 3: Write the market impact logic**
-- Explain the likely effect on:
-  - gold
-  - silver
-  - DXY
-  - U.S. 2Y and 10Y yields
-  - equities / risk sentiment
-  - oil if relevant
+- Explain the likely effect on gold, silver, DXY, U.S. 2Y and 10Y yields, equities, and oil
 
 **Step 4: Save a markdown note**
 - Save under `02_market/macroeconomy/`
-- Prefer filenames like:
-  - `YYYY-MM-DD-us-calendar-impact.md`
-  - `YYYY-MM-DD-macro-screenshot-analysis.md`
+- Use filenames like `YYYY-MM-DD-us-calendar-impact.md`
 
-**Step 5: End with a usable trend verdict**
+**Step 5: End with a trend verdict**
 - State whether the setup is bullish, neutral, or bearish for gold, silver, DXY, and yields
 - Mention the next report or catalyst that matters most
 
@@ -632,9 +588,9 @@ When Claude Code or agents receive `full TICKER`:
 - create or update both the comparison note and company note
 - do not skip any mandatory workflow step
 
-When Claude Code or agents receive a pasted TradingView macro screenshot:
-- Extract the visible event and market data
-- Convert it into a markdown note in `02_market/macroeconomy/`
+When analyzing macro conditions:
+- Extract event and market data from available sources
+- Convert into a markdown note in `02_market/macroeconomy/`
 - Explain likely impact on gold, silver, DXY, and yields first
 - Connect the macro setup to gold miners, silver miners, and energy names when relevant
 
