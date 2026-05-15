@@ -464,12 +464,10 @@ Keep the order and timestamps unchanged unless the user explicitly requests othe
 - **Watchlist:** Update `04_portfolio/watchlist/watchlist.csv` 
   - Refresh `current_price` and `current_price_timestamp` columns
   - Use **matching timestamp:** `2026-05-15 08:00:00` (same as macro file HHMM)
-  - Also create hourly snapshot: `2026-05-15-0800-watchlist-snapshot.csv` for audit trail
   - Compare updated prices against `target_buy_zone` and identify actionable names
 
 - **Portfolio:** Update `04_portfolio/holdings/holdings_snapshot.csv` and other portfolio files
   - Refresh `current_price` with matching timestamp: `2026-05-15 08:00:00`
-  - Also create hourly snapshot: `2026-05-15-0800-holdings-snapshot.csv` for audit trail
   - Update `unrealized_pnl` and `unrealized_pnl_pct` based on refreshed prices
   - Keep `transactions.csv` and `open_orders.csv` current
 
@@ -478,9 +476,7 @@ Keep the order and timestamps unchanged unless the user explicitly requests othe
 Macro file:              2026-05-15-0800-macro-today-update.md
 Macro data timestamp:    2026-05-15 08:00:00 Jakarta time
 Watchlist prices:        current_price_timestamp = 2026-05-15 08:00:00
-Watchlist snapshot:      2026-05-15-0800-watchlist-snapshot.csv
 Portfolio prices:        current_price_timestamp = 2026-05-15 08:00:00
-Portfolio snapshot:      2026-05-15-0800-holdings-snapshot.csv
 ```
 
 End with one concise summary that combines:

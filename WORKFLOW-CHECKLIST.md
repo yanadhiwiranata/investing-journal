@@ -202,8 +202,6 @@ Use this when the user says `update today` or asks for the full daily maintenanc
    - [ ] Refresh current prices for all active watchlist rows
    - [ ] **Update `current_price_timestamp`:** Use MATCHING time from macro (e.g., `2026-05-15 08:00:00`)
    - [ ] Update `current_price`, `reference_price`, `last_analyzed_at` fields
-   - [ ] **Create hourly snapshot:** `YYYY-MM-DD-HHMM-watchlist-snapshot.csv`
-   - [ ] **Example snapshot:** `2026-05-15-0800-watchlist-snapshot.csv`
    - [ ] Compare refreshed prices against `target_buy_zone`
    - [ ] Use macro read to assess thesis staleness
 
@@ -212,12 +210,6 @@ Use this when the user says `update today` or asks for the full daily maintenanc
    - [ ] **Update `current_price_timestamp`:** Use MATCHING time from macro (e.g., `2026-05-15 08:00:00`)
    - [ ] Recalculate `unrealized_pnl` and `unrealized_pnl_pct` based on refreshed prices
    - [ ] Update open orders and completed transactions
-   - [ ] **Create hourly snapshots:** 
-     - `YYYY-MM-DD-HHMM-holdings-snapshot.csv`
-     - `YYYY-MM-DD-HHMM-open-orders-snapshot.csv`
-   - [ ] **Example snapshots:** 
-     - `2026-05-15-0800-holdings-snapshot.csv`
-     - `2026-05-15-0800-open-orders-snapshot.csv`
 
 4. [ ] **Final Summary** combining all three (use matching timestamp):
    - Macro verdict + next catalyst
@@ -227,10 +219,8 @@ Use this when the user says `update today` or asks for the full daily maintenanc
 
 **Timestamp Synchronization Checklist:**
 - [ ] Macro file: `2026-05-15-0800-macro-*.md`
-- [ ] Watchlist timestamp: `current_price_timestamp = 2026-05-15 08:00:00`
-- [ ] Watchlist snapshot: `2026-05-15-0800-watchlist-snapshot.csv`
-- [ ] Portfolio timestamp: `current_price_timestamp = 2026-05-15 08:00:00`
-- [ ] Portfolio snapshot: `2026-05-15-0800-holdings-snapshot.csv`
+- [ ] Watchlist `current_price_timestamp`: `2026-05-15 08:00:00`
+- [ ] Portfolio `current_price_timestamp`: `2026-05-15 08:00:00`
 - [ ] All three use SAME HHMM (08:00 in this example)
 - [ ] Run `update porto` third
 - [ ] Keep the sequence intact so macro context informs the watchlist and portfolio updates

@@ -130,12 +130,10 @@ Required behavior for `update today`:
 
 - **For watchlist update:** Refresh `04_portfolio/watchlist/watchlist.csv`
   - Update `current_price` and `current_price_timestamp` with matching time: `2026-05-15 08:00:00`
-  - Create hourly snapshot: `2026-05-15-0800-watchlist-snapshot.csv` for audit trail
   - Use macro read to flag any thesis staleness after market moves
 
 - **For portfolio update:** Refresh holdings, open orders, and transactions
   - Update `current_price` with matching timestamp: `2026-05-15 08:00:00`
-  - Create hourly snapshots: `2026-05-15-0800-holdings-snapshot.csv` and `2026-05-15-0800-open-orders-snapshot.csv`
   - Recalculate unrealized P/L based on refreshed prices
 
 - complete the three commands in that order unless the user explicitly changes it
@@ -145,8 +143,8 @@ Required behavior for `update today`:
 Expected output for `update today`:
 
 - macro note with hourly timestamp filename and freshness verification (`2026-05-15-0800-macro-today-update.md`)
-- updated watchlist with matching timestamp + hourly snapshot (`2026-05-15-0800-watchlist-snapshot.csv`)
-- updated portfolio with matching timestamp + hourly snapshots (`2026-05-15-0800-holdings-snapshot.csv`, etc.)
+- updated watchlist with matching timestamp (`current_price_timestamp = 2026-05-15 08:00:00`)
+- updated portfolio with matching timestamp (`current_price_timestamp = 2026-05-15 08:00:00`)
 - one combined decision-useful summary that links macro context to watchlist actionability and portfolio P/L impact
 
 When the user says `update watchlist`, interpret it as a watchlist-maintenance command focused on `04_portfolio/watchlist/watchlist.csv`, not as a single-ticker deep dive.
