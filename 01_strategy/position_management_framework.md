@@ -317,7 +317,7 @@ Pending positions are your **opportunity queue** — you have 10 tickers with 1s
 | Rule | Why | Action |
 |------|-----|--------|
 | **Max 10 pending** | Prevents analysis paralysis; keeps watchlist manageable | Monitor 10 limit orders daily; once filled, move to active |
-| **1st layer FIXED at 100 shares** | IBKR only displays 100-share batch sizes off-hours; sizes below 100 don't show, sizes above 100 may show but less reliable | Always use 100 shares for 1st layer pending orders |
+| **1st layer FIXED at 100 shares** | IBKR only displays 100-share batch sizes off-hours; sizes below 100 don't show, sizes above 100 may show but less reliable | Always use 100 shares for 1st layer pending orders; standard refill in premarket/after-hours if conviction rises (e.g., new bullish catalyst, macro setup strengthens) — log refill with reason |
 | **Off-hours fills OK** | Price often overshoots at volume troughs; IBKR pre-market/after-hours captures these moves | Check pre-market, after-hours, and overnight for fills |
 | **Review conviction after 1st fills** | Once 1st layer fills, re-assess thesis before sizing 2nd/3rd | Determine if high/medium/low conviction, then set 2nd/3rd layer sizes accordingly (100-200 shares) |
 | **No adding layers while pending** | Avoid confusion; treat pending and active as separate | Once 1st fills → review conviction → activate 2nd/3rd at appropriate sizes; do NOT layer-add into pending |
