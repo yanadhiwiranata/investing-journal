@@ -31,6 +31,24 @@
 
 ---
 
+## When NOT to Trade: Emotional State Risk Management
+
+**If you're sick, too tired, stressed, or on holiday: CLOSE or TRIM all positions.**
+
+**Why:** Unstable emotional state = poor decision-making = forced exits at bad times. Tired/stressed traders exit winners early, hold losers too long, and miss key signals.
+
+**Action checklist:**
+- **Before long holiday:** Close/trim to 0 positions. Cancel all pending 1st layer orders if you won't be monitoring.
+- **If sick >3 days:** Close 1st/2nd layers; consider closing 3rd layer if thesis still uncertain.
+- **If chronically stressed/tired:** Trim 50% of holdings; reduce active tickers from 4 to 2 max.
+- **During recovery:** Don't re-enter until you feel stable for 2+ consecutive days.
+
+**Exception:** Pending mode (1st layer limit orders only) can stay live if you cancel them before travel.
+
+**Remember:** Missing a trade while healthy > making a bad trade while compromised. Your layers will still be there after recovery.
+
+---
+
 ## Overview
 
 **Layered entry and scale-out strategy** for controlled exposure, defined risk, and predetermined profit-taking. Each position is built in 3 layers with predetermined entry prices and partial exits to lock in gains while maintaining core upside exposure.
