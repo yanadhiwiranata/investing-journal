@@ -5,34 +5,37 @@
 ## Pre-Analysis (Required Every Time)
 
 - [ ] **Step 0: Data Freshness** (See AGENT.md Step 0)
-  - [ ] Verify current date (today is 2026-05-14)
-  - [ ] Search for current stock price with exact date
+  - [ ] Verify current date (today is 2026-05-15)
+  - [ ] **Current stock price (user provides via paste from TradingView or StockTwits):**
+    - [ ] **RTH / Premarket / Post-Market:** Check [TradingView.com](https://www.tradingview.com/) and paste price + timestamp
+      - Example: "MTDR $57.31 on TradingView RTH as of 2026-05-15 14:30:00"
+    - [ ] **After-Hours (OTH) if relevant:** Check [StockTwits.com](https://stocktwits.com/) for sentiment, volume, price if markets closed
   - [ ] Confirm latest reported quarter from SEC/IR
   - [ ] Search for latest analyst ratings (TipRanks, 5 most recent)
   - [ ] Verify current commodity prices if applicable
   - [ ] Check for post-earnings events (guidance changes, M&A, etc.)
   - [ ] Check for macro shifts relevant to thesis
 
-- [ ] **Step 1.5: Read Sector Template & Checklist** (See AGENT.md Step 1.5 — MANDATORY)
+- [ ] **Step 1: Identify Company & Sector** (See CLAUDE.md "Working with Tickers")
+  - [ ] Find company file: `03_sectors/[sector]/companies/TICKER-*.md`
+  - [ ] Check watchlist row: `04_portfolio/watchlist/watchlist.csv`
+  - [ ] Identify primary exchange and reference price
+
+- [ ] **Step 2: Read Sector Template & Checklist** (See AGENT.md Step 1.5 — MANDATORY)
   - [ ] Identify the sector (gold/silver miners, oil/energy, technology, automotive, solar)
   - [ ] Read `05_templates/[SECTOR]_company_template.md` to understand required sections
   - [ ] Read `05_templates/[SECTOR]_research_checklist.md` to understand key metrics
   - [ ] Read `05_templates/earnings_comparison_template.md` for earnings structure
   - [ ] **Critical:** This defines what a COMPLETE analysis looks like for this sector
 
-- [ ] **Step 1: Identify Company & Sector** (See CLAUDE.md "Working with Tickers")
-  - [ ] Find company file: `03_sectors/[sector]/companies/TICKER-*.md`
-  - [ ] Check watchlist row: `04_portfolio/watchlist/watchlist.csv`
-  - [ ] Identify primary exchange and reference price
-
 ## Analysis & Output (Follow Template Structure)
 
-- [ ] **Step 2: Gather Earnings Data** (See AGENT.md Steps 3–4)
+- [ ] **Step 3: Gather Earnings Data** (See AGENT.md Steps 3–4)
   - [ ] Identify latest 3 quarters (current + prior + YoY)
   - [ ] Verify earnings dates and report status
   - [ ] Note if next earnings is already scheduled or upcoming
 
-- [ ] **Step 3: Create/Update Earnings Comparison** (See AGENT.md Step 5)
+- [ ] **Step 4: Create/Update Earnings Comparison** (See AGENT.md Step 5)
   - [ ] Use template: `05_templates/earnings_comparison_template.md`
   - [ ] File location: `03_sectors/[sector]/earnings/[TICKER]/[YYYY-QN]-comparison.md`
   - [ ] **REQUIRED SECTIONS:**
@@ -45,7 +48,7 @@
     - Investment Implications
     - Next Review Trigger
 
-- [ ] **Step 4: Create/Update Company File** (See AGENT.md Step 7)
+- [ ] **Step 5: Create/Update Company File** (See AGENT.md Step 7)
   - [ ] Use sector template: See list below
   - [ ] File location: `03_sectors/[sector]/companies/TICKER-company-name.md`
   - [ ] **REQUIRED SECTIONS:**
@@ -61,12 +64,12 @@
     - Decision (Rating, Conviction, Entry Zones, Invalidation Signs, Next Review)
     - Related Documents
 
-- [ ] **Step 5: Update Watchlist** (See AGENT.md Step 8)
+- [ ] **Step 6: Update Watchlist** (See AGENT.md Step 8)
   - [ ] File: `04_portfolio/watchlist/watchlist.csv`
   - [ ] Update: `current_price`, `current_price_timestamp`, `reference_price`, `last_analyzed_at`, `status`, `thesis_summary`, `next_review_scheduled_at`
   - [ ] Thesis summary should reflect **trend direction** (momentum, guidance, catalyst timing)
 
-- [ ] **Step 6: Set Next Review Date** (See AGENT.md Step 9)
+- [ ] **Step 7: Set Next Review Date** (See AGENT.md Step 9)
   - [ ] Default: 5–10 business days before next earnings
   - [ ] Advance if: major catalyst, commodity shock, geopolitical event, guidance change
 
@@ -87,10 +90,10 @@ If no sector template exists: `company_analysis_template.md`
 ## Key Rules
 
 1. **MANDATORY SEQUENCE:** Read WORKFLOW-CHECKLIST → AGENT.md → IDENTIFY SECTOR → READ SECTOR TEMPLATE/CHECKLIST → ANALYZE
-   - Skipping the sector template reading (Step 1.5) results in incomplete analysis
+   - Skipping the sector template reading (Step 2) results in incomplete analysis
    - The template defines what sections and metrics are required for that sector
 2. **Always read AGENT.md first** for ticker-analysis requests (see CLAUDE.md Quick Start)
-3. **Read the sector template AND checklist BEFORE analyzing** (Step 1.5)
+3. **Read the sector template AND checklist BEFORE analyzing** (Step 2)
    - Gold/silver miners: `gold_silver_miners_company_template.md` + `gold_silver_miners_research_checklist.md`
    - Oil/energy: `oil_energy_upstream_ep_company_template.md` + checklist
    - Technology: `technology_company_template.md` + checklist
@@ -142,47 +145,96 @@ Use this when the user says `update watchlist`.
 - [ ] Update `next_review_scheduled_at` if catalyst timing changed
 - [ ] Return a concise summary of which names are actionable now versus which need deeper work first
 
+## Additional Command: Update Macro
+
+Use this when the user says `update macro`.
+
+**Hourly Update Protocol (Active Monitoring Days):**
+- [ ] **Step 0 - Data Freshness Verification:** Refresh all market prices with live sources (do NOT use cached prices)
+  - [ ] DXY with exact timestamp
+  - [ ] Gold spot price with timestamp
+  - [ ] Silver spot price with timestamp
+  - [ ] U.S. 2Y and 10Y yields (intraday levels, not just prior close)
+  - [ ] WTI and Brent crude with timestamps
+  - [ ] Check for any released macro data (NFP, CPI, PPI, PCE, jobless claims, etc.)
+  - [ ] Check for breaking geopolitical news
+- [ ] **Create new hourly file** with timestamp-based naming: `YYYY-MM-DD-HHMM-macro-*.md`
+  - Examples: `2026-05-15-0800-macro-top-down-review.md`, `2026-05-15-0900-macro-update.md`
+- [ ] **Include Data Freshness Table** showing:
+  - Current Level | 24H Change | Intraday Change (Δ) | Status
+- [ ] **Include Update Log table** at bottom showing:
+  - Time (Jakarta) | Update Summary | Key Changes
+- [ ] **Assess macro regime** (stagflation, risk-on, risk-off, etc.)
+- [ ] **Identify asset implications:**
+  - Is DXY strengthening or weakening?
+  - Are yields rising or falling?
+  - Is gold under pressure or supported?
+  - Is oil holding geopolitical premium?
+- [ ] **Next catalyst:** When is the next major data release or event?
+- [ ] **Keep ALL hourly files** — do not delete or overwrite previous hours
+
+**Triggers for Mid-Session Update:**
+- DXY breaks ±2% intraday
+- Gold/silver breaks ±2% intraday
+- Yields move ±20 bps intraday
+- Oil breaks key levels ($100, $105, etc.)
+- Geopolitical news breaks (Iran, Strait of Hormuz, sanctions)
+- Fed speaker releases comments or surprise data lands
+- Market volatility spikes (VIX > 25)
+
 ## Additional Command: Update Today
 
 Use this when the user says `update today` or asks for the full daily maintenance pass.
 
-- [ ] Run `update macro` first
-- [ ] Run `update watchlist` second
+**⚠️ CRITICAL: Use the SAME hourly timestamp for ALL THREE steps so prices stay synchronized.**
+
+**REQUIRED ORDER & SPECIFICATIONS:**
+
+1. [ ] **Run `update macro` FIRST** (See "Additional Command: Update Macro" above for full protocol)
+   - [ ] **Timestamp:** Determine current time in Jakarta (e.g., 08:00)
+   - [ ] **Macro filename:** `YYYY-MM-DD-HHMM-macro-today-update.md`
+   - [ ] **Example:** `2026-05-15-0800-macro-today-update.md`
+   - [ ] **Include:** Data freshness table + Update log + Macro regime assessment
+   - [ ] **Do NOT overwrite** previous hourly macro files if running multiple times
+   - [ ] **Record timestamp:** Note this HHMM for next two steps
+
+2. [ ] **Run `update watchlist` SECOND** (with MATCHING timestamp from step 1)
+   - [ ] Refresh current prices for all active watchlist rows
+   - [ ] **Update `current_price_timestamp`:** Use MATCHING time from macro (e.g., `2026-05-15 08:00:00`)
+   - [ ] Update `current_price`, `reference_price`, `last_analyzed_at` fields
+   - [ ] **Create hourly snapshot:** `YYYY-MM-DD-HHMM-watchlist-snapshot.csv`
+   - [ ] **Example snapshot:** `2026-05-15-0800-watchlist-snapshot.csv`
+   - [ ] Compare refreshed prices against `target_buy_zone`
+   - [ ] Use macro read to assess thesis staleness
+
+3. [ ] **Run `update porto` THIRD** (with MATCHING timestamp from step 1)
+   - [ ] Refresh current prices for all holdings
+   - [ ] **Update `current_price_timestamp`:** Use MATCHING time from macro (e.g., `2026-05-15 08:00:00`)
+   - [ ] Recalculate `unrealized_pnl` and `unrealized_pnl_pct` based on refreshed prices
+   - [ ] Update open orders and completed transactions
+   - [ ] **Create hourly snapshots:** 
+     - `YYYY-MM-DD-HHMM-holdings-snapshot.csv`
+     - `YYYY-MM-DD-HHMM-open-orders-snapshot.csv`
+   - [ ] **Example snapshots:** 
+     - `2026-05-15-0800-holdings-snapshot.csv`
+     - `2026-05-15-0800-open-orders-snapshot.csv`
+
+4. [ ] **Final Summary** combining all three (use matching timestamp):
+   - Macro verdict + next catalyst
+   - Watchlist names actionable now vs. needing re-analysis
+   - Portfolio P/L changes from price refresh
+   - **All data timestamped:** `2026-05-15 08:00:00` (example)
+
+**Timestamp Synchronization Checklist:**
+- [ ] Macro file: `2026-05-15-0800-macro-*.md`
+- [ ] Watchlist timestamp: `current_price_timestamp = 2026-05-15 08:00:00`
+- [ ] Watchlist snapshot: `2026-05-15-0800-watchlist-snapshot.csv`
+- [ ] Portfolio timestamp: `current_price_timestamp = 2026-05-15 08:00:00`
+- [ ] Portfolio snapshot: `2026-05-15-0800-holdings-snapshot.csv`
+- [ ] All three use SAME HHMM (08:00 in this example)
 - [ ] Run `update porto` third
 - [ ] Keep the sequence intact so macro context informs the watchlist and portfolio updates
 - [ ] Return one concise end-of-run summary covering macro changes, watchlist actions, and portfolio record changes
-
-## Additional Command: Update Macro
-
-Use this when the user says `update macro`, asks for a top-down market refresh, or wants a review of geopolitics, DXY, yields, and commodities.
-
-- [ ] Treat `update macro` as a higher-priority macro refresh, not a light periodic check
-- [ ] Review geopolitics that could affect inflation, growth, energy, shipping, sanctions, or supply chains
-- [ ] Refresh: DXY, U.S. 2Y yield, U.S. 10Y yield, and real yields if relevant
-- [ ] Refresh key commodities relevant to the portfolio:
-  - [ ] Gold
-  - [ ] Silver
-  - [ ] WTI / Brent
-  - [ ] Other focus commodities if relevant
-- [ ] Identify whether the setup is:
-  - [ ] Dollar bullish / neutral / bearish
-  - [ ] Yield bullish / neutral / bearish
-  - [ ] Commodity supportive / neutral / hostile
-- [ ] Review the next important U.S. economic releases:
-  - [ ] CPI
-  - [ ] PPI
-  - [ ] NFP / unemployment
-  - [ ] Retail sales
-  - [ ] ISM PMI
-  - [ ] FOMC / Fed speakers if material
-  - [ ] Treasury auctions if yields are the main driver
-- [ ] Save a structured top-down note in `02_market/macroeconomy/`
-- [ ] Decide whether an hourly note is required:
-  - [ ] Use hourly notes if the data is moving quickly, a major release is due within the same session, or DXY/yields/gold/silver/oil are repricing sharply
-  - [ ] Save hourly notes in `02_market/macroeconomy/` using an hour-level filename
-- [ ] Set the next review time based on the nearest meaningful catalyst, not just a fixed cadence
-- [ ] Use hourly follow-up timing during volatile conditions instead of waiting for the next daily or weekly review
-- [ ] Bring the next review forward immediately if there is a geopolitical escalation or a large move in DXY, yields, gold, silver, or oil
 
 ## Additional Command: Update Porto
 
@@ -190,6 +242,7 @@ Use this when the user says `update porto` or asks to update portfolio records.
 
 - [ ] Update `04_portfolio/holdings/holdings_snapshot.csv` for live positions only
   - [ ] **Do NOT include tickers with 0 shares** — holdings should only list active positions
+  - [ ] When a position closes to 0 shares, **remove the row entirely** from the CSV
   - [ ] Include `sector` column
 - [ ] Refresh holdings metrics such as current price and unrealized P/L
 - [ ] Update `04_portfolio/transactions/open_orders.csv` for open pending orders
@@ -203,9 +256,22 @@ Use this when the user says `update porto` or asks to update portfolio records.
 
 ---
 
+## Timestamp Format Rules
+
+**CSV Files (watchlist, holdings, transactions, etc.):**
+- Use format: `YYYY-MM-DD HH:MM:SS` (e.g., `2026-05-15 08:00:00`)
+- Store timestamps in **Jakarta local time**
+- Do **NOT** append timezone label or "Jakarta time" inside the CSV
+- Include hour, minute, and second for full precision
+
+**Markdown Files (analysis notes, macro notes, etc.):**
+- File names may include timestamps: `YYYY-MM-DD-HHMM-macro-top-down-review.md`
+- Headers may include "Jakarta time" for clarity: `**Last Updated:** 2026-05-15 08:00 Jakarta time`
+- This helps readers understand timezone context without cluttering the CSV data
+
 ## ⚠️ CRITICAL REMINDERS
 
-- **READ THE SECTOR TEMPLATE FIRST (Step 1.5).** This is not optional. The template defines the required structure and metrics for that sector.
+- **READ THE SECTOR TEMPLATE FIRST (Step 2).** This is not optional. The template defines the required structure and metrics for that sector.
 - **If you skip the template reading, your analysis will be incomplete.** You may miss required sections (e.g., Operating Quality, Guidance, Analyst Consensus).
 - **The template is the specification.** If the template requires 10 sections and the company file has 8, your update is incomplete.
 

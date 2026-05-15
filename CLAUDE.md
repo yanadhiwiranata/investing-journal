@@ -72,6 +72,27 @@ Preferred source order for current financial facts:
 4. Federal Reserve, BLS, BEA, Treasury, EIA, or other primary macro source
 5. High-quality market data pages for quote checking
 
+## Price Data Sources (Manual Paste Workflow)
+
+**Primary sources to check — but Claude cannot fetch live data from these automatically:**
+
+For **current stock prices during RTH, premarket, post-market:**
+- Primary: [TradingView.com](https://www.tradingview.com/)
+- **Practical workflow:** You paste the current price + timestamp from TradingView
+- Claude then incorporates it into watchlist updates, portfolio snapshots, and analysis
+
+For **outside regular trading hours (OTH) sentiment and after-hours activity:**
+- Primary: [StockTwits.com](https://stocktwits.com/)
+- **Practical workflow:** You paste OTH price/volume discussion when relevant to thesis
+- Claude uses it to assess after-hours momentum or thesis staleness
+
+**Why manual paste?** TradingView charts and StockTwits live feeds use JavaScript rendering. Claude's web tools can only fetch static HTML pages, so live quotes won't load. The most reliable and fastest approach is:
+1. You pull the current price from TradingView or StockTwits (with exact timestamp)
+2. You paste it into the chat: e.g., "MTDR $57.31 RTH on TradingView as of 2026-05-15 14:30:00"
+3. Claude incorporates it with full precision and sources it correctly
+
+This workflow ensures 100% accuracy on timestamps and prices without tool limitations.
+
 When a prompt asks for a "latest" or "current" view, the agent should assume stale information is risky and should actively refresh the facts.
 
 ## Repository Overview
@@ -120,8 +141,8 @@ When a user provides a **ticker symbol** in Claude chat:
      - U.S.-listed names on `NYSE` / `NASDAQ` should use `USD ($)` for stock price, entry zone, price targets, and short-term trading ranges
      - Company-reported financials and guidance may remain in local reporting currency, but include `USD` alongside when useful for consistency in U.S.-listed names
 
-3. **Find earnings files**: Look in `03_sectors/[sector]/earnings/` for `YYYY-QN-TICKER.md`
-   - Example: `03_sectors/gold_silver_miners/earnings/2026-Q1-CDE.md`
+3. **Find earnings files**: Look in `03_sectors/[sector]/earnings/[TICKER]/` for comparison notes
+   - Example: `03_sectors/gold_silver_miners/earnings/CDE/2026-Q1-comparison.md`
 
 4. **Update CSV tracking files**:
    - `04_portfolio/watchlist/watchlist.csv` — add/update companies being watched
@@ -182,9 +203,16 @@ When a user pastes a screenshot from TradingView or a similar platform, especial
 
 - **Company analysis files**: `TICKER-company-name.md` (all lowercase except ticker)
   - Example: `mtdr-matador-resources.md`, `cde-coeur-mining.md`
-- **Earnings reviews**: `YYYY-QN-TICKER.md` where QN is Q1–Q4
-  - Example: `2026-Q1-MTDR.md`
+- **Earnings comparison**: `[TICKER]/[YYYY-QN]-comparison.md` (stored in ticker-specific folder)
+  - Example: `03_sectors/oil_energy/earnings/MTDR/2026-Q1-comparison.md`
+- **Individual quarter notes** (optional): `[TICKER]/[YYYY-QN]-[TICKER].md`
+  - Example: `03_sectors/oil_energy/earnings/MTDR/2026-Q1-MTDR.md`
 - **Reviews**: `YYYY-MM-DD.md` (weekly) or `YYYY-MM.md` (monthly)
+- **Macro notes (hourly refresh)**: `YYYY-MM-DD-HHMM-macro-*.md` (includes hour & minute for intraday tracking)
+  - Example: `2026-05-15-0800-macro-top-down-review.md`, `2026-05-15-0900-macro-update-nfp-correction.md`
+  - Each new hour gets a fresh timestamped file to avoid confusion about which version is current
+  - Store all hourly versions in `02_market/macroeconomy/` for audit trail
+  - Include **Update Log table** inside each file to track changes within the hour
 - **CSV files**: Column headers are lowercase with underscores (e.g., `ticker`, `status`, `current_price_timestamp`, `next_review_scheduled_at`)
 
 ## Company Analysis Template
@@ -255,6 +283,7 @@ When running `update watchlist`:
 Columns: `date`, `ticker`, `shares`, `avg_cost`, `current_price`, `unrealized_pnl`, `unrealized_pnl_pct`, `thesis_status`, `notes`, `sector`
 Tracks current positions, current price, and unrealized P/L.
 - **Only include tickers with active shares** — do not list tickers with 0 shares in this file
+- When a position closes to 0 shares, **remove the row entirely** from the CSV
 - Pending positions waiting for buy orders to fill should be tracked in `open_orders.csv`, not here
 - **`sector` column (rightmost)** — used for sorting; not displayed in main view
 - **Sort by sector (ascending), then by ticker (ascending)**
@@ -294,20 +323,19 @@ When asked to "analyze" a ticker, this is a complete research workflow with mult
 **Earnings File Structure:**
 Create a **ticker-specific earnings folder** to organize all quarterly reports:
 ```
-03_sectors/gold_silver_miners/earnings/[TICKER]/
+03_sectors/[sector]/earnings/[TICKER]/
 ├── [YYYY-QN]-comparison.md          ← Multi-quarter comparison & analysis (MAIN FILE)
-├── [YYYY-QN]-[TICKER].md            ← Individual quarter transcript/notes (optional)
 └── [YYYY-QN]-[TICKER].md            ← Individual quarter transcript/notes (optional)
 ```
 
-**Example for EXK:**
+**Example for EXK (gold/silver miner):**
 ```
 03_sectors/gold_silver_miners/earnings/EXK/
 ├── 2026-Q1-comparison.md            ← Contains Q1 2026 + Q4 2025 + Q1 2025 comparison
 └── 2026-Q1-EXK.md                   ← Individual Q1 2026 details (if needed)
 ```
 
-**Example for AG:**
+**Example for AG (gold/silver miner):**
 ```
 03_sectors/gold_silver_miners/earnings/AG/
 ├── 2026-Q1-comparison.md            ← Contains Q1 2026 + Q4 2025 + Q1 2025 comparison + guidance
@@ -418,23 +446,52 @@ When asked to `update watchlist`:
 
 ### Update Today
 
-When asked to `update today`, run this sequence:
+When asked to `update today`, run this sequence with **consistent hourly timestamps across all three components:**
 
-1. `update macro`
-2. `update watchlist`
-3. `update porto`
+1. `update macro` **(create hourly macro file with timestamp)**
+2. `update watchlist` **(refresh prices with matching timestamp)**
+3. `update porto` **(refresh portfolio with matching timestamp)**
 
-Keep the order unchanged unless the user explicitly requests a different sequence.
+Keep the order and timestamps unchanged unless the user explicitly requests otherwise.
+
+**Critical: All three steps use the SAME timestamp so prices stay synchronized:**
+
+- **Macro:** Create file `2026-05-15-0800-macro-today-update.md`
+  - Include Data Freshness Table with 24H Δ and Intraday Δ
+  - Include Update Log table
+  - Do NOT overwrite previous hourly macro files (keep audit trail)
+
+- **Watchlist:** Update `04_portfolio/watchlist/watchlist.csv` 
+  - Refresh `current_price` and `current_price_timestamp` columns
+  - Use **matching timestamp:** `2026-05-15 08:00:00` (same as macro file HHMM)
+  - Also create hourly snapshot: `2026-05-15-0800-watchlist-snapshot.csv` for audit trail
+  - Compare updated prices against `target_buy_zone` and identify actionable names
+
+- **Portfolio:** Update `04_portfolio/holdings/holdings_snapshot.csv` and other portfolio files
+  - Refresh `current_price` with matching timestamp: `2026-05-15 08:00:00`
+  - Also create hourly snapshot: `2026-05-15-0800-holdings-snapshot.csv` for audit trail
+  - Update `unrealized_pnl` and `unrealized_pnl_pct` based on refreshed prices
+  - Keep `transactions.csv` and `open_orders.csv` current
+
+**Timestamp alignment example (08:00 Jakarta time):**
+```
+Macro file:              2026-05-15-0800-macro-today-update.md
+Macro data timestamp:    2026-05-15 08:00:00 Jakarta time
+Watchlist prices:        current_price_timestamp = 2026-05-15 08:00:00
+Watchlist snapshot:      2026-05-15-0800-watchlist-snapshot.csv
+Portfolio prices:        current_price_timestamp = 2026-05-15 08:00:00
+Portfolio snapshot:      2026-05-15-0800-holdings-snapshot.csv
+```
 
 End with one concise summary that combines:
 
 - the macro verdict and next review timing
 - the watchlist names that are actionable or need re-analysis
-- the portfolio files or rows that changed
+- the portfolio changes and any position P/L shifts due to hourly price refresh
 
 ### Update Macro
 
-When asked to `update macro`, treat it as a top-down market workflow rather than a company workflow.
+When asked to `update macro`, treat it as a top-down market workflow with **hourly intraday tracking** capability.
 
 **⚠️ MANDATORY DATA FRESHNESS VERIFICATION (STEP 0):**
 
@@ -450,9 +507,18 @@ Before starting the macro review workflow, ALWAYS verify current market data wit
 7. **VIX if relevant** — For volatility context
 8. **Latest macro data release** — Has CPI/PPI/NFP/jobless claims been released today? If so, record the actual print
 
-**Record all prices with exact timestamps** (include time and date). If prices cannot be verified, state clearly that data is stale and avoid presenting cached prices as current.
+**Record all prices with exact timestamps** (include date, hour, minute, second in Jakarta local time). If prices cannot be verified, state clearly that data is stale and avoid presenting cached prices as current.
 
 **Preferred sources:** Federal Reserve (FRED), Treasury.gov, BLS, TradingView, Bloomberg terminal, Oilprice.com, Investing.com, Trading Economics
+
+**File Naming & Hourly Update Protocol:**
+- First update of the day: `2026-05-15-0600-macro-top-down-review.md` (name includes HHMM timestamp)
+- Subsequent hourly updates: `2026-05-15-0700-macro-update.md`, `2026-05-15-0800-macro-update.md`, etc.
+- Each hourly file includes:
+  - **Header:** `**Last Updated:** 2026-05-15 07:00 Jakarta time` with HH:MM precision
+  - **Freshness table:** Shows current levels + 24H change + Intraday change (Δ column)
+  - **Update Log table:** Records each hourly refresh with timestamp and what changed
+- All hourly versions kept in `02_market/macroeconomy/` for complete audit trail (do not delete old hourly files)
 
 **Then execute the workflow below:**
 

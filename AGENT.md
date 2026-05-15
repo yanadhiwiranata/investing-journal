@@ -78,6 +78,10 @@ Preferred source order:
 4. Primary macro source: BLS, BEA, Fed, Treasury, EIA, company IR event pages
 5. Reputable market data page for quote checking
 
+**Stock Price Sources by Session:**
+- **RTH, Premarket, Post-Market Prices:** [TradingView.com](https://www.tradingview.com/) (primary source)
+- **After-Hours (OTH) Trading & Sentiment:** [StockTwits.com](https://stocktwits.com/) (primary source)
+
 Secondary summaries can help with context, but not as the final authority when a primary source exists.
 
 ## Default Command Behavior
@@ -107,24 +111,43 @@ Example:
 
 For these requests, assume the user wants the most recent financially relevant information, not just an update to old notes. Refresh the facts first.
 
-When the user says `update today`, interpret it as a sequential maintenance command with this required order:
+When the user says `update today`, interpret it as a sequential maintenance command with this required order and **consistent hourly timestamps across all three steps:**
 
-1. `update macro` (with **MANDATORY Step 0 data freshness verification**)
-2. `update watchlist`
-3. `update porto`
+1. `update macro` (with **MANDATORY Step 0 data freshness verification + HOURLY TIMESTAMP FILENAME**)
+2. `update watchlist` (refresh with **matching timestamp**)
+3. `update porto` (refresh with **matching timestamp**)
 
 Required behavior for `update today`:
 
 - ⚠️ **BEFORE starting**, execute Step 0 of the Macro Top-Down Review Workflow: Verify current DXY, yields, gold, silver, WTI, and latest macro data releases with live sources. Do NOT rely on cached prices.
+- **Use consistent timestamp across all three components** (same HHMM for macro, watchlist, and portfolio)
+  
+- **For macro file naming:** Create file with hourly timestamp: `YYYY-MM-DD-HHMM-macro-today-update.md`
+  - Example: `2026-05-15-0800-macro-today-update.md`
+  - If running `update today` multiple times same day, each gets a new HHMM timestamp (don't overwrite)
+  - Include Data Freshness Table with 24H Δ and Intraday Δ columns
+  - Include Update Log table at bottom
+
+- **For watchlist update:** Refresh `04_portfolio/watchlist/watchlist.csv`
+  - Update `current_price` and `current_price_timestamp` with matching time: `2026-05-15 08:00:00`
+  - Create hourly snapshot: `2026-05-15-0800-watchlist-snapshot.csv` for audit trail
+  - Use macro read to flag any thesis staleness after market moves
+
+- **For portfolio update:** Refresh holdings, open orders, and transactions
+  - Update `current_price` with matching timestamp: `2026-05-15 08:00:00`
+  - Create hourly snapshots: `2026-05-15-0800-holdings-snapshot.csv` and `2026-05-15-0800-open-orders-snapshot.csv`
+  - Recalculate unrealized P/L based on refreshed prices
+
 - complete the three commands in that order unless the user explicitly changes it
-- let the macro read influence the watchlist summary when a thesis may be stale after a market move
+- ensure all three data sources reflect the same time checkpoint (no stale prices between macro/watchlist/portfolio)
 - finish with one concise summary covering macro, watchlist, and portfolio outcomes
 
 Expected output for `update today`:
 
-- macro note updates as needed (with data freshness verification section included)
-- updated watchlist and portfolio files as needed
-- one combined decision-useful summary that links macro context to watchlist actionability
+- macro note with hourly timestamp filename and freshness verification (`2026-05-15-0800-macro-today-update.md`)
+- updated watchlist with matching timestamp + hourly snapshot (`2026-05-15-0800-watchlist-snapshot.csv`)
+- updated portfolio with matching timestamp + hourly snapshots (`2026-05-15-0800-holdings-snapshot.csv`, etc.)
+- one combined decision-useful summary that links macro context to watchlist actionability and portfolio P/L impact
 
 When the user says `update watchlist`, interpret it as a watchlist-maintenance command focused on `04_portfolio/watchlist/watchlist.csv`, not as a single-ticker deep dive.
 
@@ -185,6 +208,37 @@ Examples:
 - `analyze this calendar`
 
 When the user asks to `update macro`, interpret it as an upgraded macro workflow, not a light check-in. It should cover geopolitics, DXY, U.S. bond yields, commodity trends, the next important U.S. calendar catalysts, and higher-frequency monitoring when the market is volatile.
+
+**⚠️ HOURLY MACRO UPDATE PROTOCOL:**
+
+For active macro monitoring days (e.g., around major data releases, geopolitical shocks, or high volatility), support **hourly intraday updates** using timestamp-based filenames:
+
+**File Naming Convention:**
+- Each hour gets a NEW file with timestamp in filename: `YYYY-MM-DD-HHMM-macro-[TYPE].md`
+- **First update of the day:** `2026-05-15-0600-macro-top-down-review.md`
+- **Subsequent hourly updates:** `2026-05-15-0700-macro-update.md`, `2026-05-15-0800-macro-update.md`, etc.
+- This prevents confusion about which file is current (always look for the latest HHMM timestamp)
+- Keep ALL hourly versions in `02_market/macroeconomy/` for complete audit trail
+
+**Required Content in Each Hourly File:**
+1. **Header with timestamp:** `**Last Updated:** 2026-05-15 07:00 Jakarta time` (include HH:MM)
+2. **Data Freshness Table** with three columns:
+   - **Level:** Current market price/yield
+   - **24H Δ:** Change since previous day close
+   - **Intraday Δ:** Change since market open (or since previous hour if tracking sub-hourly)
+3. **Update Log Table** at bottom showing each hourly refresh:
+   - Time (Jakarta) → Update summary → Key changes made
+4. **Macro Regime Assessment:** Current thesis and which assets are under pressure/supported
+
+**When to Create New Hourly File:**
+- Every 60 minutes if monitoring actively
+- Immediately if: DXY breaks ±2%, gold/silver/oil move ±2%, yields move ±20 bps, geopolitical news breaks, Fed speaker releases comments
+- On every major economic data release (NFP, CPI, PPI, PCE, jobless claims, etc.)
+
+**What NOT to do:**
+- Do NOT overwrite previous hourly files
+- Do NOT rely on memory alone for prices; refresh with live sources every hour
+- Do NOT mix daily and hourly files in the same document (keep hourly versions separate)
 
 ## Macro Screenshot Workflow
 
@@ -488,15 +542,17 @@ The final note should clearly state:
 
 **This step is non-negotiable. Do not skip or defer.** Financial analysis with stale data produces incorrect conclusions and poor recommendations.
 
-**Current date context:** Today is 2026-05-14. All analysis must reference this date explicitly.
+**Current date context:** Today is 2026-05-15. All analysis must reference this date explicitly.
 
 **Freshness checklist — VERIFY ALL BEFORE PROCEEDING:**
 
-1. **Current Stock Price**
-   - Search for ticker's current price with exact date and time
-   - Record `current_price_timestamp: YYYY-MM-DD HH:MM:SS`
-   - Use Jakarta local time in the watchlist, without writing the timezone suffix
-   - Example: "MTDR stock price $57.31 as of 2026-05-13 23:00:00 Jakarta time" → `current_price_timestamp: 2026-05-13 23:00:00`
+1. **Current Stock Price (Manual Paste Workflow)**
+   - **Primary source to check:** [TradingView.com](https://www.tradingview.com/) for RTH, premarket, post-market prices
+   - **For after-hours activity:** [StockTwits.com](https://stocktwits.com/) for OTH price discussion and volume
+   - **Practical workflow:** Wait for user to paste current price from TradingView or StockTwits (Claude cannot fetch live quotes automatically due to JavaScript rendering)
+   - When price is pasted, record `current_price_timestamp: YYYY-MM-DD HH:MM:SS` in Jakarta local time
+   - Example user paste: "MTDR $57.31 RTH on TradingView as of 2026-05-13 23:00:00"
+   - Claude records: `current_price_timestamp: 2026-05-13 23:00:00`
 
 2. **Latest Reported Quarter & Report Date**
    - Verify which quarter was most recently reported (Q1 2026? Q4 2025?)
@@ -1109,3 +1165,19 @@ If the user says `full EXK`, the agent should follow the same sequence, but with
 - do not skip the earnings comparison note
 - do not skip the company note refresh
 - do not skip watchlist updates when relevant
+
+## Timestamp Format Rules
+
+**CSV Files (watchlist, holdings, transactions, etc.):**
+- Use format: `YYYY-MM-DD HH:MM:SS` (e.g., `2026-05-15 08:00:00`)
+- Store timestamps in **Jakarta local time**
+- Do **NOT** append timezone label or "Jakarta time" inside the CSV
+- Include hour, minute, and second for full precision
+- Example CSV entry: `current_price_timestamp: 2026-05-15 08:00:00` (no timezone suffix)
+
+**Markdown Files (analysis notes, macro notes, etc.):**
+- File names may include timestamps: `YYYY-MM-DD-HHMM-macro-top-down-review.md`
+- Headers MAY include "Jakarta time" for clarity: `**Last Updated:** 2026-05-15 08:00 Jakarta time`
+- This helps readers understand timezone context without cluttering the CSV data
+
+**Rule:** Timestamps in CSV data should be clean (YYYY-MM-DD HH:MM:SS, no suffix), while markdown file headers can include "Jakarta time" for human readability.
