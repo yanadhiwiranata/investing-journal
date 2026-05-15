@@ -288,6 +288,30 @@ Pending positions are your **opportunity queue** — you have 10 tickers with 1s
 - Captures off-hours volatility (pre-market, after-hours, gaps)
 - Keeps you disciplined: only add tickers with clear theses
 
+### Sector Rotation = No FOMO
+
+**Philosophy:** Never force a buy. Wait for Layer 1 to reach, even if it takes several days or weeks.
+
+**Why this works:**
+- You have 10 pending Layer 1 orders across 5 sectors (gold, oil, tech, auto, solar)
+- Not all will fill, and that's OK
+- Sector rotation ensures something is always actionable:
+  - Gold stalls? Oil heats up. Oil cools? Tech rallies. Tech pulls back? Solar strengthens.
+- While waiting for XPEV @ $16, MTDR may already be filling @ $35
+- Result: You're always making profitable moves, never forced into bad entries
+
+**The confidence boost:**
+- You don't feel FOMO because you have 10 pending across 5 sectors
+- Missing one Layer 1 fill = acceptable; another sector's Layer 1 fills instead
+- If a ticker doesn't hit its predetermined price, the thesis or macro may have changed — that's a signal to reassess, not a reason to chase
+
+**Implementation:**
+- Maintain 10 pending Layer 1 orders across all 5 tracked sectors (2 per sector)
+- Wait patiently; never adjust prices upward to chase
+- When a pending Layer 1 fills: activate 2nd/3rd layers for that ticker
+- If sector rotation fills one, but another sits, that's fine — rotate capital into a new sector's pending list if needed
+- Even a 30% fill rate (3 tickers) means you're always engaged and profitable
+
 ### Pending Position Rules
 
 | Rule | Why | Action |
