@@ -3,6 +3,10 @@
 !AGENT.md
 !README.md
 !CLAUDE.md
+!COMMANDS.md
+!WORKFLOW-CHECKLIST.md
+!01_strategy/
+!01_strategy/**
 !05_templates/
 !05_templates/**
 !.claude/
