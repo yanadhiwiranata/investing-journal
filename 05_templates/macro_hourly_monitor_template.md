@@ -2,7 +2,31 @@
 
 Real-time cross-asset snapshot during volatile sessions, major releases, or sharp intraday repricing. Use only when hourly developments threaten the daily thesis or warrant tactical repositioning.
 
-**Recommended filename:** `02_market/macroeconomy/YYYY-MM-DD-HH00-macro-hourly-monitor.md`
+---
+
+## Protocol Checklist
+
+**File naming:** `02_market/macroeconomy/YYYY-MM-DD-HHMM-macro-[description].md`
+- Example: `2026-05-15-0800-macro-hourly-update.md` or `2026-05-15-1030-macro-nfp-correction.md`
+- Include HHMM timestamp (Jakarta local time, 24-hour format) so the current version is always obvious
+
+**When to create new hourly files:**
+- **Routine:** Every 60 minutes during active monitoring
+- **Immediately (priority):** DXY ±2%, Gold/Silver ±2%, Oil breakouts, Yields ±20 bps, Geopolitical news, Fed speakers, Major data releases (NFP/CPI/PPI), VIX > 25
+
+**File structure inside:** Each file must include:
+- [ ] **Header:** Timestamp with HH:MM precision (e.g., "Last Updated: 2026-05-15 08:00 Jakarta time")
+- [ ] **Data Freshness Table:** Current level + 24H Δ + Intraday Δ for all key metrics
+- [ ] **Update Log Table:** Track what changed this hour (bottom of file)
+
+**Storage & audit trail:**
+- Save all hourly versions in `02_market/macroeconomy/` — **do NOT delete** old hourly files
+- Keep both live working file (`watchlist.csv`) and timestamped snapshots for price sync
+
+**Timestamp synchronization:** When running `update today`, use the **same HHMM timestamp across all three:**
+- Macro file: `2026-05-15-0800-macro-*.md`
+- Watchlist: `current_price_timestamp = 2026-05-15 08:00:00`
+- Portfolio: `current_price_timestamp = 2026-05-15 08:00:00`
 
 ---
 

@@ -13,6 +13,9 @@ Use this section for fast copy-paste.
 - `update watchlist` — refresh watchlist prices and flag actionable names
 - `update porto` — update live positions, open orders, and completed trades
 - `update macro` — run an upgraded macro refresh with top-down review, event-risk tracking, and hourly notes when conditions are volatile
+- `entry check gold` — verify real yields + DXY + gold price; decide if gold miner Layer 1 entry is viable
+- `entry check silver` — verify ISM + copper + industrial demand; decide if silver miner Layer 1 entry is viable
+- `entry check both` — run full decision checklist for both gold and silver miners; recommend which to enter first
 
 ## Command Details
 
@@ -129,6 +132,80 @@ Primary references:
 - `05_templates/macro_hourly_monitor_template.md`
 - `AGENT.md`
 - `CLAUDE.md`
+
+## Entry Commands (Sector Rotation)
+
+### `entry check gold`
+
+Purpose:
+
+- Verify whether gold miner Layer 1 entry is viable today based on macro conditions.
+
+What it should do:
+
+- check real yields (FRED DFF10): Must be <+0.5%
+- check DXY (TradingView): Must be stable or falling
+- check gold price (TradingView): Must be >$4,400
+- check analyst consensus (TipRanks): For preferred gold miners (AU, NEM, CDE)
+- if all gates pass: recommend Layer 1 entry with specific price targets
+- if any gate fails: explain which barrier is blocking entry and when to re-check
+
+Primary references:
+
+- `01_strategy/sector_rotation/gold_miners/rotation_rules.md`
+- `01_strategy/sector_rotation/ENTRY_DECISION_CHECKLIST.md`
+
+---
+
+### `entry check silver`
+
+Purpose:
+
+- Verify whether silver miner Layer 1 entry is viable today based on industrial demand conditions.
+
+What it should do:
+
+- check ISM PMI (FRED or Trading Economics): Must be >50
+- check copper price (TradingView HG): Must not be down >2% recent
+- check industrial end-markets: Auto/solar production data stable or growing
+- check risk sentiment: VIX <25, tech/crypto not collapsing
+- check analyst consensus (TipRanks): For preferred silver miners (EXK, HL, AG)
+- if all gates pass: recommend Layer 1 entry with specific price and size (50–75 shares)
+- if any gate fails: explain which barrier is blocking entry (more gates than gold)
+
+Primary references:
+
+- `01_strategy/sector_rotation/silver_miners/rotation_rules.md`
+- `01_strategy/sector_rotation/ENTRY_DECISION_CHECKLIST.md`
+
+---
+
+### `entry check both`
+
+Purpose:
+
+- Run full decision checklist for both gold and silver miners; recommend which sector to enter first (or skip both).
+
+What it should do:
+
+- run gold gate checks (real yields, DXY, gold price, analyst)
+- run silver gate checks (ISM, copper, industrial demand, risk sentiment, analyst)
+- if both gates pass: recommend entering GOLD first (100 shares Layer 1), then SILVER separately (50–75 shares)
+- if only GOLD passes: recommend GOLD entry only
+- if only SILVER passes: note this is rare; proceed with SILVER caution
+- if neither passes: recommend SKIP and set re-check date (typically after CPI/PMI releases)
+- provide side-by-side comparison of current conditions vs. entry thresholds
+- note current position weights (cap gold <40%, silver <25%)
+
+Primary references:
+
+- `01_strategy/sector_rotation/ENTRY_DECISION_CHECKLIST.md`
+- `01_strategy/sector_rotation/gold_miners/vs_silver_comparison.md`
+- `01_strategy/sector_rotation/gold_miners/rotation_rules.md`
+- `01_strategy/sector_rotation/silver_miners/rotation_rules.md`
+- `01_strategy/macro_may_2026_rebound_headwind.md` (current conditions)
+
+---
 
 ## Naming Rule For Future Commands
 

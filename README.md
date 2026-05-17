@@ -77,7 +77,27 @@ Meaning:
 
 `Run the daily sequence in order: update macro first, then update watchlist, then update porto.`
 
-Command index:
+Sector rotation entry checks:
+
+`entry check gold`
+
+Meaning:
+
+`Verify whether gold miner Layer 1 entry is viable today by checking real yields, DXY, gold price, and analyst consensus. Recommend entry price and size if gates pass, or explain blockers.`
+
+`entry check silver`
+
+Meaning:
+
+`Verify whether silver miner Layer 1 entry is viable today by checking ISM, copper, industrial demand, risk sentiment, and analyst consensus. Silver has more complex gates than gold.`
+
+`entry check both`
+
+Meaning:
+
+`Run full macro checklist for both gold and silver miners. Recommend which to enter first, or skip both if conditions unfavorable. Compare current state vs. entry thresholds.`
+
+Full command documentation:
 
 - `COMMANDS.md`
 
@@ -105,6 +125,13 @@ Goal: capture rough ideas, links, notes, screenshots, and unfinished research be
 ### `01_strategy/`
 
 Goal: define the investing framework, rules, checklist standards, and process improvements that guide daily work.
+
+Key files:
+- `position_management_framework.md` — Core discipline for avoiding FOMO and price chasing
+- `gold_miners_sector_rotation_rules.md` — Macro-driven entries (real yields primary), 100-share Layer 1
+- `silver_miners_sector_rotation_rules.md` — Demand-driven entries (ISM primary), 50–75-share Layer 1
+- `ENTRY_DECISION_CHECKLIST.md` — Pre-entry verification for both gold and silver (required before Layer 1)
+- `gold_vs_silver_miners_quick_comparison.md` — Decision tree for choosing which sector to enter when
 
 ### `02_market/`
 

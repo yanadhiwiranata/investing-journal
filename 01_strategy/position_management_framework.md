@@ -1,5 +1,13 @@
 # Position Management Framework
 
+**Related Strategy Files:**
+- `gold_miners_sector_rotation_rules.md` — Real-yield-driven entries (100 shares, 4–8 week holds)
+- `silver_miners_sector_rotation_rules.md` — Demand-driven entries (50–75 shares, 2–4 week holds)
+- `ENTRY_DECISION_CHECKLIST.md` — Pre-entry macro verification (required before Layer 1)
+- `gold_vs_silver_miners_quick_comparison.md` — Decision tree for choosing which to enter
+
+---
+
 ## Core Discipline: Stick to the Plan, Don't Chase Price
 
 **Base principle:** Never chase price upward. Always let price come to your predetermined entry zones.
