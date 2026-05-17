@@ -49,7 +49,11 @@
   - [ ] Use sector template: See list below
   - [ ] File location: `03_sectors/[sector]/companies/TICKER-company-name.md`
   - [ ] **REQUIRED SECTIONS:**
-    - Snapshot (with current price, current_price_timestamp)
+    - **Snapshot** (with current price, current_price_timestamp, and PRICE TARGETS):
+      - [ ] Current price + timestamp
+      - [ ] **Bear case target** + short description + upside/downside % (e.g., "$45 (-20%): demand collapse, production miss")
+      - [ ] **Base case target** + short description + upside/downside % (e.g., "$56 (+5%): in-line execution, commodity stable")
+      - [ ] **Bull case target** + short description + upside/downside % (e.g., "$72 (+35%): margin expansion, production beat")
     - Current Context (timeline, latest quarter, next earnings, post-earnings events)
     - Business Summary
     - Thesis (Bull/Base/Bear cases)

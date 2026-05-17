@@ -1034,7 +1034,12 @@ This is the durable investment memo and should be readable on its own.
 
 Minimum sections:
 
-1. Snapshot
+1. **Snapshot** ← Must include:
+   - Current price and `current_price_timestamp`
+   - **Bear case:** Price target + short description (e.g., "Margin compression, commodity downturn") + upside/downside % from current price
+   - **Base case:** Price target + short description (e.g., "In-line production, stable guidance") + upside/downside % from current price
+   - **Bull case:** Price target + short description (e.g., "Production beat, cost outperformance") + upside/downside % from current price
+   - Quick snapshot of sector, market cap, exchange
 2. Current Context
 3. Business Summary
 4. Thesis

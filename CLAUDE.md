@@ -197,7 +197,10 @@ Primary sector templates:
 
 Generic company structure:
 
-- **Snapshot** — sector, market cap, current price
+- **Snapshot** — sector, market cap, current price, **bear/base/bull price targets with descriptions and upside %**
+  - Bear case: target price + description + upside/downside % (e.g., "$45 (-20%): production miss, margin compression")
+  - Base case: target price + description + upside/downside % (e.g., "$56 (+5%): in-line execution, stable guidance")
+  - Bull case: target price + description + upside/downside % (e.g., "$72 (+35%): beat and raise, cost outperformance")
 - **Business Summary** — what the company does, why it matters
 - **Thesis** — bull/base/bear cases
 - **Why This Could Work** — key catalysts
