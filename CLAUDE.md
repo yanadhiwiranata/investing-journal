@@ -9,7 +9,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 2. **Read AGENT.md** ← Detailed workflow steps and freshness rules
 3. **Identify the sector** ← Determine which sector the ticker belongs to
 4. **Read the sector-specific TEMPLATE and CHECKLIST** ← This defines what metrics, sections, and analysis depth matter
-   - Example: For gold/silver miners, read `05_templates/gold_silver_miners_company_template.md` and `05_templates/gold_silver_miners_research_checklist.md`
+   - Example (gold miners): `05_templates/gold_miners_company_template.md` + `05_templates/gold_miners_research_checklist.md`
+   - Example (silver miners): `05_templates/silver_miners_company_template.md` + `05_templates/silver_miners_research_checklist.md`
 5. **Use this file (CLAUDE.md)** ← Repository structure, naming conventions, and currency rules
 
 **All five steps are required BEFORE any analysis or file updates.** Missing the sector template/checklist (step 4) results in incomplete or incorrectly structured analysis. The template defines what a complete analysis looks like for that sector.
@@ -78,8 +79,9 @@ When analyzing current conditions, always verify the latest price information fr
 
 ## Repository Overview
 
-This is an **investing journal** for tracking research and decisions on U.S. stocks. It's a markdown-based knowledge management system focused on five sectors:
-- Gold and silver miners
+This is an **investing journal** for tracking research and decisions on U.S. stocks. It's a markdown-based knowledge management system focused on six sectors:
+- Gold miners (real-yields driven)
+- Silver miners (ISM/demand-driven, 2.5–3x leverage)
 - Oil and energy companies
 - Technology companies
 - Automotive companies
@@ -123,7 +125,8 @@ When a user provides a **ticker symbol** in Claude chat:
      - Company-reported financials and guidance may remain in local reporting currency, but include `USD` alongside when useful for consistency in U.S.-listed names
 
 3. **Find earnings files**: Look in `03_sectors/[sector]/earnings/[TICKER]/` for comparison notes
-   - Example: `03_sectors/gold_silver_miners/earnings/CDE/2026-Q1-comparison.md`
+   - Example (gold): `03_sectors/gold_miners/earnings/NEM/2026-Q1-comparison.md`
+   - Example (silver): `03_sectors/silver_miners/earnings/AG/2026-Q1-comparison.md`
 
 4. **Update CSV tracking files**:
    - `04_portfolio/watchlist/watchlist.csv` — add/update companies being watched
@@ -139,7 +142,8 @@ When a user provides a **ticker symbol** in Claude chat:
    - Use exact dates such as `2026-05-14`, not vague wording alone
 
 6. **Identify the sector**: Common sectors in use are:
-   - `gold_silver_miners`
+   - `gold_miners` (real-yields driven; 4–8 week holds; +20–25% profit targets)
+   - `silver_miners` (ISM/demand-driven; 2–4 week holds; +15–18% profit targets; 2.5–3x leverage)
    - `oil_energy`
    - `technology`
    - `automotive`
@@ -189,7 +193,8 @@ When creating or updating company research, use:
 
 Primary sector templates:
 
-- `05_templates/gold_silver_miners_company_template.md`
+- `05_templates/gold_miners_company_template.md` + `05_templates/gold_miners_research_checklist.md`
+- `05_templates/silver_miners_company_template.md` + `05_templates/silver_miners_research_checklist.md`
 - `05_templates/oil_energy_upstream_ep_company_template.md`
 - `05_templates/technology_company_template.md`
 - `05_templates/automotive_company_template.md`
@@ -295,18 +300,25 @@ Create a **ticker-specific earnings folder** to organize all quarterly reports:
 └── [YYYY-QN]-[TICKER].md            ← Individual quarter transcript/notes (optional)
 ```
 
-**Example for EXK (gold/silver miner):**
+**Example for EXK (silver miner):**
 ```
-03_sectors/gold_silver_miners/earnings/EXK/
+03_sectors/silver_miners/earnings/EXK/
 ├── 2026-Q1-comparison.md            ← Contains Q1 2026 + Q4 2025 + Q1 2025 comparison
 └── 2026-Q1-EXK.md                   ← Individual Q1 2026 details (if needed)
 ```
 
-**Example for AG (gold/silver miner):**
+**Example for AG (silver miner):**
 ```
-03_sectors/gold_silver_miners/earnings/AG/
+03_sectors/silver_miners/earnings/AG/
 ├── 2026-Q1-comparison.md            ← Contains Q1 2026 + Q4 2025 + Q1 2025 comparison + guidance
 └── 2026-Q1-AG.md                    ← Individual Q1 2026 details (if needed)
+```
+
+**Example for NEM (gold miner):**
+```
+03_sectors/gold_miners/earnings/NEM/
+├── 2026-Q1-comparison.md            ← Contains Q1 2026 + Q4 2025 + Q1 2025 comparison
+└── 2026-Q1-NEM.md                   ← Individual Q1 2026 details (if needed)
 ```
 
 **Step 1.5: Fetch TipRanks Analyst Ratings**
