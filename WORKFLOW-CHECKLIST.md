@@ -157,7 +157,7 @@ Use this when the user says `update macro`.
   - [ ] Silver spot price with timestamp
   - [ ] U.S. 2Y and 10Y yields (intraday levels, not just prior close)
   - [ ] WTI and Brent crude with timestamps
-  - [ ] Check for any released macro data (NFP, CPI, PPI, PCE, jobless claims, etc.)
+  - [ ] Check for any released macro data (NFP — Non-Farm Payrolls; CPI — Consumer Price Index; PPI — Producer Price Index; PCE — Personal Consumption Expenditures, Fed's preferred inflation gauge; jobless claims; etc.)
   - [ ] Check for breaking geopolitical news
 - [ ] **Create new hourly file** with timestamp-based naming: `YYYY-MM-DD-HHMM-macro-*.md`
   - Examples: `2026-05-15-0800-macro-top-down-review.md`, `2026-05-15-0900-macro-update.md`

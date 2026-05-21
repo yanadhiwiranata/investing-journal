@@ -513,13 +513,14 @@ Before starting the macro review workflow, ALWAYS verify current market data wit
    - precious metals
    - oil and cyclical risk appetite
 4. Review the next important U.S. economic releases and policy events:
-   - CPI
-   - PPI
-   - NFP / unemployment
-   - retail sales
-   - ISM PMI
-   - FOMC / Fed speakers
-   - Treasury auctions when yields are the main market driver
+   - CPI (Consumer Price Index — BLS monthly inflation gauge; hot print = hawkish Fed, bearish gold/silver; cool = dovish, bullish gold/silver)
+   - PCE (Personal Consumption Expenditures — Fed's *preferred* inflation gauge, published by BEA; Core PCE strips food/energy; hot = real yields rise, DXY up, gold/silver sell; cool = rate cut narrative unlocked, entry gate opens)
+   - PPI (Producer Price Index — upstream factory/wholesale prices; leads CPI by 1–2 months; hot PPI = CPI/PCE likely to follow higher)
+   - NFP / unemployment (Non-Farm Payrolls — monthly labor report; hot labor = Fed stays restrictive, bearish PMs; weak labor = cut urgency, bullish PMs)
+   - retail sales (consumer spending measure; strong = economy running hot = hawkish; weak = demand softening = dovish arc)
+   - ISM PMI (Institute for Supply Management Purchasing Managers Index — above 50 = expansion, below 50 = contraction; Manufacturing PMI drives silver more than gold due to industrial demand)
+   - FOMC / Fed speakers (Federal Open Market Committee — rate decision body; tone shifts from hawkish to dovish = direct tailwind for gold/silver)
+   - Treasury auctions when yields are the main market driver (weak bid-to-cover = yields spike = headwind for PMs)
 5. Save a structured note under `02_market/macroeconomy/`
    - Prefer filenames like `YYYY-MM-DD-macro-top-down-review.md`
    - Use `05_templates/macro_top_down_review_template.md`

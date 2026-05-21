@@ -227,7 +227,7 @@ For active macro monitoring days (e.g., around major data releases, geopolitical
 **When to Create New Hourly File:**
 - Every 60 minutes if monitoring actively
 - Immediately if: DXY breaks ±2%, gold/silver/oil move ±2%, yields move ±20 bps, geopolitical news breaks, Fed speaker releases comments
-- On every major economic data release (NFP, CPI, PPI, PCE, jobless claims, etc.)
+- On every major economic data release (NFP — Non-Farm Payrolls; CPI — Consumer Price Index; PPI — Producer Price Index; PCE — Personal Consumption Expenditures, Fed's preferred inflation gauge; jobless claims; etc.)
 
 **What NOT to do:**
 - Do NOT overwrite previous hourly files
@@ -463,13 +463,14 @@ Always separate:
 
 Identify the next releases most likely to change the view. Prioritize:
 
-- CPI
-- PPI
-- NFP and unemployment
-- retail sales
-- ISM Manufacturing / Services PMI
-- FOMC decisions and material Fed speeches
-- Treasury auctions if yield pressure is the main issue
+- CPI (Consumer Price Index — BLS monthly inflation gauge; hot = hawkish Fed, bearish gold/silver; cool = dovish, bullish gold/silver)
+- PCE (Personal Consumption Expenditures — Fed's *preferred* inflation measure, published by BEA; Core PCE strips food/energy; hot = real yields rise, DXY up, gold/silver sell; cool = rate cut narrative unlocked, entry gate opens)
+- PPI (Producer Price Index — upstream wholesale/factory prices; leads CPI by 1–2 months; hot PPI = CPI/PCE likely to follow higher)
+- NFP and unemployment (Non-Farm Payrolls — monthly labor report; hot labor = Fed stays restrictive, bearish PMs; weak labor = cut urgency, bullish PMs)
+- retail sales (consumer spending; strong = economy running hot = hawkish; weak = demand softening = dovish arc)
+- ISM Manufacturing / Services PMI (Institute for Supply Management Purchasing Managers Index — above 50 = expansion, below 50 = contraction; Manufacturing PMI drives silver more than gold due to industrial demand link)
+- FOMC decisions and material Fed speeches (Federal Open Market Committee — tone shifts hawkish to dovish = direct tailwind for gold/silver miners)
+- Treasury auctions if yield pressure is the main issue (weak bid-to-cover = yields spike = headwind for precious metals)
 
 For each event, note:
 
