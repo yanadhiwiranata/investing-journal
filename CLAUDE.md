@@ -23,6 +23,7 @@ Examples:
 - `update watchlist`
 - `update porto`
 - `update macro`
+- `update macro china` — China-only macro refresh; only triggered by this exact phrase
 
 ---
 
@@ -79,13 +80,15 @@ When analyzing current conditions, always verify the latest price information fr
 
 ## Repository Overview
 
-This is an **investing journal** for tracking research and decisions on U.S. stocks. It's a markdown-based knowledge management system focused on six sectors:
+This is an **investing journal** for tracking research and decisions on U.S. stocks. It's a markdown-based knowledge management system focused on eight sectors:
 - Gold miners (real-yields driven)
 - Silver miners (ISM/demand-driven, 2.5–3x leverage)
 - Oil and energy companies
-- Technology companies
+- Technology companies (AI compute stack: chips, memory, networking, cloud, equipment, DC REITs)
 - Automotive companies
 - Solar energy companies
+- Power infrastructure (data center power/cooling equipment: VRT, ETN, MOD)
+- Power generation & nuclear (nuclear operators and power generators with AI PPA exposure: CEG, VST, SMR)
 
 The repository uses a disciplined folder structure to organize research by theme, sector, and company ticker.
 
@@ -144,10 +147,12 @@ When a user provides a **ticker symbol** in Claude chat:
 6. **Identify the sector**: Common sectors in use are:
    - `gold_miners` (real-yields driven; 4–8 week holds; +20–25% profit targets)
    - `silver_miners` (ISM/demand-driven; 2–4 week holds; +15–18% profit targets; 2.5–3x leverage)
-   - `oil_energy`
-   - `technology`
+   - `oil_energy` (upstream E&P; oil price and FCF driven)
+   - `technology` (AI compute stack: chips, memory, networking, foundry, cloud, DC REITs — NVDA, AMD, MU, ANET, MRVL, TSM, MSFT, AMZN, GOOGL, ORCL, CRWV, AVGO, COHR, AMAT, LRCX, KLAC, EQIX, DLR)
    - `automotive`
    - `solar_energy`
+   - `power_infrastructure` (data center power/cooling equipment — VRT, ETN, MOD, HUBB; use `power_cooling_infrastructure_company_template.md`)
+   - `power_generation` (nuclear operators and power generators with AI PPA exposure — CEG, VST, SMR; use `power_generation_nuclear_company_template.md`)
 
 ## Macro Analysis Workflow
 
@@ -195,10 +200,13 @@ Primary sector templates:
 
 - `05_templates/gold_miners_company_template.md` + `05_templates/gold_miners_research_checklist.md`
 - `05_templates/silver_miners_company_template.md` + `05_templates/silver_miners_research_checklist.md`
-- `05_templates/oil_energy_upstream_ep_company_template.md`
-- `05_templates/technology_company_template.md`
-- `05_templates/automotive_company_template.md`
-- `05_templates/solar_energy_company_template.md`
+- `05_templates/oil_energy_upstream_ep_company_template.md` + `05_templates/oil_energy_upstream_ep_research_checklist.md`
+- `05_templates/ai_compute_infrastructure_company_template.md` + `05_templates/ai_compute_infrastructure_research_checklist.md` ← use for technology sector (chips, memory, networking, cloud, DC REITs)
+- `05_templates/power_cooling_infrastructure_company_template.md` + `05_templates/power_cooling_infrastructure_research_checklist.md` ← use for power_infrastructure sector (VRT, ETN, MOD)
+- `05_templates/power_generation_nuclear_company_template.md` + `05_templates/power_generation_nuclear_research_checklist.md` ← use for power_generation sector (CEG, VST, SMR)
+- `05_templates/automotive_company_template.md` + `05_templates/automotive_research_checklist.md`
+- `05_templates/solar_energy_company_template.md` + `05_templates/solar_energy_research_checklist.md`
+- `05_templates/technology_company_template.md` ← generic fallback only
 
 Generic company structure:
 
@@ -534,6 +542,48 @@ Before starting the macro review workflow, ALWAYS verify current market data wit
    - use the next hourly checkpoint instead of a daily or weekly wait when the setup is unusually volatile
    - bring the review forward immediately for major geopolitical escalation or a sharp move in DXY, yields, gold, silver, or oil
 8. End with a practical verdict and identify which tracked sectors or watchlist names are most exposed
+
+### Update Macro China
+
+**Trigger:** Only run when the user types the exact phrase `update macro china`. Do not run as part of `update macro`, `update today`, or any other command unless explicitly requested.
+
+When asked to `update macro china`, treat it as a China-specific macro refresh workflow focused on PBOC policy, domestic economic prints, EV sector health, and portfolio impact for China-listed names.
+
+**⚠️ MANDATORY DATA FRESHNESS VERIFICATION (STEP 0):**
+
+Before writing any conclusions, ALWAYS verify the following from live sources:
+
+1. **USD/CNY exchange rate** — current level with timestamp
+2. **Hang Seng (HSI) and HSTECH** — current levels
+3. **CSI 300** — current level
+4. **NIO price (NYSE)** — current with timestamp
+5. **China 10Y bond yield** — latest level
+6. **Copper (LME)** — key China growth proxy
+7. **Latest NBS PMI** (Manufacturing + Services) — confirm exact print date and value
+8. **Latest Caixin PMI** (Manufacturing + Services) — confirm exact print date and value
+9. **Recent PBOC action** — any rate cut, RRR cut, or CNY fixing adjustment in the last 30 days
+
+If any data cannot be verified, state it explicitly. Do not present cached levels as current.
+
+**Preferred sources:** NBS (`stats.gov.cn`), PBOC (`pbc.gov.cn`), Trading Economics, Wind, CNEVPost, CarNewsChina, Bloomberg, Investing.com
+
+**Then execute the workflow:**
+
+1. **Assess PBOC stance:** LPR 1Y/5Y rates, RRR level, CNY fixing trend, M2/credit conditions, any forward guidance
+2. **Review latest domestic prints:** PMI (NBS + Caixin), CPI, PPI (watch for deflation), industrial production, retail sales, property data
+3. **EV sector health check:**
+   - Pull latest monthly delivery data from CNEVPost for NIO, BYD, Li Auto, XPEV
+   - Check CarNewsChina for new model launches, price changes, competitive moves
+   - Assess active EV subsidies, trade-in schemes, NEV purchase tax policy
+   - Track BYD pricing pressure and HUAWEI AITO competition
+4. **Geopolitical & trade risk:** U.S.–China tariffs, EU EV tariffs, Taiwan risk, ADR delisting risk
+5. **China economic calendar:** Next NBS/Caixin PMI, CPI/PPI, LPR decision, NIO delivery release window
+6. **Cross-asset NIO implications:** CNY trend, HSTECH sentiment, PBOC easing cycle, property recovery as wealth-effect proxy
+7. **Save note** under `02_market/macroeconomy/` as `YYYY-MM-DD-HHMM-macro-china-top-down.md`
+   - Use `05_templates/macro_china_top_down_review_template.md`
+8. **End with a bull/base/bear verdict** for NIO over the next 2–4 weeks based on current China macro setup
+
+**Do not merge this output with a U.S. macro review.** China macro and U.S. macro are separate notes. If the user wants both, they must run `update macro` and `update macro china` separately.
 
 ### Update Porto
 

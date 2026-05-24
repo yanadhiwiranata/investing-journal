@@ -1,12 +1,24 @@
 # AI Compute Infrastructure Research Checklist
 
-Use this checklist for AI semis, foundry, hyperscale cloud, and GPU cloud names.
+Use this checklist for AI semis, memory, networking, foundry, hyperscale cloud, and GPU cloud names.
 
 ## 1. Classify The Name First
 
-- Is it a chip designer, foundry, hyperscaler, or GPU cloud operator?
+- Is it a GPU/accelerator designer, custom ASIC, memory, networking, foundry, hyperscaler, or GPU cloud?
 - Is the company a platform leader, share-gain story, or execution-heavy buildout story?
-- Which KPI is most important for this name right now?
+- Which single KPI is most important for this name right now?
+
+**Memory (MU) — primary KPIs:**
+- HBM bit growth rate and ASP trend (is HBM pricing rising, peaking, or falling?)
+- Utilization rate by node — high utilization = pricing power, low = margin risk
+- DRAM vs. NAND mix — DRAM carries higher margin
+- NVDA as % of HBM revenue — concentration risk and demand visibility
+
+**Networking (ANET, MRVL) — primary KPIs:**
+- Book-to-bill ratio — leading indicator of backlog strength
+- DC vs. campus revenue split — DC revenue is higher quality for AI thesis
+- Port speed upgrade cycle — 400G → 800G → 1.6T transition timing
+- Hyperscaler capex guidance as demand proxy — MSFT, AMZN, GOOGL capex = ANET/MRVL order pipeline
 
 ## 2. Demand Quality
 
@@ -16,7 +28,8 @@ Use this checklist for AI semis, foundry, hyperscale cloud, and GPU cloud names.
 
 ## 3. Supply And Capacity
 
-- For semis: node access, packaging, HBM, networking, and system availability
+- For semis and memory: node access, packaging, HBM supply, and system availability
+- For networking: lead times and book-to-bill — lengthening lead times = supply constraint = pricing power
 - For cloud names: power secured, power activated, racks deployed, utilization
 - For hyperscalers: capex growth and infrastructure availability
 

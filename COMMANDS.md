@@ -13,6 +13,7 @@ Use this section for fast copy-paste.
 - `update watchlist` — refresh watchlist prices and flag actionable names
 - `update porto` — update live positions, open orders, and completed trades
 - `update macro` — run an upgraded macro refresh with top-down review, event-risk tracking, and hourly notes when conditions are volatile
+- `update macro china` — run a China-specific macro refresh covering PBOC policy, CNY, PMI, EV sector health (NIO focus), and geopolitical risk; only triggered by this exact phrase
 - `entry check gold` — verify real yields + DXY + gold price; decide if gold miner Layer 1 entry is viable
 - `entry check silver` — verify ISM + copper + industrial demand; decide if silver miner Layer 1 entry is viable
 - `entry check both` — run full decision checklist for both gold and silver miners; recommend which to enter first
@@ -132,6 +133,41 @@ Primary references:
 - `05_templates/macro_hourly_monitor_template.md`
 - `AGENT.md`
 - `CLAUDE.md`
+
+### `update macro china`
+
+Purpose:
+
+- Run a China-specific macro refresh focused on PBOC policy, CNY dynamics, domestic macro prints, EV sector health, and portfolio impact for China-listed names tracked in this repo (currently NIO).
+- **Only triggered by the exact phrase `update macro china`.** Do not run as part of `update macro`, `update today`, or any other command unless the user types this exact command.
+
+What it should do:
+
+1. **Verify live data first (mandatory):** USD/CNY, Hang Seng, HSTECH, CSI 300, NIO price, China 10Y yield, copper, latest NBS/Caixin PMI prints — all with timestamps
+2. **Assess PBOC stance:** Current LPR rates, RRR level, recent PBOC actions, CNY fixing trend, M2/credit conditions
+3. **Review latest macro prints:** NBS + Caixin PMI (manufacturing and services), CPI, PPI, industrial production, retail sales, property data
+4. **EV sector health check:**
+   - Pull monthly delivery data from CNEVPost for NIO, BYD, Li Auto, XPEV, AITO
+   - Check CarNewsChina for new model launches, price changes, competitive moves
+   - Review active EV subsidies and policy changes
+   - Assess BYD pricing pressure and HUAWEI AITO competition
+5. **Geopolitical & trade risk:** U.S.–China tariffs, EU EV tariffs, Taiwan risk, ADR delisting risk
+6. **China economic calendar:** Upcoming NBS/Caixin PMI, CPI/PPI, LPR decision, NIO delivery release dates
+7. **Cross-asset implications for NIO:** CNY trend, HSTECH sentiment, PBOC easing cycle, property recovery as wealth-effect proxy
+8. **Save note** under `02_market/macroeconomy/` as `YYYY-MM-DD-HHMM-macro-china-top-down.md`
+9. **End with a verdict:** Bull/base/bear scenario for NIO over the next 2–4 weeks based on current China macro setup
+
+Primary references:
+
+- `05_templates/macro_china_top_down_review_template.md`
+- CNEVPost (`https://cnevpost.com/`) for monthly delivery data
+- CarNewsChina (`https://carnewschina.com/`) for model/competitive news
+- NBS (`http://www.stats.gov.cn/`) for official economic data
+- PBOC (`http://www.pbc.gov.cn/`) for monetary policy
+
+**Important:** This command is China-only. Do not replace or merge with `update macro` (which covers U.S. macro). Run both for a full global picture when analyzing NIO.
+
+---
 
 ## Entry Commands (Sector Rotation)
 
