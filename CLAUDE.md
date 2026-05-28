@@ -156,6 +156,8 @@ When a user provides a **ticker symbol** in Claude chat:
 
 ## Macro Analysis Workflow
 
+> **Summary only.** For the full `update macro` workflow, see [Update Macro](#update-macro) in Common Workflows below.
+
 When analyzing macroeconomic conditions:
 
 1. **Extract relevant event data** from available sources:
@@ -170,7 +172,7 @@ When analyzing macroeconomic conditions:
 
 4. **Focus on cross-asset impact**: gold, silver, DXY, U.S. 2Y/10Y yields, risk sentiment, oil
 
-5. **Connect macro read back to tracked sectors**: precious metals miners, oil and energy, watchlist names
+5. **Connect macro read back to tracked sectors**: precious metals miners, oil and energy — name sectors only, not individual tickers
 
 ## Key Naming Conventions
 
@@ -474,6 +476,8 @@ End with one concise summary that combines:
 
 ### Update Macro
 
+**Out of scope for `update macro`:** Do NOT open the watchlist CSV. Do NOT look up individual stock prices. Do NOT pull ticker-level earnings or company data. Macro-sector mentions in the verdict are text-only — no data lookups.
+
 When asked to `update macro`, treat it as a top-down market workflow with **hourly intraday tracking** capability.
 
 **⚠️ MANDATORY DATA FRESHNESS VERIFICATION (STEP 0):**
@@ -495,6 +499,7 @@ Before starting the macro review workflow, ALWAYS verify current market data wit
 **Preferred sources:** Federal Reserve (FRED), Treasury.gov, BLS, TradingView, Bloomberg terminal, Oilprice.com, Investing.com, Trading Economics
 
 **File Naming & Hourly Update Protocol:**
+- **⚠️ Get real system time first:** Run `date` in the terminal before naming any macro file — the system clock (already set to WIB) is the only source of truth for HHMM timestamps; never guess or invent a time
 - First update of the day: `2026-05-15-0600-macro-top-down-review.md` (name includes HHMM timestamp)
 - Subsequent hourly updates: `2026-05-15-0700-macro-update.md`, `2026-05-15-0800-macro-update.md`, etc.
 - Each hourly file includes:
@@ -530,7 +535,7 @@ Before starting the macro review workflow, ALWAYS verify current market data wit
    - FOMC / Fed speakers (Federal Open Market Committee — rate decision body; tone shifts from hawkish to dovish = direct tailwind for gold/silver)
    - Treasury auctions when yields are the main market driver (weak bid-to-cover = yields spike = headwind for PMs)
 5. Save a structured note under `02_market/macroeconomy/`
-   - Prefer filenames like `YYYY-MM-DD-macro-top-down-review.md`
+   - Prefer filenames like `YYYY-MM-DD-HHMM-macro-top-down-review.md`
    - Use `05_templates/macro_top_down_review_template.md`
    - **Include a "Data Freshness Verification" section at the top documenting all verified prices and timestamps**
 6. If conditions are volatile, also save an hour-level follow-up note
@@ -541,7 +546,7 @@ Before starting the macro review workflow, ALWAYS verify current market data wit
    - default to the next major U.S. release if it is within a few trading days
    - use the next hourly checkpoint instead of a daily or weekly wait when the setup is unusually volatile
    - bring the review forward immediately for major geopolitical escalation or a sharp move in DXY, yields, gold, silver, or oil
-8. End with a practical verdict and identify which tracked sectors or watchlist names are most exposed
+8. End with a practical verdict and name which tracked **sectors** are most exposed based on macro conditions alone — do NOT open the watchlist CSV, do NOT look up individual stock prices, and do NOT pull ticker-level data
 
 ### Update Macro China
 
@@ -658,6 +663,6 @@ When analyzing macro conditions:
 - Extract event and market data from available sources
 - Convert into a markdown note in `02_market/macroeconomy/`
 - Explain likely impact on gold, silver, DXY, and yields first
-- Connect the macro setup to gold miners, silver miners, and energy names when relevant
+- Connect the macro setup to tracked **sectors** (gold miners, silver miners, energy) — name sectors only; do NOT open the watchlist CSV or look up individual ticker prices
 
 This structure enables Claude instances to systematically track, analyze, and update investment research while maintaining consistency across the knowledge base.

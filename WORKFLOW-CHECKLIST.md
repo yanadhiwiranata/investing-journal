@@ -5,7 +5,7 @@
 ## Pre-Analysis (Required Every Time)
 
 - [ ] **Step 0: Data Freshness** (See AGENT.md Step 0)
-  - [ ] Verify current date (today is 2026-05-15)
+  - [ ] Verify current date (check system date)
   - [ ] Verify current stock price from latest available sources (SEC filings, IR pages, financial data)
   - [ ] Confirm latest reported quarter from SEC/IR
   - [ ] Search for latest analyst ratings (TipRanks, 5 most recent)
@@ -78,9 +78,12 @@
 
 | Sector | Template File | Checklist |
 |--------|---------------|-----------|
-| **Gold & Silver Miners** | `gold_silver_miners_company_template.md` | `gold_silver_miners_research_checklist.md` |
+| **Gold Miners** | `gold_miners_company_template.md` | `gold_miners_research_checklist.md` |
+| **Silver Miners** | `silver_miners_company_template.md` | `silver_miners_research_checklist.md` |
 | **Oil & Energy** | `oil_energy_upstream_ep_company_template.md` | `oil_energy_upstream_ep_research_checklist.md` |
-| **Technology** | `technology_company_template.md` | `technology_research_checklist.md` |
+| **Technology / AI Compute** | `ai_compute_infrastructure_company_template.md` | `ai_compute_infrastructure_research_checklist.md` |
+| **Power Infrastructure** | `power_cooling_infrastructure_company_template.md` | `power_cooling_infrastructure_research_checklist.md` |
+| **Power Generation / Nuclear** | `power_generation_nuclear_company_template.md` | `power_generation_nuclear_research_checklist.md` |
 | **Automotive** | `automotive_company_template.md` | `automotive_research_checklist.md` |
 | **Solar Energy** | `solar_energy_company_template.md` | `solar_energy_research_checklist.md` |
 
@@ -95,9 +98,12 @@ If no sector template exists: `company_analysis_template.md`
    - The template defines what sections and metrics are required for that sector
 2. **Always read AGENT.md first** for ticker-analysis requests (see CLAUDE.md Quick Start)
 3. **Read the sector template AND checklist BEFORE analyzing** (Step 2)
-   - Gold/silver miners: `gold_silver_miners_company_template.md` + `gold_silver_miners_research_checklist.md`
+   - Gold miners: `gold_miners_company_template.md` + `gold_miners_research_checklist.md`
+   - Silver miners: `silver_miners_company_template.md` + `silver_miners_research_checklist.md`
    - Oil/energy: `oil_energy_upstream_ep_company_template.md` + checklist
-   - Technology: `technology_company_template.md` + checklist
+   - Technology/AI compute: `ai_compute_infrastructure_company_template.md` + checklist
+   - Power infrastructure: `power_cooling_infrastructure_company_template.md` + checklist
+   - Power generation/nuclear: `power_generation_nuclear_company_template.md` + checklist
    - Automotive: `automotive_company_template.md` + checklist
    - Solar: `solar_energy_company_template.md` + checklist
 4. **Use the earnings comparison template** as the single source of truth for multi-quarter analysis
@@ -123,10 +129,10 @@ If no sector template exists: `company_analysis_template.md`
 
 1. ✅ Read AGENT.md Step 0 (freshness verification)
 2. ✅ Search: current price, latest quarter, analyst ratings, commodity prices
-3. ✅ Use template: `gold_silver_miners_company_template.md`
-4. ✅ Create/update: `03_sectors/gold_silver_miners/earnings/CDE/2026-Q1-comparison.md`
+3. ✅ Use template: `gold_miners_company_template.md`
+4. ✅ Create/update: `03_sectors/gold_miners/earnings/CDE/2026-Q1-comparison.md`
    - Include current analyst consensus in structured table
-5. ✅ Update: `03_sectors/gold_silver_miners/companies/cde-coeur-mining.md`
+5. ✅ Update: `03_sectors/gold_miners/companies/cde-coeur-mining.md`
    - Use template sections (Snapshot, Current Context, Thesis, Valuation, Decision, etc.)
 6. ✅ Refresh: `04_portfolio/watchlist/watchlist.csv`
    - Update price, conviction, thesis summary, next review date
@@ -148,9 +154,15 @@ Use this when the user says `update watchlist`.
 
 ## Additional Command: Update Macro
 
+**Out of scope:** Do NOT open the watchlist CSV, do NOT look up individual stock prices or ticker data. Only macro indicators and sector-level verdicts.
+
 Use this when the user says `update macro`.
 
 **Hourly Update Protocol (Active Monitoring Days):**
+- [ ] **Step 0a - Get real system time (MANDATORY FIRST):** Run `date` in terminal before naming any file
+  - Records exact Jakarta HHMM for filename and `**Last Updated:**` header
+  - Example: `date` → `Thu May 28 17:36:00 WIB 2026` → use `1736` in filename, `17:36` in header
+  - **Never guess or invent the time** — a wrong timestamp breaks the audit trail
 - [ ] **Step 0 - Data Freshness Verification:** Refresh all market prices with live sources (do NOT use cached prices)
   - [ ] DXY with exact timestamp
   - [ ] Gold spot price with timestamp

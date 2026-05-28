@@ -207,6 +207,12 @@ When the user asks to `update macro`, interpret it as an upgraded macro workflow
 
 For active macro monitoring days (e.g., around major data releases, geopolitical shocks, or high volatility), support **hourly intraday updates** using timestamp-based filenames:
 
+**⚠️ Get real system time first (MANDATORY):**
+- Run `date` in the terminal BEFORE naming any macro file
+- The system clock is already set to WIB (Jakarta time); `date` gives the only authoritative timestamp
+- Example: `date` → `Thu May 28 17:36:00 WIB 2026` → use `1736` in filename, `17:36` in header
+- **Never guess, estimate, or invent a time.** A fabricated timestamp invalidates the entire audit trail.
+
 **File Naming Convention:**
 - Each hour gets a NEW file with timestamp in filename: `YYYY-MM-DD-HHMM-macro-[TYPE].md`
 - **First update of the day:** `2026-05-15-0600-macro-top-down-review.md`
@@ -327,9 +333,9 @@ Also state:
 
 If the macro read matters for active sectors in the repo, link it mentally and in the written note to:
 
-- `03_sectors/gold_silver_miners/`
+- `03_sectors/gold_miners/`
+- `03_sectors/silver_miners/`
 - `03_sectors/oil_energy/`
-- any watchlist names most exposed to the move
 
 ## Macro Note Output Standard
 
@@ -357,6 +363,12 @@ Use this workflow when the user asks for:
 **This step is non-negotiable for macro updates.** Stale commodity and yield data produces incorrect macro conclusions and invalid sector/portfolio recommendations.
 
 **Freshness checklist — VERIFY ALL BEFORE PROCEEDING:**
+
+0. **Get real system time (MANDATORY FIRST)**
+   - Run `date` in the terminal to get the exact Jakarta time
+   - Record the HHMM for the macro filename and the `**Last Updated:**` header
+   - Example: `date` → `Thu May 28 17:36:00 WIB 2026` → filename `2026-05-28-1736-...`, header `17:36 WIB`
+   - **Never guess or invent the time.** Always use the system clock.
 
 1. **DXY (U.S. Dollar Index)**
    - Search for current price with exact date and time
@@ -487,7 +499,7 @@ Save under:
 
 Recommended filename:
 
-- `YYYY-MM-DD-macro-top-down-review.md`
+- `YYYY-MM-DD-HHMM-macro-top-down-review.md`
 
 Use:
 
@@ -525,11 +537,8 @@ The final note should clearly state:
 - macro trend verdict
 - most important upcoming date
 - what would change the view
-- which sectors or watchlist names are most exposed
+- which tracked **sectors** are most exposed (text-only; do NOT open watchlist CSV or pull individual ticker data)
 - whether hourly monitoring remains necessary and the exact next checkpoint
-8. Cross-Asset Trend Read
-9. What To Watch Next
-10. Bottom Line
 
 ## Primary Workflow: Analyze a Ticker
 
@@ -537,7 +546,7 @@ The final note should clearly state:
 
 **This step is non-negotiable. Do not skip or defer.** Financial analysis with stale data produces incorrect conclusions and poor recommendations.
 
-**Current date context:** Today is 2026-05-15. All analysis must reference this date explicitly.
+**Current date context:** Always check the system date. All analysis must reference the current date explicitly.
 
 **Freshness checklist — VERIFY ALL BEFORE PROCEEDING:**
 
@@ -614,9 +623,12 @@ The final note should clearly state:
 4. Read the matching earnings comparison template from `05_templates/earnings_comparison_template.md`
 
 **Templates available:**
-- `05_templates/gold_silver_miners_company_template.md` + `gold_silver_miners_research_checklist.md`
+- `05_templates/gold_miners_company_template.md` + `gold_miners_research_checklist.md`
+- `05_templates/silver_miners_company_template.md` + `silver_miners_research_checklist.md`
 - `05_templates/oil_energy_upstream_ep_company_template.md` + `oil_energy_upstream_ep_research_checklist.md`
-- `05_templates/technology_company_template.md` + `technology_research_checklist.md`
+- `05_templates/ai_compute_infrastructure_company_template.md` + `ai_compute_infrastructure_research_checklist.md`
+- `05_templates/power_cooling_infrastructure_company_template.md` + `power_cooling_infrastructure_research_checklist.md`
+- `05_templates/power_generation_nuclear_company_template.md` + `power_generation_nuclear_research_checklist.md`
 - `05_templates/automotive_company_template.md` + `automotive_research_checklist.md`
 - `05_templates/solar_energy_company_template.md` + `solar_energy_research_checklist.md`
 - Generic fallback: `05_templates/company_analysis_template.md` + `05_templates/earnings_comparison_template.md`
@@ -634,11 +646,14 @@ Search for an existing company note:
 
 Current sector folders in use:
 
-- `03_sectors/gold_silver_miners/`
+- `03_sectors/gold_miners/`
+- `03_sectors/silver_miners/`
 - `03_sectors/oil_energy/`
 - `03_sectors/technology/`
 - `03_sectors/automotive/`
 - `03_sectors/solar_energy/`
+- `03_sectors/power_infrastructure/`
+- `03_sectors/power_generation/`
 
 If the company does not exist yet:
 
@@ -679,17 +694,6 @@ If the watchlist has no entry yet:
 For earnings-driven analysis, always gather these three periods:
 
 - Latest reported quarter (verified in Step 0)
-- Immediately previous quarter
-- Same quarter one year earlier
-
-Examples:
-
-- If latest is `Q1 2026` (verified in Step 0), gather `Q1 2026`, `Q4 2025`, and `Q1 2025`
-- If latest is `Q3 2026`, gather `Q3 2026`, `Q2 2026`, and `Q3 2025`
-
-For earnings-driven analysis, always gather these three periods:
-
-- Latest reported quarter
 - Immediately previous quarter
 - Same quarter one year earlier
 
@@ -810,9 +814,12 @@ Create or update:
 
 Use the sector-specific company template when available:
 
-- `05_templates/gold_silver_miners_company_template.md`
+- `05_templates/gold_miners_company_template.md`
+- `05_templates/silver_miners_company_template.md`
 - `05_templates/oil_energy_upstream_ep_company_template.md`
-- `05_templates/technology_company_template.md`
+- `05_templates/ai_compute_infrastructure_company_template.md`
+- `05_templates/power_cooling_infrastructure_company_template.md`
+- `05_templates/power_generation_nuclear_company_template.md`
 - `05_templates/automotive_company_template.md`
 - `05_templates/solar_energy_company_template.md`
 
@@ -920,12 +927,19 @@ Bring the review date forward if there is an important catalyst before earnings,
 
 Use the company’s operating model to choose the template.
 
-### Gold and Silver Miners
+### Gold Miners
 
 Use:
 
-- `05_templates/gold_silver_miners_company_template.md`
-- `05_templates/gold_silver_miners_research_checklist.md`
+- `05_templates/gold_miners_company_template.md`
+- `05_templates/gold_miners_research_checklist.md`
+
+### Silver Miners
+
+Use:
+
+- `05_templates/silver_miners_company_template.md`
+- `05_templates/silver_miners_research_checklist.md`
 
 Focus on:
 
@@ -1132,12 +1146,18 @@ Do all of the following by default, **IN THIS EXACT SEQUENCE:**
 
 - `05_templates/company_analysis_template.md`
 - `05_templates/earnings_comparison_template.md`
-- `05_templates/gold_silver_miners_company_template.md`
-- `05_templates/gold_silver_miners_research_checklist.md`
+- `05_templates/gold_miners_company_template.md`
+- `05_templates/gold_miners_research_checklist.md`
+- `05_templates/silver_miners_company_template.md`
+- `05_templates/silver_miners_research_checklist.md`
 - `05_templates/oil_energy_upstream_ep_company_template.md`
 - `05_templates/oil_energy_upstream_ep_research_checklist.md`
-- `05_templates/technology_company_template.md`
-- `05_templates/technology_research_checklist.md`
+- `05_templates/ai_compute_infrastructure_company_template.md`
+- `05_templates/ai_compute_infrastructure_research_checklist.md`
+- `05_templates/power_cooling_infrastructure_company_template.md`
+- `05_templates/power_cooling_infrastructure_research_checklist.md`
+- `05_templates/power_generation_nuclear_company_template.md`
+- `05_templates/power_generation_nuclear_research_checklist.md`
 - `05_templates/automotive_company_template.md`
 - `05_templates/automotive_research_checklist.md`
 - `05_templates/solar_energy_company_template.md`
@@ -1148,13 +1168,13 @@ Do all of the following by default, **IN THIS EXACT SEQUENCE:**
 If the user says `analyze EXK`, the agent should:
 
 **0. STEP 0:** Verify current date, EXK stock price, Q1 2026 latest quarter, analyst ratings, silver/gold prices
-**1.5. STEP 1.5:** Read `gold_silver_miners_company_template.md`, `gold_silver_miners_research_checklist.md`, and `earnings_comparison_template.md` to understand required sections and metrics
-1. Locate `03_sectors/gold_silver_miners/companies/EXK-endeavour-silver.md` and watchlist entry
+**1.5. STEP 1.5:** Read `silver_miners_company_template.md`, `silver_miners_research_checklist.md`, and `earnings_comparison_template.md` to understand required sections and metrics
+1. Locate `03_sectors/silver_miners/companies/EXK-endeavour-silver.md` and watchlist entry
 2. Confirm the latest reported quarter is Q1 2026 (reported May 6-7, 2026)
-3. Save the latest report, prior quarter report, and same quarter prior year report under `03_sectors/gold_silver_miners/earnings/EXK/`
-4. Create or refresh `03_sectors/gold_silver_miners/earnings/EXK/2026-Q1-comparison.md` using the earnings template
+3. Save the latest report, prior quarter report, and same quarter prior year report under `03_sectors/silver_miners/earnings/EXK/`
+4. Create or refresh `03_sectors/silver_miners/earnings/EXK/2026-Q1-comparison.md` using the earnings template
 5. Extract the latest guidance (production, AISC, capex) and compare across three quarters
-6. Update the EXK company memo using the gold and silver miners template (Snapshot, Current Context, Thesis, Why This Could Work, Key Risks, Operating Quality, Financial Quality, Valuation, What To Monitor, Decision, Related Documents)
+6. Update the EXK company memo using the silver miners template (Snapshot, Current Context, Thesis, Why This Could Work, Key Risks, Operating Quality, Financial Quality, Valuation, What To Monitor, Decision, Related Documents)
 7. Update watchlist status, analyst consensus, conviction, and next review date if needed
 8. Ensure all prices tagged with `current_price_timestamp` and use exact dates throughout
 
