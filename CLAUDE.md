@@ -80,7 +80,7 @@ When analyzing current conditions, always verify the latest price information fr
 
 ## Repository Overview
 
-This is an **investing journal** for tracking research and decisions on U.S. stocks. It's a markdown-based knowledge management system focused on eight sectors:
+This is an **investing journal** for tracking research and decisions on U.S. stocks. It's a markdown-based knowledge management system focused on nine sectors:
 - Gold miners (real-yields driven)
 - Silver miners (ISM/demand-driven, 2.5–3x leverage)
 - Oil and energy companies
@@ -89,6 +89,7 @@ This is an **investing journal** for tracking research and decisions on U.S. sto
 - Solar energy companies
 - Power infrastructure (data center power/cooling equipment: VRT, ETN, MOD)
 - Power generation & nuclear (nuclear operators and power generators with AI PPA exposure: CEG, VST, SMR)
+- SaaS companies (software-as-a-service; subscription/usage-based models)
 
 The repository uses a disciplined folder structure to organize research by theme, sector, and company ticker.
 
@@ -153,6 +154,7 @@ When a user provides a **ticker symbol** in Claude chat:
    - `solar_energy`
    - `power_infrastructure` (data center power/cooling equipment — VRT, ETN, MOD, HUBB; use `power_cooling_infrastructure_company_template.md`)
    - `power_generation` (nuclear operators and power generators with AI PPA exposure — CEG, VST, SMR; use `power_generation_nuclear_company_template.md`)
+   - `saas` (software-as-a-service; subscription or usage-based recurring revenue; use `saas_company_template.md`)
 
 ## Macro Analysis Workflow
 
@@ -208,6 +210,8 @@ Primary sector templates:
 - `05_templates/power_generation_nuclear_company_template.md` + `05_templates/power_generation_nuclear_research_checklist.md` ← use for power_generation sector (CEG, VST, SMR)
 - `05_templates/automotive_company_template.md` + `05_templates/automotive_research_checklist.md`
 - `05_templates/solar_energy_company_template.md` + `05_templates/solar_energy_research_checklist.md`
+- `05_templates/saas_company_template.md` + `05_templates/saas_research_checklist.md` ← use for saas sector (subscription/usage-based recurring revenue)
+- `05_templates/saas_earnings_comparison_template.md` ← for SaaS multi-quarter comparison notes
 - `05_templates/technology_company_template.md` ← generic fallback only
 
 Generic company structure:
