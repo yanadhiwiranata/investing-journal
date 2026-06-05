@@ -19,10 +19,11 @@
   - [ ] Identify primary exchange and reference price
 
 - [ ] **Step 2: Read Sector Template & Checklist** (See AGENT.md Step 1.5 — MANDATORY)
-  - [ ] Identify the sector (gold/silver miners, oil/energy, technology, automotive, solar)
+  - [ ] Identify the sector (gold/silver miners, oil/energy, technology, automotive, solar, banking)
   - [ ] Read `05_templates/[SECTOR]_company_template.md` to understand required sections
   - [ ] Read `05_templates/[SECTOR]_research_checklist.md` to understand key metrics
   - [ ] Read `05_templates/earnings_comparison_template.md` for earnings structure
+  - [ ] **For Indonesian banking (BBCA, BBRI, BMRI):** Read `02_market/macroeconomy/indonesia-macro-economy.md` — single source of truth for BI Rate, GWM, OJK policies, KUR, UMKM tax. Update it if policy has changed.
   - [ ] **Critical:** This defines what a COMPLETE analysis looks like for this sector
 
 ## Analysis & Output (Follow Template Structure)
@@ -86,6 +87,9 @@
 | **Power Generation / Nuclear** | `power_generation_nuclear_company_template.md` | `power_generation_nuclear_research_checklist.md` |
 | **Automotive** | `automotive_company_template.md` | `automotive_research_checklist.md` |
 | **Solar Energy** | `solar_energy_company_template.md` | `solar_energy_research_checklist.md` |
+| **SaaS** | `saas_company_template.md` | `saas_research_checklist.md` |
+| **Banking** | `banking_company_template.md` | `banking_research_checklist.md` |
+| **Indonesia Macro (ref)** | `macro_indonesia_economy_template.md` | `02_market/macroeconomy/indonesia-macro-economy.md` (living doc) |
 
 ## Generic Template (Fallback)
 
@@ -106,6 +110,8 @@ If no sector template exists: `company_analysis_template.md`
    - Power generation/nuclear: `power_generation_nuclear_company_template.md` + checklist
    - Automotive: `automotive_company_template.md` + checklist
    - Solar: `solar_energy_company_template.md` + checklist
+   - SaaS: `saas_company_template.md` + `saas_research_checklist.md`
+   - Banking: `banking_company_template.md` + `banking_research_checklist.md`
 4. **Use the earnings comparison template** as the single source of truth for multi-quarter analysis
 5. **Use sector-specific company template** — never use generic template if sector template exists
 6. **Include analyst consensus** in every earnings comparison file (TipRanks, 5 most recent ratings)

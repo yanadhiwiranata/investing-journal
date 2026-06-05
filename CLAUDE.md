@@ -24,6 +24,7 @@ Examples:
 - `update porto`
 - `update macro`
 - `update macro china` — China-only macro refresh; only triggered by this exact phrase
+- `update macro indonesia` — Indonesia-only macro refresh; only triggered by this exact phrase
 
 ---
 
@@ -90,6 +91,7 @@ This is an **investing journal** for tracking research and decisions on U.S. sto
 - Power infrastructure (data center power/cooling equipment: VRT, ETN, MOD)
 - Power generation & nuclear (nuclear operators and power generators with AI PPA exposure: CEG, VST, SMR)
 - SaaS companies (software-as-a-service; subscription/usage-based models)
+- Banking companies (US and Indonesian banks; NIM/credit-cycle/rate-sensitive)
 
 The repository uses a disciplined folder structure to organize research by theme, sector, and company ticker.
 
@@ -155,6 +157,7 @@ When a user provides a **ticker symbol** in Claude chat:
    - `power_infrastructure` (data center power/cooling equipment — VRT, ETN, MOD, HUBB; use `power_cooling_infrastructure_company_template.md`)
    - `power_generation` (nuclear operators and power generators with AI PPA exposure — CEG, VST, SMR; use `power_generation_nuclear_company_template.md`)
    - `saas` (software-as-a-service; subscription or usage-based recurring revenue; use `saas_company_template.md`)
+   - `banking` (US and Indonesian banks; NIM/credit-cycle driven; use `banking_company_template.md`)
 
 ## Macro Analysis Workflow
 
@@ -174,7 +177,7 @@ When analyzing macroeconomic conditions:
 
 4. **Focus on cross-asset impact**: gold, silver, DXY, U.S. 2Y/10Y yields, risk sentiment, oil
 
-5. **Connect macro read back to tracked sectors**: precious metals miners, oil and energy — name sectors only, not individual tickers
+5. **Connect macro read back to tracked sectors**: precious metals miners, oil and energy, banking (rate/yield sensitive) — name sectors only, not individual tickers
 
 ## Key Naming Conventions
 
@@ -212,6 +215,7 @@ Primary sector templates:
 - `05_templates/solar_energy_company_template.md` + `05_templates/solar_energy_research_checklist.md`
 - `05_templates/saas_company_template.md` + `05_templates/saas_research_checklist.md` ← use for saas sector (subscription/usage-based recurring revenue)
 - `05_templates/saas_earnings_comparison_template.md` ← for SaaS multi-quarter comparison notes
+- `05_templates/banking_company_template.md` + `05_templates/banking_research_checklist.md` ← use for banking sector (US banks: JPM, BAC, WFC, C, USB, PNC; Indonesian banks: BBCA, BBRI, BMRI, BNI, BTN)
 - `05_templates/technology_company_template.md` ← generic fallback only
 
 Generic company structure:
@@ -242,6 +246,7 @@ Also use:
 - for China EV automotive names, check `https://cnevpost.com/` for monthly delivery data and model-level sales breakdown to build a trend comparison alongside earnings
 - for China EV automotive names, check `https://carnewschina.com/` for new model launches, facelifts, pricing changes, and product-spec updates that may explain delivery trends
 - for pre-earnings work, include a short prediction for the coming report and a short-term price scenario with reasons, especially for China EV names where monthly deliveries and product-cycle news can change expectations before the print
+- for Indonesian banking names (BBCA, BBRI, BMRI), always read `02_market/macroeconomy/indonesia-macro-economy.md` before analysis — this is the single source of truth for BI Rate, GWM, OJK policies, KUR, UMKM tax, and government BUMN policy. Update that file if any policy has changed since the last entry. Template: `05_templates/macro_indonesia_economy_template.md`
 
 ## CSV Data Structure
 
@@ -594,6 +599,44 @@ If any data cannot be verified, state it explicitly. Do not present cached level
 
 **Do not merge this output with a U.S. macro review.** China macro and U.S. macro are separate notes. If the user wants both, they must run `update macro` and `update macro china` separately.
 
+### Update Macro Indonesia
+
+**Trigger:** Only run when the user types the exact phrase `update macro indonesia`. Do not run as part of `update macro`, `update today`, or any other command unless explicitly requested.
+
+When asked to `update macro indonesia`, treat it as a refresh of the Indonesia central macro reference file focused on BI monetary policy, OJK regulation, government programs, and economic indicators that affect BBCA, BBRI, and BMRI.
+
+**⚠️ MANDATORY DATA FRESHNESS VERIFICATION (STEP 0):**
+
+Before writing any conclusions, ALWAYS verify the following from live sources:
+
+1. **USD/IDR** — current level with exact timestamp
+2. **BI Rate** — confirm current rate; check if RDG meeting was held recently
+3. **JCI (IHSG)** — current index level
+4. **Indonesia 10Y yield** — latest level
+5. **Latest BPS CPI** — confirm exact print date, actual vs. prior
+6. **Latest S&P Global Manufacturing PMI** — exact date and value
+7. **Recent OJK actions** — any new POJK, compliance deadline, or capital rule change in last 30 days
+8. **KUR quota** — any annual update from Ministry of Finance
+9. **UMKM policy changes** — any tax reform, subsidy changes, or program updates
+
+If data cannot be verified, state it explicitly. Do not present cached levels as current.
+
+**Preferred sources:** BI (`bi.go.id`), OJK (`ojk.go.id`), BPS (`bps.go.id`), kemenkeu.go.id, Trading Economics, IDX
+
+**Then execute the workflow:**
+
+1. **Open the living reference file:** `02_market/macroeconomy/indonesia-macro-economy.md`
+2. **Update the Policy Dashboard table** (Section 1) with freshly verified values and timestamps
+3. **Update BI monetary policy** (Section 2) — rate history, current stance, forward guidance
+4. **Update OJK policy** (Section 3) — active rules, new actions, compliance deadlines
+5. **Update government policy** (Section 4) — KUR quota, UMKM tax status, BUMN dividend, Hilirisasi
+6. **Update economic indicators** (Section 5) — GDP, CPI, PMI, IDR, trade balance
+7. **Update the economic calendar** (Section 7) — next BI RDG, BPS CPI, earnings dates
+8. **Append a row to the Update Log** (Section 10) with date and summary of what changed
+9. **End with a summary** of which macro factors are most important for each bank (BBCA / BBRI / BMRI) right now
+
+**Do not merge this output with a U.S. or China macro review.** Indonesia macro is a separate living document. The output is an updated `indonesia-macro-economy.md`, not a new timestamped file.
+
 ### Update Porto
 
 When asked to `update porto`, treat it as a portfolio-record workflow.
@@ -667,6 +710,6 @@ When analyzing macro conditions:
 - Extract event and market data from available sources
 - Convert into a markdown note in `02_market/macroeconomy/`
 - Explain likely impact on gold, silver, DXY, and yields first
-- Connect the macro setup to tracked **sectors** (gold miners, silver miners, energy) — name sectors only; do NOT open the watchlist CSV or look up individual ticker prices
+- Connect the macro setup to tracked **sectors** (gold miners, silver miners, energy, banking) — name sectors only; do NOT open the watchlist CSV or look up individual ticker prices
 
 This structure enables Claude instances to systematically track, analyze, and update investment research while maintaining consistency across the knowledge base.

@@ -39,6 +39,7 @@ Examples:
 - ✅ Use exact dates (`2026-05-14`, not "last week") in all outputs
 - ✅ Tag refreshed market prices with `current_price_timestamp: YYYY-MM-DD HH:MM:SS` in Jakarta local time
 - ✅ Update watchlist CSV after analysis
+- ✅ **For Indonesian banking tickers (BBCA, BBRI, BMRI):** Read `02_market/macroeconomy/indonesia-macro-economy.md` at the start of analysis. If any BI Rate, OJK policy, KUR quota, or government program has changed since the last Update Log entry, update that file before proceeding with the bank analysis. This is the single source of truth for Indonesian macro context.
 
 **If any of these are skipped, the analysis is incomplete.**
 
@@ -631,6 +632,8 @@ The final note should clearly state:
 - `05_templates/power_generation_nuclear_company_template.md` + `power_generation_nuclear_research_checklist.md`
 - `05_templates/automotive_company_template.md` + `automotive_research_checklist.md`
 - `05_templates/solar_energy_company_template.md` + `solar_energy_research_checklist.md`
+- `05_templates/saas_company_template.md` + `saas_research_checklist.md`
+- `05_templates/banking_company_template.md` + `banking_research_checklist.md`
 - Generic fallback: `05_templates/company_analysis_template.md` + `05_templates/earnings_comparison_template.md`
 
 **Why:** The template defines the required structure (sections, key metrics, depth) for a complete analysis in that sector. Skipping this step results in incomplete or inconsistently structured notes.
@@ -654,6 +657,8 @@ Current sector folders in use:
 - `03_sectors/solar_energy/`
 - `03_sectors/power_infrastructure/`
 - `03_sectors/power_generation/`
+- `03_sectors/saas/`
+- `03_sectors/banking/`
 
 If the company does not exist yet:
 
@@ -822,6 +827,8 @@ Use the sector-specific company template when available:
 - `05_templates/power_generation_nuclear_company_template.md`
 - `05_templates/automotive_company_template.md`
 - `05_templates/solar_energy_company_template.md`
+- `05_templates/saas_company_template.md`
+- `05_templates/banking_company_template.md`
 
 Fallback:
 
@@ -1024,6 +1031,56 @@ Focus on:
 - IRA, domestic content, and tariff exposure
 - liquidity and funding needs
 
+### SaaS
+
+Use:
+
+- `05_templates/saas_company_template.md`
+- `05_templates/saas_research_checklist.md`
+- `05_templates/saas_earnings_comparison_template.md` (preferred over generic earnings comparison template)
+
+Focus on:
+
+- ARR (Annual Recurring Revenue) and NRR (Net Revenue Retention)
+- subscription revenue growth vs. professional services mix
+- gross margin and operating leverage trajectory
+- Rule of 40 score (revenue growth % + FCF margin %)
+- customer count, ACV, and land-and-expand metrics
+- AI monetization: copilot attach rate, agent seats, usage-based ARR
+- guidance credibility and beat-and-raise cadence
+- FCF conversion and margin inflection timing
+
+### Banking
+
+Use:
+
+- `05_templates/banking_company_template.md`
+- `05_templates/banking_research_checklist.md`
+
+Applies to both U.S. banks (JPM, BAC, WFC, C, USB, PNC) and Indonesian banks (BBCA, BBRI, BMRI, BBNI, BTN).
+
+Focus on:
+
+- **NIM (Net Interest Margin)**: Primary revenue driver; rate-cycle sensitive
+- **NII (Net Interest Income)**: NIM × earning assets; must track QoQ and YoY trend
+- **NPL / NCO**: Non-performing loans and net charge-offs; credit quality signal
+- **Provision expense**: PCL (Provision for Credit Losses) trend vs. net charge-off coverage
+- **ROTCE / ROE**: Quality-of-earnings benchmark; 15–20%+ target for U.S. banks; 18–22%+ for Indonesian top-tier
+- **CET1 / CAR**: Capital adequacy; buffer for buybacks and dividends (U.S.: CET1; Indonesia: CAR)
+- **CASA ratio** (Indonesian banks): Funding cost proxy; higher CASA = lower cost of funds
+- **BOPO** (Indonesian banks): Cost-to-income efficiency ratio; target <45% for BBCA
+- **LDR** (Indonesian banks): Loan-to-deposit ratio; lending capacity signal
+- **Loan growth by segment**: Corporate, retail/consumer (KPR/KKB/personal), SME/UMKM
+- **Fee income / non-interest income**: Wealth management, cards, trade finance, IB fees
+- **Capital return**: Buyback authorization, dividend yield, payout ratio
+- **Regulatory context**: U.S. DFAST/CCAR; Indonesia OJK GWM, POJK capital rules; rate environment from Fed/BI
+
+Key macro drivers to monitor for banking:
+- Fed Funds / BI rate path: rate hikes = NIM expansion; rate cuts = NIM compression
+- Yield curve shape: steep = structural NIM tailwind; flat/inverted = headwind
+- Credit cycle: NPL formation trend is a leading indicator of provision pressure
+- Indonesian GDP and consumption growth: drives retail loan and UMKM demand
+
 ## Output Standards
 
 ### Earnings comparison file
@@ -1127,7 +1184,7 @@ Do all of the following by default, **IN THIS EXACT SEQUENCE:**
    - Record all prices/dates with exact timestamps
 
 **1.5. STEP 1.5: READ SECTOR TEMPLATE & CHECKLIST (MANDATORY BEFORE ANALYSIS)**
-   - Identify the sector (gold/silver miners, oil/energy, technology, automotive, solar)
+   - Identify the sector (gold/silver miners, oil/energy, technology, automotive, solar, saas, banking)
    - Read the sector-specific company template from `05_templates/`
    - Read the sector-specific research checklist from `05_templates/`
    - Read the earnings comparison template from `05_templates/`
@@ -1162,6 +1219,11 @@ Do all of the following by default, **IN THIS EXACT SEQUENCE:**
 - `05_templates/automotive_research_checklist.md`
 - `05_templates/solar_energy_company_template.md`
 - `05_templates/solar_energy_research_checklist.md`
+- `05_templates/saas_company_template.md`
+- `05_templates/saas_research_checklist.md`
+- `05_templates/saas_earnings_comparison_template.md`
+- `05_templates/banking_company_template.md`
+- `05_templates/banking_research_checklist.md`
 
 ## Practical Example
 
