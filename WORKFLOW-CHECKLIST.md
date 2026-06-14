@@ -6,7 +6,7 @@
 
 - [ ] **Step 0: Data Freshness** (See AGENT.md Step 0)
   - [ ] Verify current date (check system date)
-  - [ ] Verify current stock price from latest available sources (SEC filings, IR pages, financial data)
+  - [ ] Read `00_inbox/prices_latest.md` — check `fetch_prices_timestamp` in header; if older than 4 hours, ask user to run `python3 scripts/fetch_prices.py` first
   - [ ] Confirm latest reported quarter from SEC/IR
   - [ ] Search for latest analyst ratings (TipRanks, 5 most recent)
   - [ ] Verify current commodity prices if applicable
@@ -169,12 +169,9 @@ Use this when the user says `update macro`.
   - Records exact Jakarta HHMM for filename and `**Last Updated:**` header
   - Example: `date` → `Thu May 28 17:36:00 WIB 2026` → use `1736` in filename, `17:36` in header
   - **Never guess or invent the time** — a wrong timestamp breaks the audit trail
-- [ ] **Step 0 - Data Freshness Verification:** Refresh all market prices with live sources (do NOT use cached prices)
-  - [ ] DXY with exact timestamp
-  - [ ] Gold spot price with timestamp
-  - [ ] Silver spot price with timestamp
-  - [ ] U.S. 2Y and 10Y yields (intraday levels, not just prior close)
-  - [ ] WTI and Brent crude with timestamps
+- [ ] **Step 0 - Data Freshness Verification:** Read `00_inbox/prices_latest.md`; check `fetch_prices_timestamp` — if older than 4 hours, ask user to run `python3 scripts/fetch_prices.py` before proceeding
+  - [ ] Confirm DXY, Gold, Silver, WTI, Brent, 10Y yield, VIX from the file
+  - [ ] 2Y yield: check FRED `DGS2` or Treasury.gov (not in prices_latest.md)
   - [ ] Check for any released macro data (NFP — Non-Farm Payrolls; CPI — Consumer Price Index; PPI — Producer Price Index; PCE — Personal Consumption Expenditures, Fed's preferred inflation gauge; jobless claims; etc.)
   - [ ] Check for breaking geopolitical news
 - [ ] **Create new hourly file** with timestamp-based naming: `YYYY-MM-DD-HHMM-macro-*.md`
@@ -244,6 +241,77 @@ Use this when the user says `update today` or asks for the full daily maintenanc
 - [ ] Run `update porto` third
 - [ ] Keep the sequence intact so macro context informs the watchlist and portfolio updates
 - [ ] Return one concise end-of-run summary covering macro changes, watchlist actions, and portfolio record changes
+
+## Additional Command: Pulse Ticker
+
+Use this when the user says `pulse TICKER`.
+
+**Scope: exogenous factors only. No fundamentals rebuild, no sector template re-run, no earnings comparison.**
+
+- [ ] **Step 0: Locate company file and watchlist row**
+  - [ ] Confirm today's date
+  - [ ] Find `03_sectors/[sector]/companies/TICKER-*.md`
+  - [ ] Read `reference_price` and `last_analyzed_at` from `04_portfolio/watchlist/watchlist.csv`
+
+- [ ] **Step 1: Price drift**
+  - [ ] Get current verified price
+  - [ ] Calculate % change vs. `reference_price`
+  - [ ] Note direction (up/down since last full analysis)
+
+- [ ] **Step 2: Recent headlines (last 7–14 days)**
+  - [ ] Search for press releases, 8-K filings, management commentary
+  - [ ] Note any news that could shift thesis or entry timing
+  - [ ] Focus on events since `last_analyzed_at`
+
+- [ ] **Step 3: Sector macro backdrop (2–3 indicators only)**
+  - [ ] Gold miners: real yields + DXY + gold spot
+  - [ ] Silver miners: ISM PMI + copper + silver spot
+  - [ ] Oil/energy: WTI + EIA inventory + rig count
+  - [ ] Banking (US): Fed funds rate + 2Y/10Y yields
+  - [ ] Banking (Indonesia): BI Rate + USD/IDR + JCI
+  - [ ] Technology/AI: sector sentiment + macro risk-on/off
+  - [ ] *(Do NOT run a full macro review)*
+
+- [ ] **Step 4: Analyst changes since `last_analyzed_at`**
+  - [ ] Check TipRanks or search for upgrades/downgrades/PT changes
+  - [ ] Note firm, date, old vs. new rating and price target
+  - [ ] If none: state "None since last analysis"
+
+- [ ] **Step 5: Corporate actions since last full analysis**
+  - [ ] Secondary offerings, buybacks, insider trades
+  - [ ] Guidance revisions, dividend changes, M&A, 8-K filings
+  - [ ] If none: state "None"
+
+- [ ] **Step 6: Update company file + append changelog block**
+  - [ ] **Sections to update** in `03_sectors/[sector]/companies/TICKER-*.md`:
+    - [ ] Snapshot: `current_price` and `current_price_timestamp`
+    - [ ] Current Context: latest price, headlines, post-analysis events
+    - [ ] Thesis: update bull/base/bear narrative if macro or geopolitical shifts change the story
+    - [ ] Why This Could Work: add or revise catalysts if new ones emerge from headlines
+    - [ ] Key Risks: add, remove, or reprioritize risks based on new developments
+    - [ ] What To Monitor: revise watchpoints if headlines change what matters next
+    - [ ] Decision: conviction level, entry zone timing, next review date
+  - [ ] **Do NOT edit** (requires financial recomputation — leave as-is): Business Summary, Financial Quality, Valuation
+  - [ ] **Append changelog block** at the bottom of the file:
+    ```
+    ## Pulse Update – YYYY-MM-DD
+    Price drift / Macro backdrop / Headlines / Analyst changes / Corporate actions /
+    Thesis status / Sections updated / Trigger full re-analysis? / Next pulse date
+    ```
+
+- [ ] **Step 7: Update watchlist CSV (two fields only)**
+  - [ ] Update `current_price` with latest verified price
+  - [ ] Update `current_price_timestamp` in Jakarta local time (`YYYY-MM-DD HH:MM:SS`)
+  - [ ] **Do NOT change** `reference_price` or `last_analyzed_at`
+
+- [ ] **Flag `full TICKER` as needed if any of these are true:**
+  - [ ] Earnings miss or beat that materially changes the thesis
+  - [ ] CEO, CFO, or key operator change
+  - [ ] Acquisition, merger, or spinoff announced
+  - [ ] Secondary offering that significantly dilutes
+  - [ ] Macro regime shift that breaks original thesis assumptions
+
+---
 
 ## Additional Command: Update Porto
 

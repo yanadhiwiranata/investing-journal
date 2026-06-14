@@ -25,6 +25,7 @@ The repository is an investing research workspace organized around sectors, comp
 Examples:
 
 - `full TICKER`
+- `pulse TICKER`
 - `update today`
 - `update watchlist`
 - `update porto`
@@ -86,6 +87,46 @@ Verify current prices from available sources: SEC filings, earnings releases, co
 If the prompt matches a repo command, resolve it against `COMMANDS.md` first and then follow the linked detailed workflow.
 
 When the user provides only a ticker and a verb such as `analyze`, `review`, or `update`, interpret it as a full research workflow unless the user says otherwise.
+
+When the user says `pulse TICKER`, interpret it as a **lightweight exogenous refresh only**. Do not rebuild fundamentals, rebuild valuation, re-run earnings comparisons, or re-run sector templates. Scope is strictly:
+
+1. **Price drift** — current price vs. `reference_price` in watchlist CSV (% change since last full analysis)
+2. **Recent headlines (last 7–14 days)** — press releases, 8-K filings, management commentary, news articles; flag anything that could shift thesis or entry timing
+3. **Sector macro backdrop (2–3 indicators only)** — only the indicators that directly drive the sector (e.g., real yields + DXY for gold miners; ISM + copper for silver miners; WTI + EIA for oil; BI rate + IDR for Indonesian banks)
+4. **Analyst rating or price target changes** since `last_analyzed_at` — check TipRanks or search; note firm, date, old vs. new
+5. **Corporate actions** since last full analysis — secondary offerings, buybacks, insider trades, guidance revisions, M&A
+
+**What pulse CAN update in the company file:**
+- `current_price` and `current_price_timestamp` in Snapshot
+- **Current Context** — refresh with latest price, headlines, and post-analysis events
+- **Thesis** — update bull/base/bear narrative if macro or geopolitical shifts change the story
+- **Why This Could Work** — add or revise catalysts if new ones emerge from headlines
+- **Key Risks** — add, remove, or reprioritize risks based on new developments
+- **What To Monitor** — update watchpoints if new headlines change what matters next
+- **Decision** — update conviction level, entry zone timing, next review date
+
+**What pulse cannot touch (requires financial recomputation — leave as-is):**
+- Business Summary, Financial Quality, Valuation
+
+**Do not:**
+- Re-run the sector template or research checklist
+- Redo earnings comparison or financial trend analysis
+- Change `reference_price` or `last_analyzed_at` in the watchlist CSV
+
+**Output:**
+- Update the decision-relevant sections in the company `.md` file (Current Context, What To Monitor, Decision)
+- Append a `## Pulse Update – YYYY-MM-DD` changelog block at the bottom of the company file
+- Update only `current_price` and `current_price_timestamp` in the watchlist CSV
+- Flag if a `full TICKER` re-run is now warranted
+
+**Flag `full TICKER` as needed when:**
+- Earnings miss or beat that materially changes the thesis
+- CEO, CFO, or key operator change
+- Acquisition, merger, or spinoff announced
+- Secondary offering that significantly dilutes
+- Macro regime shift that breaks original thesis assumptions
+
+---
 
 When the user says `full TICKER`, interpret it as the strictest version of the full workflow:
 
@@ -406,11 +447,12 @@ Use this workflow when the user asks for:
    - Strait of Hormuz status? Fed speaker comments? Treasury auction results?
 
 **Preferred sources for verification:**
-- Federal Reserve FRED database
+- **Yahoo Finance API (yfinance):** `GC=F` (gold), `SI=F` (silver), `CL=F` (WTI), `BZ=F` (Brent), `DX-Y.NYB` (DXY), `^TNX` (10Y yield), `^VIX` — free, no API key, programmatic
+- Federal Reserve FRED database (for 2Y yield `DGS2` and macro data series)
 - U.S. Treasury.gov (daily yield curve rates)
 - Bureau of Labor Statistics (BLS) for employment data
 - U.S. Energy Information Administration (EIA) for oil prices
-- TradingView, Bloomberg, Investing.com for spot prices
+- TradingView, Bloomberg, Investing.com for manual cross-check and intraday detail
 - Federal Reserve press releases for policy updates
 
 **If fresh data cannot be verified, state clearly:** "Data verification incomplete; last verified price was [X] at [timestamp]; unable to confirm current levels. Review stale."
@@ -476,11 +518,11 @@ Always separate:
 
 Identify the next releases most likely to change the view. Prioritize:
 
-- CPI (Consumer Price Index — BLS monthly inflation gauge; hot = hawkish Fed, bearish gold/silver; cool = dovish, bullish gold/silver)
-- PCE (Personal Consumption Expenditures — Fed's *preferred* inflation measure, published by BEA; Core PCE strips food/energy; hot = real yields rise, DXY up, gold/silver sell; cool = rate cut narrative unlocked, entry gate opens)
-- PPI (Producer Price Index — upstream wholesale/factory prices; leads CPI by 1–2 months; hot PPI = CPI/PCE likely to follow higher)
-- NFP and unemployment (Non-Farm Payrolls — monthly labor report; hot labor = Fed stays restrictive, bearish PMs; weak labor = cut urgency, bullish PMs)
-- retail sales (consumer spending; strong = economy running hot = hawkish; weak = demand softening = dovish arc)
+- CPI (Consumer Price Index — BLS monthly inflation gauge; above consensus = hawkish Fed, bearish gold/silver; below consensus = dovish, bullish gold/silver)
+- PCE (Personal Consumption Expenditures — Fed's *preferred* inflation measure, published by BEA; Core PCE strips food/energy; above consensus = real yields rise, DXY up, gold/silver sell; below consensus = rate cut narrative unlocked, entry gate opens)
+- PPI (Producer Price Index — upstream wholesale/factory prices; leads CPI by 1–2 months; PPI above consensus = CPI/PCE likely to follow higher)
+- NFP and unemployment (Non-Farm Payrolls — monthly labor report; above consensus = Fed stays restrictive, bearish PMs; below consensus = cut urgency, bullish PMs)
+- retail sales (consumer spending; strong = overheating economy = hawkish; weak = demand softening = dovish arc)
 - ISM Manufacturing / Services PMI (Institute for Supply Management Purchasing Managers Index — above 50 = expansion, below 50 = contraction; Manufacturing PMI drives silver more than gold due to industrial demand link)
 - FOMC decisions and material Fed speeches (Federal Open Market Committee — tone shifts hawkish to dovish = direct tailwind for gold/silver miners)
 - Treasury auctions if yield pressure is the main issue (weak bid-to-cover = yields spike = headwind for precious metals)
@@ -551,13 +593,13 @@ The final note should clearly state:
 
 **Freshness checklist — VERIFY ALL BEFORE PROCEEDING:**
 
-1. **Current Stock Price (Manual Paste Workflow)**
-   - **Primary source to check:** [TradingView.com](https://www.tradingview.com/) for RTH, premarket, post-market prices
-   - **For after-hours activity:** [StockTwits.com](https://stocktwits.com/) for OTH price discussion and volume
-   - **Practical workflow:** Wait for user to paste current price from TradingView or StockTwits (Claude cannot fetch live quotes automatically due to JavaScript rendering)
-   - When price is pasted, record `current_price_timestamp: YYYY-MM-DD HH:MM:SS` in Jakarta local time
-   - Example user paste: "MTDR $57.31 RTH on TradingView as of 2026-05-13 23:00:00"
-   - Claude records: `current_price_timestamp: 2026-05-13 23:00:00`
+1. **Current Stock Price — read `00_inbox/prices_latest.md` first**
+   - **Step 0 always starts here:** Read `00_inbox/prices_latest.md` — it contains macro + all 60 watchlist prices with drift vs. reference and a ready-to-use `current_price_timestamp`
+   - **Freshness check:** The file header has `<!-- fetch_prices_timestamp: ... -->` and `<!-- stale_after_hours: 4 -->`. If the file is older than 4 hours, tell the user to run `python3 scripts/fetch_prices.py` to refresh before proceeding
+   - **To refresh:** `python3 scripts/fetch_prices.py` — rewrites the file and prints the same output
+   - **Single ticker not in watchlist:** `import yfinance as yf; yf.Ticker("TICKER").fast_info["last_price"]`
+   - **Indonesian stocks:** append `.JK` suffix (e.g., `BBCA.JK`)
+   - **Fallback for extended-hours / OTH detail:** TradingView for premarket/post-market confirmation
 
 2. **Latest Reported Quarter & Report Date**
    - Verify which quarter was most recently reported (Q1 2026? Q4 2025?)
@@ -596,11 +638,11 @@ The final note should clearly state:
    - If recession signals emerge, update downside scenarios immediately
 
 **How to verify:**
-- **Stock price:** WebSearch for "TICKER stock price May 2026" + check Yahoo Finance or TradingView
+- **All prices:** Read `00_inbox/prices_latest.md`; check `fetch_prices_timestamp` in the header — if older than 4 hours, ask user to run `python3 scripts/fetch_prices.py` first
+- **Single stock not in watchlist:** `yf.Ticker("TICKER").fast_info["last_price"]`; Indonesian stocks use `.JK` suffix
+- **2Y yield:** FRED `DGS2` or Treasury.gov (not available via Yahoo Finance)
 - **Earnings date:** Search for "TICKER Q1 2026 earnings date" or visit company IR site
-- **Analyst ratings:** WebSearch "TICKER analyst ratings May 2026" + check TipRanks
-- **Commodities:** WebSearch for "WTI crude oil price May 14 2026" or visit oilprice.com / NYMEX / spot gold sites
-- **Macro:** WebSearch for "US 10Y yield May 2026" + "US PMI May 2026"
+- **Analyst ratings:** WebSearch "TICKER analyst ratings" + check TipRanks
 - **News:** Check company press releases, 8-K filings, and financial news for last 30 days
 
 **Example of what freshness failure looks like:**
@@ -929,6 +971,110 @@ Bring the review date forward if there is an important catalyst before earnings,
 - product launch
 - mine ramp milestone
 - regulatory event
+
+## Pulse Ticker Workflow
+
+Use this workflow when the user says `pulse TICKER`.
+
+This is a **lightweight exogenous refresh only**. Do not rebuild fundamentals, valuation, or earnings comparisons. Do not re-run sector templates or research checklists.
+
+### Step 0: Confirm current date and locate the company file
+
+- Confirm today's date
+- Locate the existing company file: `03_sectors/[sector]/companies/TICKER-*.md`
+- Read the watchlist row to pull `reference_price` and `last_analyzed_at`
+
+### Step 1: Price drift check
+
+- Get the current verified price
+- Compare against `reference_price` in watchlist CSV
+- Calculate % change and note the direction since the last full analysis
+
+### Step 2: Recent headlines (last 7–14 days)
+
+Search for:
+- Press releases and 8-K filings
+- Management commentary at conferences or investor days
+- News articles or analyst notes that reference material developments
+- Anything that could shift the thesis or change entry timing
+
+Focus on events since `last_analyzed_at`.
+
+### Step 3: Sector macro backdrop (2–3 indicators only)
+
+Pull only the indicators that directly drive the sector. Do not run a full macro review.
+
+| Sector | Indicators to check |
+|--------|---------------------|
+| Gold miners | Real yields + DXY + gold spot |
+| Silver miners | ISM PMI + copper + silver spot |
+| Oil / energy | WTI + EIA inventory + rig count |
+| Banking (US) | Fed funds rate + 2Y/10Y yields |
+| Banking (Indonesia) | BI Rate + USD/IDR + JCI |
+| Technology / AI | NVDA sector sentiment + macro risk-on/off |
+| Solar | Polysilicon price + IRA policy news |
+| Automotive | Monthly delivery data + incentive news |
+
+### Step 4: Analyst rating or price target changes
+
+- Check TipRanks or search for any rating or price target changes since `last_analyzed_at`
+- Note: firm name, date, old vs. new rating, old vs. new price target
+- If no changes, state "None since last analysis"
+
+### Step 5: Corporate actions
+
+Check for any of the following since the last full analysis:
+- Secondary equity offerings
+- Buyback authorizations or completions
+- Material insider purchases or sales
+- Dividend changes
+- Guidance revisions (pre-announcement or formal update)
+- M&A announcements: acquisition, merger, spinoff, asset sale
+
+### Step 6: Update company file and append changelog block
+
+**Sections to update** in `03_sectors/[sector]/companies/TICKER-*.md`:
+
+| Section | What to update |
+|---------|---------------|
+| Snapshot | `current_price` and `current_price_timestamp` only |
+| Current Context | Latest price, recent headlines, post-analysis events |
+| Thesis | Update bull/base/bear narrative if macro or geopolitical shifts change the story |
+| Why This Could Work | Add or revise catalysts if new ones emerge from headlines |
+| Key Risks | Add, remove, or reprioritize risks based on new developments |
+| What To Monitor | Revise watchpoints if new headlines change what matters next |
+| Decision | Conviction level, entry zone timing, next review date |
+
+**Sections to leave unchanged** (requires financial recomputation — do not edit):
+Business Summary, Financial Quality, Valuation
+
+After updating the sections above, **append this changelog block at the bottom** of the file:
+
+```markdown
+## Pulse Update – YYYY-MM-DD
+
+**Price drift:** $XX.XX → $XX.XX (+X.X% since YYYY-MM-DD analysis)
+**Macro backdrop:** [2–3 sector-relevant indicators and direction]
+**Recent headlines:**
+- YYYY-MM-DD: [headline or event summary]
+- YYYY-MM-DD: [headline or event summary]
+**Analyst changes:** [changes since last_analyzed_at, or "None since last analysis"]
+**Corporate actions:** [offerings, buybacks, guidance revisions, 8-K, or "None"]
+**Thesis status:** Intact / Watch / Challenged
+**Sections updated:** [e.g., "Current Context, Decision"]
+**Trigger full re-analysis?** Yes / No — [one-line reason]
+**Next pulse:** YYYY-MM-DD
+```
+
+### Step 7: Update watchlist CSV (two fields only)
+
+Update **only** these two fields in `04_portfolio/watchlist/watchlist.csv`:
+- `current_price` — latest verified price
+- `current_price_timestamp` — Jakarta local time `YYYY-MM-DD HH:MM:SS`
+
+Do **not** update `reference_price` or `last_analyzed_at`. Those stay anchored to the last `full TICKER` run.
+
+---
 
 ## Sector Routing Rules
 

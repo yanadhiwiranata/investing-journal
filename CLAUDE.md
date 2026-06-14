@@ -19,6 +19,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Examples:
 
 - `full TICKER`
+- `pulse TICKER` — lightweight refresh: headlines, macro, analyst changes, corporate actions only
 - `update today`
 - `update watchlist`
 - `update porto`
@@ -73,11 +74,34 @@ Preferred source order for current financial facts:
 2. SEC or official exchange filings
 3. Official earnings presentation / shareholder letter
 4. Federal Reserve, BLS, BEA, Treasury, EIA, or other primary macro source
-5. High-quality market data pages for quote checking
+5. **Yahoo Finance API (yfinance)** — free, no API key, programmatic price fetches for stocks, Indonesian names (`.JK`), and commodities
+6. High-quality market data pages for manual cross-check (TradingView, Investing.com)
 
 ## Price Data Verification
 
-When analyzing current conditions, always verify the latest price information from available sources (SEC filings, earnings releases, company IR pages, financial data sites). When a prompt asks for a "latest" or "current" view, the agent should verify the facts from primary sources before proceeding with analysis.
+When analyzing current conditions, fetch prices programmatically via Yahoo Finance API (yfinance) before falling back to manual sources. When a prompt asks for a "latest" or "current" view, verify facts from primary sources before proceeding with analysis.
+
+**Yahoo Finance symbol reference:**
+
+| Asset | Symbol |
+|-------|--------|
+| U.S. stock | standard ticker (e.g., `MTDR`, `EXK`, `NEM`) |
+| Indonesian stock | ticker + `.JK` (e.g., `BBCA.JK`, `BBRI.JK`, `BMRI.JK`) |
+| Gold futures | `GC=F` |
+| Silver futures | `SI=F` |
+| WTI crude | `CL=F` |
+| Brent crude | `BZ=F` |
+| DXY (U.S. Dollar Index) | `DX-Y.NYB` |
+| U.S. 10Y Treasury yield | `^TNX` |
+| VIX | `^VIX` |
+
+> **Note on 2Y yield:** Not directly available on Yahoo Finance. Use FRED (`DGS2`) or Treasury.gov for the U.S. 2-year Treasury rate.
+
+**Quick fetch pattern:**
+```python
+import yfinance as yf
+price = yf.Ticker("MTDR").fast_info["last_price"]
+```
 
 ## Repository Overview
 
@@ -425,6 +449,76 @@ Include all of the following, using `05_templates/earnings_comparison_template.m
 - Typically 5-10 business days before next earnings
 - For cyclical stocks: Schedule review before seasonal inflection points if applicable
 
+### Pulse Ticker
+
+When asked to `pulse TICKER`, this is a **lightweight exogenous refresh only**. Do not rebuild fundamentals, valuation, earnings comparisons, or re-run sector templates.
+
+**What to check:**
+
+1. **Price drift** — get current price; compare against `reference_price` in watchlist CSV; note % change and direction since last full analysis
+2. **Recent headlines (last 7–14 days)** — search for press releases, 8-K filings, management commentary, news articles; focus on anything that could change the thesis or entry timing
+3. **Sector macro backdrop (2–3 indicators only)** — pull only the indicators that directly drive the sector:
+   - Gold miners: real yields + DXY + gold spot
+   - Silver miners: ISM PMI + copper + silver spot
+   - Oil/energy: WTI + EIA inventory + rig count
+   - Banking (US): Fed funds rate + 2Y/10Y yields
+   - Banking (Indonesia): BI Rate + USD/IDR + JCI
+   - Technology/AI: NVDA sector sentiment + macro risk-on/off
+4. **Analyst changes** — check TipRanks or search for any rating or price target changes since `last_analyzed_at`; note firm, date, old vs. new rating/PT
+5. **Corporate actions** — check for: secondary offerings, buybacks, insider trades, dividend changes, guidance revisions, or M&A activity since last full analysis
+
+**What pulse CAN update in the company file:**
+- `current_price` and `current_price_timestamp` in Snapshot
+- **Current Context** — refresh with latest price, headlines, and post-analysis events
+- **Thesis** — update bull/base/bear narrative if macro or geopolitical shifts change the story
+- **Why This Could Work** — add or revise catalysts if new ones emerge from headlines
+- **Key Risks** — add, remove, or reprioritize risks based on new developments
+- **What To Monitor** — update watchpoints if new headlines change what matters next
+- **Decision** — update conviction level, entry zone timing, next review date
+
+**What pulse cannot touch (requires financial recomputation — leave as-is):**
+- Business Summary
+- Financial Quality
+- Valuation
+
+**Do not:**
+- Re-run the sector template or research checklist
+- Redo earnings comparison or financial trend analysis
+- Change `reference_price` or `last_analyzed_at` in the watchlist CSV
+
+**Output — update the company file and append a changelog entry:**
+
+Update the sections listed above in `03_sectors/[sector]/companies/TICKER-*.md`, then append this block at the bottom as a changelog record:
+
+```markdown
+## Pulse Update – YYYY-MM-DD
+
+**Price drift:** $XX.XX → $XX.XX (+X.X% since YYYY-MM-DD analysis)
+**Macro backdrop:** [2–3 sector-relevant indicators and their current direction]
+**Recent headlines:**
+- YYYY-MM-DD: [headline or event]
+- YYYY-MM-DD: [headline or event]
+**Analyst changes:** [rating/PT changes since last_analyzed_at, or "None since last analysis"]
+**Corporate actions:** [offerings, buybacks, guidance revision, 8-K, or "None"]
+**Thesis status:** Intact / Watch / Challenged
+**Sections updated:** [list which sections were changed, e.g., "Current Context, Decision"]
+**Trigger full re-analysis?** Yes / No — [one-line reason]
+**Next pulse:** YYYY-MM-DD
+```
+
+**Watchlist CSV update (only these two columns):**
+- `current_price` — updated to latest verified price
+- `current_price_timestamp` — Jakarta local time `YYYY-MM-DD HH:MM:SS`
+
+**When to flag `full TICKER` as needed:**
+- Earnings miss or beat that materially changes the thesis
+- CEO, CFO, or key operator change
+- Acquisition, merger, or spinoff announced
+- Secondary offering that significantly dilutes
+- Macro regime shift that breaks the original thesis assumptions
+
+---
+
 ### Update Watchlist Prices
 
 When asked to `update watchlist`:
@@ -535,11 +629,11 @@ Before starting the macro review workflow, ALWAYS verify current market data wit
    - precious metals
    - oil and cyclical risk appetite
 4. Review the next important U.S. economic releases and policy events:
-   - CPI (Consumer Price Index — BLS monthly inflation gauge; hot print = hawkish Fed, bearish gold/silver; cool = dovish, bullish gold/silver)
-   - PCE (Personal Consumption Expenditures — Fed's *preferred* inflation gauge, published by BEA; Core PCE strips food/energy; hot = real yields rise, DXY up, gold/silver sell; cool = rate cut narrative unlocked, entry gate opens)
-   - PPI (Producer Price Index — upstream factory/wholesale prices; leads CPI by 1–2 months; hot PPI = CPI/PCE likely to follow higher)
-   - NFP / unemployment (Non-Farm Payrolls — monthly labor report; hot labor = Fed stays restrictive, bearish PMs; weak labor = cut urgency, bullish PMs)
-   - retail sales (consumer spending measure; strong = economy running hot = hawkish; weak = demand softening = dovish arc)
+   - CPI (Consumer Price Index — BLS monthly inflation gauge; above consensus = hawkish Fed, bearish gold/silver; below consensus = dovish, bullish gold/silver)
+   - PCE (Personal Consumption Expenditures — Fed's *preferred* inflation gauge, published by BEA; Core PCE strips food/energy; above consensus = real yields rise, DXY up, gold/silver sell; below consensus = rate cut narrative unlocked, entry gate opens)
+   - PPI (Producer Price Index — upstream factory/wholesale prices; leads CPI by 1–2 months; PPI above consensus = CPI/PCE likely to follow higher)
+   - NFP / unemployment (Non-Farm Payrolls — monthly labor report; above consensus = Fed stays restrictive, bearish PMs; below consensus = cut urgency, bullish PMs)
+   - retail sales (consumer spending measure; strong = overheating economy = hawkish; weak = demand softening = dovish arc)
    - ISM PMI (Institute for Supply Management Purchasing Managers Index — above 50 = expansion, below 50 = contraction; Manufacturing PMI drives silver more than gold due to industrial demand)
    - FOMC / Fed speakers (Federal Open Market Committee — rate decision body; tone shifts from hawkish to dovish = direct tailwind for gold/silver)
    - Treasury auctions when yields are the main market driver (weak bid-to-cover = yields spike = headwind for PMs)

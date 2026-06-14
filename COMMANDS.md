@@ -9,11 +9,13 @@ When new commands are added, document them here first so they are easy to search
 Use this section for fast copy-paste.
 
 - `full TICKER` — run the full research workflow for a ticker
+- `pulse TICKER` — lightweight refresh: headlines, macro backdrop, analyst changes, corporate actions — no fundamentals rebuild
 - `update today` — run the daily maintenance sequence: macro, watchlist, then portfolio
 - `update watchlist` — refresh watchlist prices and flag actionable names
 - `update porto` — update live positions, open orders, and completed trades
 - `update macro` — run an upgraded macro refresh with top-down review, event-risk tracking, and hourly notes when conditions are volatile
 - `update macro china` — run a China-specific macro refresh covering PBOC policy, CNY, PMI, EV sector health (NIO focus), and geopolitical risk; only triggered by this exact phrase
+- `update macro indonesia` — refresh the Indonesia central macro reference file covering BI monetary policy, OJK regulation, government programs, and economic indicators for BBCA, BBRI, BMRI; only triggered by this exact phrase
 - `entry check gold` — verify real yields + DXY + gold price; decide if gold miner Layer 1 entry is viable
 - `entry check silver` — verify ISM + copper + industrial demand; decide if silver miner Layer 1 entry is viable
 - `entry check both` — run full decision checklist for both gold and silver miners; recommend which to enter first
@@ -36,6 +38,42 @@ Primary references:
 - `AGENT.md`
 - `WORKFLOW-CHECKLIST.md`
 - `CLAUDE.md`
+
+---
+
+### `pulse TICKER`
+
+Purpose: Lightweight exogenous refresh for a ticker that already has a full analysis. Checks what changed externally without rebuilding fundamentals or valuation.
+
+**Scope — only these:**
+- Current price vs. `reference_price` in watchlist (% drift since last analysis)
+- Recent headlines and news (last 7–14 days): press releases, 8-K filings, management commentary
+- Sector-relevant macro indicators (2–3 only — e.g., real yields + DXY for gold miners; WTI + EIA for oil; BI rate + IDR for Indonesian banks)
+- Analyst rating or price target changes since `last_analyzed_at`
+- Corporate actions: secondary offerings, buybacks, insider trades, guidance revisions
+
+**Updates in the company file (narrative and decision sections):**
+- Snapshot: `current_price` and `current_price_timestamp`
+- Current Context: latest price, headlines, post-analysis events
+- Thesis: update bull/base/bear narrative if macro or geopolitical shifts change the story
+- Why This Could Work: add or revise catalysts if new ones emerge from headlines
+- Key Risks: add, remove, or reprioritize risks based on new developments
+- What To Monitor: revised watchpoints based on new headlines
+- Decision: conviction level, entry zone timing, next review date
+
+**Does not touch (requires financial recomputation — left as-is):**
+Business Summary, Financial Quality, Valuation. No earnings re-analysis, no valuation rebuild, no sector template re-run. Does not change `reference_price` or `last_analyzed_at`.
+
+**Output:**
+- Updates decision-relevant sections in the company `.md` file
+- Appends a `## Pulse Update – YYYY-MM-DD` changelog block at the bottom of the company file
+- Updates `current_price` and `current_price_timestamp` in watchlist CSV only
+- Flags whether a `full TICKER` re-run is now warranted
+
+Primary references:
+- `CLAUDE.md` (Pulse Ticker workflow)
+- Existing company file at `03_sectors/[sector]/companies/TICKER-*.md`
+- `04_portfolio/watchlist/watchlist.csv`
 
 ---
 
@@ -104,6 +142,25 @@ Primary references:
 - CarNewsChina (`https://carnewschina.com/`) for model/competitive news
 - NBS (`http://www.stats.gov.cn/`) for official economic data
 - PBOC (`http://www.pbc.gov.cn/`) for monetary policy
+
+---
+
+### `update macro indonesia`
+
+Purpose: Refresh the Indonesia central macro reference file (`02_market/macroeconomy/indonesia-macro-economy.md`) covering BI monetary policy, OJK regulation, government programs (KUR, UMKM), and economic indicators that affect BBCA, BBRI, and BMRI.
+
+**Trigger rule:** Only triggered by the exact phrase `update macro indonesia`. Do not run as part of `update macro`, `update today`, or any other command.
+
+**Out of scope:** Do NOT open the watchlist CSV. Do NOT look up individual stock prices. Output is an updated living document, not a new timestamped file.
+
+Primary references:
+- `CLAUDE.md` (Update Macro Indonesia workflow)
+- `02_market/macroeconomy/indonesia-macro-economy.md` (living reference file — read and update this)
+- `05_templates/macro_indonesia_economy_template.md`
+- BI (`https://www.bi.go.id/`) for rate decisions and monetary policy
+- OJK (`https://www.ojk.go.id/`) for banking regulation
+- BPS (`https://www.bps.go.id/`) for CPI and economic statistics
+- Trading Economics for IDR, JCI, and macro indicators
 
 ---
 
